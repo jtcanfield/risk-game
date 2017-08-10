@@ -196,6 +196,9 @@ var gameBoardObject = [
 
 
 //END GAME START
+//BEGIN PLAYER PLACING
+
+//END PLAYER PLACING
 
 
 
