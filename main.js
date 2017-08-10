@@ -192,8 +192,7 @@ STEP ONE: Roll Dice to see who goes first
 STEP TWO: Every Player Puts down a piece
 */
 
-function logtest(x){
-  console.log("Clicked!");
+function logtest(x, index){
   console.log(x);
   console.log(gameBoardObject);
 }
