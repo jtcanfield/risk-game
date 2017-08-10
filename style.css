@@ -10,11 +10,13 @@ body {
 map area:hover{
     outline: 5px dotted red;
 }
-#NA1Counter {
+.counter{
   position: absolute;
-  left: 10px;
-  top: 10px;
   height: 20px;
   width: 20px;
   background-color: black;
+}
+#NA1Counter {
+  left: 70px;
+  top: 120px;
 }
