@@ -15,6 +15,7 @@ $('#imgmap').mapster({
 });
 //okay now dont do anymore jquery
 
+
 //BEGIN GAMEBOARDOBJECT HOLDER
 var gameBoardObject = [
   //ORDER OF CONTINENTS: NA, SA, EU, AF, OC, AS
@@ -187,6 +188,11 @@ var gameBoardObject = [
       "numberOfTroops":0,
     },
 ];
+//END GAMEBOARDOBJECT HOLDER
+
+
+
+
 
 /*TODO
 STEP ONE: Roll Dice to see who goes first
