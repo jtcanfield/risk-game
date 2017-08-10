@@ -195,5 +195,9 @@ STEP TWO: Every Player Puts down a piece
 
 function logtest(x, index){
   console.log(x);
-  console.log(gameBoardObject[index]);
+  var idOfClicked = $(x).attr('id');
+  console.log(idOfClicked);
+  var objectArrayIndex = gameBoardObject[index];
+  console.log(objectArrayIndex);
+  console.log(typeof idOfClicked);
 }
