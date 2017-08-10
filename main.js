@@ -195,5 +195,5 @@ STEP TWO: Every Player Puts down a piece
 
 function logtest(x, index){
   console.log(x);
-  console.log(gameBoardObject);
+  console.log(gameBoardObject[index]);
 }
