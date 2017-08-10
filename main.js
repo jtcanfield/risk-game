@@ -1,8 +1,5 @@
 /*if unfixable errors, go to line 1777 in imagemapster*/
-function logtest(x){
-  console.log("Clicked!");
-  console.log(x);
-}
+// Below is the Jquery
 $('#imgmap').mapster({
     singleSelect: true,
     fill : true,
@@ -16,3 +13,10 @@ $('#imgmap').mapster({
          $(this).mapster('set',false);
     }
 });
+//okay now dont do anymore jquery
+
+
+function logtest(x){
+  console.log("Clicked!");
+  console.log(x);
+}
