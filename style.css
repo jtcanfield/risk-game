@@ -7,25 +7,6 @@ body {
   width: 1040px;
   height: 518px;
 }
-/*.clickbox{
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  background-color: black;
-  left: 50px;
-  top: 100px;
-}*/
-#hovertest:hover{
-  background-color: black;
-fill:transparent;
-  z-index: 100;
-}
-/*img.Map:hover{
-    border: 5px solid red;
-    outline: 5px dotted red;
-}*/
 map area:hover{
-    border: 5px solid red;
     outline: 5px dotted red;
-    fill: red;
 }
