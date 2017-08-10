@@ -20,3 +20,4 @@ function logtest(x){
   console.log("Clicked!");
   console.log(x);
 }
+// STEP ONE: Every Player Puts down a piece
