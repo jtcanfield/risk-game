@@ -15,6 +15,7 @@ map area:hover{
   height: 20px;
   width: 20px;
   background-color: black;
+  pointer-events: none;
 }
 #NA1Counter {
   left: 70px;
