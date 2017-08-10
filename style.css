@@ -15,13 +15,17 @@ body {
   left: 50px;
   top: 100px;
 }*/
-svg:hover{
-  -webkit-clip-path: polygon(120px 368px,177px 372px,172px 444px,117px 449px);
+#hovertest:hover{
+  background-color: black;
+fill:transparent;
+  z-index: 100;
 }
-
-#board_background {
-  width: 1040px;
-  height: 518px;
-  background-image: url("risk_map.png");
-  background-size: contain;
+/*img.Map:hover{
+    border: 5px solid red;
+    outline: 5px dotted red;
+}*/
+map area:hover{
+    border: 5px solid red;
+    outline: 5px dotted red;
+    fill: red;
 }
