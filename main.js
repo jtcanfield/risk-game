@@ -17,12 +17,10 @@ $('#imgmap').mapster({
 
 //BEGIN GAMEBOARDOBJECT HOLDER
 var gameBoardObject = [
-    {
-      "NA1":{
+    { "NA1":{
       "owner":"red",
       "numberOfTroops":0,
-      }
-    },
+    } },
 ];
 
 /*TODO
