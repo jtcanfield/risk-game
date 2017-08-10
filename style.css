@@ -205,5 +205,23 @@ map area:hover{
 span {
   margin: 30px;
   padding: 10px;
+  border-radius: 10000px;
+}
+#player1span{
   background-color: red;
+}
+#player2span{
+
+}
+#player3span{
+
+}
+#player4span{
+
+}
+#player5span{
+
+}
+#player6span{
+
 }
