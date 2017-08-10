@@ -1,4 +1,9 @@
+html {
+  text-align: center;
+}
 body {
+  margin: 0;
+  padding: 0;
   width: 1040px;
   height: 518px;
 }
