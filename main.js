@@ -18,171 +18,171 @@ $('#imgmap').mapster({
 //BEGIN GAMEBOARDOBJECT HOLDER
 var gameBoardObject = [
   //ORDER OF CONTINENTS: NA, SA, EU, AF, OC, AS
-    { //"NA1":
+    { "name":"NA1",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"NA2":
+    { "name":"NA2",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"NA3":
+    { "name":"NA3",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"NA4":
+    { "name":"NA4",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"NA5":
+    { "name":"NA5",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"NA6":
+    { "name":"NA6",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"NA7":
+    { "name":"NA7",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"NA8":
+    { "name":"NA8",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"NA9":
+    { "name":"NA9",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"SA1":
+    { "name":"SA1",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"SA2":
+    { "name":"SA2",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"SA3":
+    { "name":"SA3",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"SA4":
+    { "name":"SA4",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"EU1":
+    { "name":"EU1",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"EU2":
+    { "name":"EU2",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"EU3":
+    { "name":"EU3",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"EU4":
+    { "name":"EU4",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"EU5":
+    { "name":"EU5",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"EU6":
+    { "name":"EU6",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"EU7":
+    { "name":"EU7",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"AF1":
+    { "name":"AF1",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"AF2":
+    { "name":"AF2",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"AF3":
+    { "name":"AF3",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"AF4":
+    { "name":"AF4",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"AF5":
+    { "name":"AF5",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"AF6":
+    { "name":"AF6",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"OC1":
+    { "name":"OC1",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"OC2":
+    { "name":"OC2",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"OC3":
+    { "name":"OC3",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"OC4":
+    { "name":"OC4",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"AS1":
+    { "name":"AS1",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"AS2":
+    { "name":"AS2",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"AS3":
+    { "name":"AS3",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"AS4":
+    { "name":"AS4",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"AS5":
+    { "name":"AS5",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"AS6":
+    { "name":"AS6",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"AS7":
+    { "name":"AS7",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"AS8":
+    { "name":"AS8",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"AS9":
+    { "name":"AS9",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"AS10":
+    { "name":"AS10",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"AS11":
+    { "name":"AS11",
       "owner":"",
       "numberOfTroops":0,
     },
-    { //"AS12":
+    { "name": "AS12",
       "owner":"",
       "numberOfTroops":0,
     },
