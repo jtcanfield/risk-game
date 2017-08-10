@@ -17,6 +17,7 @@ $('#imgmap').mapster({
 
 //BEGIN GAMEBOARDOBJECT HOLDER
 var gameBoardObject = [
+  //ORDER OF CONTINENTS: NA, SA, EU, AF, OC, AS
     { "NA1":{
       "owner":"",
       "numberOfTroops":0,
