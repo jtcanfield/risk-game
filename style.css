@@ -1,6 +1,10 @@
 body {
-  background-image: url("risk_map.png");
-  background-size: contain;
   width: 1040px;
   height: 518px;
+}
+#board_background {
+  width: 1040px;
+  height: 518px;
+  background-image: url("risk_map.png");
+  background-size: contain;
 }
