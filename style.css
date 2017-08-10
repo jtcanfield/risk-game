@@ -202,3 +202,8 @@ map area:hover{
   left: 668px;
   top: 139px;
 }
+span {
+  margin: 30px;
+  padding: 10px;
+  background-color: red;
+}
