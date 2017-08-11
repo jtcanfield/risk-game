@@ -720,6 +720,11 @@ function rollTheRedDice(){
 }
 //END DIE FUNCTION
 
+//STAGING OBJECT HERE
+var gameStage = {stage:"placing", substage:"NA", turn:0, mapFilled:42};
+//Stages: placing, beginning reinforcement, maingameplay(activates substages)
+//SubStages: Reinforcement, Cards, Attack, FreeMove
+
 
 //BEGIN GAME START
 function startGame(){
@@ -744,27 +749,17 @@ function startGame(){
 
 
 
-
-//STAGING OBJECT HERE
-var gameStage = {stage:"placing", substage:"NA", turn:0, mapFilled:42};
-//Stages: placing, beginning reinforcement, maingameplay(activates substages)
-//SubStages: Reinforcement, Cards, Attack, FreeMove
-
-
-
-
 var playerTurnBoolean = false;
 var indexOfTurn = 0;
 //BEGIN BEGINNING TURN TRACKER
 function whosTurnIsIt(indexOfTurn){
-  if (gameStage.mapFilled === 0){
-    gameStage.stage = "reinforceStart";
-    gameStage.mapFilled -= 99;
-  }
   if (indexOfTurn >= 6){
     indexOfTurn = 0;
     gameStage.turn += 1;
-    // valueCalculationFunction();
+  }
+  if (gameStage.mapFilled === 0){
+    gameStage.stage = "reinforceStart";
+    gameStage.mapFilled -= 99;
   }
   var changeAvail = document.getElementById("troop_count");
   changeAvail.innerHTML  = 20-gameStage.turn;
@@ -859,20 +854,19 @@ function valueCalculationFunction(i){
 function computerReinforce(indexOfTurn){
   var playerindex = turnArray[indexOfTurn]-1;
   console.log(playerObjectArray[playerindex].playername + " is about to renif...");
-  valueCalculationFunction(playerindex);
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   var randonumbeomax = playerObjectArray[playerindex].provincesOwnedIndex.length;
   var indexofplayerarray = Math.floor(Math.random()*(randonumbeomax-0+0)+0);
   var index = playerObjectArray[playerindex].provincesOwnedIndex[indexofplayerarray];
-  var idOfClicked = gameBoardObject[index].provincename
-  reinforceTurn(index, playerindex, idOfClicked, indexOfTurn);
+  var idOfClicked = gameBoardObject[index].provincename;
+  setTimeout(function() { valueCalculationFunction(playerindex); }, 500);
+  setTimeout(function() { reinforceTurn(index, playerindex, idOfClicked, indexOfTurn); }, 1000);
 }
 //END COMPUTER REINFORCING LOGIC
 
 
 //BEGIN REINFORCE FUNCTION
 function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn){
-  console.log(idOfClicked);
   if (gameBoardObject[index].owner !== "player1" && playerindex === "0"){
     console.log("you cant reinforce there");
     return
@@ -906,12 +900,12 @@ function mapClick(province, index){
   }
   if (playerTurnBoolean === true){
     if (gameStage.stage === "placing"){
-      placingTurn(index, "0", idOfClicked);
+      setTimeout(function() { placingTurn(index, "0", idOfClicked);}, 1);
     }
     if (gameStage.stage === "reinforceStart"){
-      reinforceTurn(index, "0", idOfClicked);
+      setTimeout(function() { reinforceTurn(index, "0", idOfClicked);}, 1);
     }
-    setTimeout(function() { setplayerTurnBoolean = false;}, 1);
+    setTimeout(function() { setplayerTurnBoolean = false;}, 3);
   }
 }
 //END PLAYER CLICK FUNCTION
