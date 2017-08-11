@@ -342,7 +342,6 @@ function whosTurnIsIt(indexOfTurn){
   console.log(turnArray[indexOfTurn]);
   console.log(playerObjectArray[checkForPlayer1Index-1].playername);
   if (playerObjectArray[checkForPlayer1Index-1].playername === "player1"){
-    console.log("playerTurnBoolean fired for true");
     playerTurnBoolean = true;
   }
   if (playerObjectArray[checkForPlayer1Index-1].playername !== "player1") {
@@ -367,7 +366,7 @@ function placingTurn(province, index, playerindex, idOfClicked){
   if (playerindex === "0"){
     console.log("playerTurnBoolean fired for FALSE");
     whosTurnIsIt((turnArray.indexOf(1)) + 1);
-    playerTurnBoolean = false;
+    // playerTurnBoolean = false;
   }
 }
 //END PLAYER PLACING
@@ -387,8 +386,6 @@ HAVE A GLOW AROUND WHICH PLAYERS TURN IT IS
 function mapClick(province, index){
   var idOfClicked = $(province).attr('id');
   if (playerTurnBoolean === false){
-    console.log(playerTurnBoolean);
-    console.log("playerTurnBoolean is false");
   }
   if (playerTurnBoolean === true){
     console.log(turnArray);
