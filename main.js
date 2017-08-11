@@ -341,9 +341,10 @@ function placingTurn(province, index, playerindex, idOfClicked){
     return
   } else {
     gameBoardObject[index].owner = playerObjectArray[playerindex].playername;
-    var backgroundChange = document.getElementById(idOfClicked+"Counter");
-    backgroundChange.setAttribute("style", "background-color: "+playerObjectArray[playerindex].color+";");
+    var counterDiv = document.getElementById(idOfClicked+"Counter");
+    counterDiv.setAttribute("style", "background-color: "+playerObjectArray[playerindex].color+";");
     gameBoardObject[index].numberOfTroops += 1;
+    counterDiv.innerHTML = gameBoardObject[index].numberOfTroops;
   }
   console.log(province);
   console.log(gameBoardObject[index]);

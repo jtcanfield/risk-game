@@ -16,6 +16,7 @@ map area:hover{
   width: 20px;
   background-color: black;
   pointer-events: none;
+  color: white;
 }
 #startgamebutton{
   padding: 20px;
