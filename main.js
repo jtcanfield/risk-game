@@ -644,7 +644,5 @@ function placingTurn(index, playerindex, idOfClicked, indexOfTurn){
 
 
 /*TODO
-STEP ONE: Roll Dice to see who goes first
-STEP TWO: Every Player Puts down a piece
-HAVE A GLOW AROUND WHICH PLAYERS TURN IT IS
+PLACING IS CURRENTLY RANDOM, MAKE COMPUTER THINK
 */
