@@ -342,7 +342,7 @@ var indexOfTurn = 0;
 
 //BEGIN BEGINNING TURN TRACKER
 function whosTurnIsIt(indexOfTurn){
-  if (gameStage.mapFilled <= 0;){
+  if (gameStage.mapFilled <= 0){
     gameStage.stage = "reinforceStart";
   }
   if (indexOfTurn >= 6){
@@ -371,15 +371,20 @@ function whosTurnIsIt(indexOfTurn){
 //BEGIN COMPUTER PLACING
 function computerSelecting(indexOfTurn){
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
-  gameStage.mapFilled -= 1;
-  setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 1000);
+  var index = Math.floor(Math.random()*(41-0+0)+1);
+  var idOfClicked = gameBoardObject[index].provincename;
+  placingTurn(index, (turnArray[indexOfTurn]-1), idOfClicked, indexOfTurn);
 }
 //END COMPUTER PLACING
 
 
 //BEGIN PLACING FUNCTION
-function placingTurn(index, playerindex, idOfClicked){
-  if (gameBoardObject[index].owner !== ""){
+function placingTurn(index, playerindex, idOfClicked, indexOfTurn){
+  if (gameBoardObject[index].owner !== "" && playerindex === "0"){
+    return
+  } else if (gameBoardObject[index].owner !== ""){
+    console.log("NOT PLACED");
+    computerSelecting(indexOfTurn);
     return
   } else {
     gameBoardObject[index].owner = playerObjectArray[playerindex].playername;
@@ -391,9 +396,14 @@ function placingTurn(index, playerindex, idOfClicked){
     (playerObjectArray[playerindex].provincesOwned).push(idOfClicked);
   }
   if (playerindex === "0"){
+    gameStage.mapFilled -= 1;
     var setHighlight = document.getElementById("player1span");
     setHighlight.setAttribute("class", "");
     whosTurnIsIt((turnArray.indexOf(1)) + 1);
+  } else if (playerindex !== "0"){
+    gameStage.mapFilled -= 1;
+    var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
+    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 1500);
   }
 }
 //END PLACING FUNCTION
