@@ -743,13 +743,22 @@ function whosTurnIsIt(indexOfTurn){
       console.log(playerObjectArray[i].playername);
       //map thru every object owned by current player selected
       playerObjectArray[i].provincesOwnedIndex.map((o) =>{
-        // Map thru every object that is adjacent to the province owned by the current player selected
+        // Map thru every object that is adjacent to the province Selected by the current player selected
+        // console.log(gameBoardObject[o].adjacentProvinceIndex.length);
         gameBoardObject[o].adjacentProvinceIndex.map((p) =>{
+          var nextToAlly = 0; //begin counter to see if surrounded by allies
+          //Check every adjacent province for ally or enemy
           if (playerObjectArray[i].playername === gameBoardObject[p].owner){
-            console.log("ALLY NEAR");
+            nextToAlly += 1;
+            // console.log("ALLY NEAR");
           }
           if (playerObjectArray[i].playername !== gameBoardObject[p].owner){
-            console.log("ENEMY NEAR");
+            // console.log("ENEMY NEAR");
+          }
+          if (nextToAlly === gameBoardObject[o].adjacentProvinceIndex.length){
+              var valueAdd = "valueTo"+playerObjectArray[i].playername;
+              gameBoardObject[o][ valueAdd ] += 1;
+              console.log("surrounded");
           }
         });
       });
@@ -800,7 +809,7 @@ function placingTurn(index, playerindex, idOfClicked, indexOfTurn){
     var counterDiv = document.getElementById(idOfClicked+"Counter");
     counterDiv.setAttribute("style", "background-color: "+playerObjectArray[playerindex].color+";");
     var valueAdd = "valueTo"+playernamePlacing;
-    gameBoardObject[index][ valueAdd ] += 0.1;
+    gameBoardObject[index][ valueAdd ] += 1;
     gameBoardObject[index].numberOfTroops += 1;
     counterDiv.innerHTML = gameBoardObject[index].numberOfTroops;
     playerObjectArray[playerindex].numberOfProvincesOwned += 1;
