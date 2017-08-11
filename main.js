@@ -194,7 +194,7 @@ var gameBoardObject = [
 
 //BEGIN GAME START
 function startGame(){
-  console.log("it has begun");
+  document.getElementById("startgamebutton").style.display = "none";
 }
 
 //END GAME START
