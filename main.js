@@ -747,7 +747,7 @@ function startGame(){
 
 //STAGING OBJECT HERE
 var gameStage = {stage:"placing", substage:"NA", turn:0, mapFilled:42};
-//Stages: placing, beginning reinforcement, main gameplay(activates substages)
+//Stages: placing, beginning reinforcement, maingameplay(activates substages)
 //SubStages: Reinforcement, Cards, Attack, FreeMove
 
 
@@ -768,6 +768,9 @@ function whosTurnIsIt(indexOfTurn){
   }
   var changeAvail = document.getElementById("troop_count");
   changeAvail.innerHTML  = 20-gameStage.turn;
+  if (gameStage.turn === 20){
+    gameStage.stage = "maingameplay";
+  }
   var checkForPlayer1Index = turnArray[indexOfTurn];
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   setHighlight.setAttribute("class", "highlight");
@@ -786,6 +789,10 @@ function whosTurnIsIt(indexOfTurn){
     } else {
       playerTurnBoolean = true;
     }
+  }
+  if (gameStage.stage === "maingameplay"){
+      console.log("MAIN GAMEPLAY BEGINS");
+      playerTurnBoolean = true;
   }
 }
 //END BEGINNING TURN TRACKER
@@ -807,31 +814,36 @@ function valueCalculationFunction(i){
       //Check every adjacent province for ally or enemy
       if (playerObjectArray[i].playername === gameBoardObject[e].owner){
         nextToAlly += 1;
-        gameBoardObject[o][ valueAdd ] -= 1;//change value of current player owned
+        gameBoardObject[o][ valueAdd ] += 5;//change value of current player owned
         gameBoardObject[e][ valueAdd ] -= 1;//change value of adjacent
       }
-      //The Lower the Value for "o", the more it needs reinforcements
+      //The Higher the Value for "o", the more it needs reinforcements
       //The Higher the value for "e", the more likely the computer should attack
       if (playerObjectArray[i].playername !== gameBoardObject[e].owner){
+
         var changevalue = 0;
         switch (true) {
           case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops://Selected has more than adjacent
               gameBoardObject[o][ valueAdd ] += 5;
               gameBoardObject[e][ valueAdd ] += (Math.floor(gameBoardObject[o].numberOfTroops/gameBoardObject[e].numberOfTroops)*5);
-              console.log(Math.floor(gameBoardObject[o].numberOfTroops/gameBoardObject[e].numberOfTroops)*5);
               break;
           case gameBoardObject[o].numberOfTroops === gameBoardObject[e].numberOfTroops:
-              gameBoardObject[o][ valueAdd ] -= 5;
+              gameBoardObject[o][ valueAdd ] += 5;
               gameBoardObject[e][ valueAdd ] += 5;
               break;
-          case gameBoardObject[o].numberOfTroops < gameBoardObject[e].numberOfTroops://Selected has less than adjacent
+          case gameBoardObject[o].numberOfTroops < gameBoardObject[e].numberOfTroops && gameBoardObject[o].numberOfTroops > 20 && (Math.floor(gameBoardObject[e].numberOfTroops/gameBoardObject[o].numberOfTroops)) < 3:
+              //Selected has less than adjacent and figures its pointless
               gameBoardObject[o][ valueAdd ] -= 20;
+              gameBoardObject[e][ valueAdd ] -= 30;
+              break;
+          case gameBoardObject[o].numberOfTroops < gameBoardObject[e].numberOfTroops://Selected has less than adjacent
+              gameBoardObject[o][ valueAdd ] += 20;
               gameBoardObject[e][ valueAdd ] -= 10;
               break;
         }
       }
       if (nextToAlly === gameBoardObject[o].adjacentProvinceIndex.length){
-          gameBoardObject[o][ valueAdd ] = 0;
+          gameBoardObject[o][ valueAdd ] += 100;
           console.log("surrounded by friendlies");
       }
     });
@@ -856,6 +868,7 @@ function computerReinforce(indexOfTurn){
 
 //BEGIN REINFORCE FUNCTION
 function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn){
+  console.log(playerindex);
   if (playerindex === "0"){
     var setHighlight = document.getElementById("player1span");
     setHighlight.setAttribute("class", "");
