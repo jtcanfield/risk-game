@@ -212,11 +212,17 @@ function whosTurnIsIt(){
 //BEGIN GAME START
 function startGame(){
   let i = 0;
+  var arrayOfPlayers = [1, 2, 3, 4, 5, 6];
   while (i < 6){
-    var arrayOfPlayers = [1, 2, 3, 4, 5, 6];
-    var playerOrder = Math.floor(Math.random()*arrayOfPlayers.length);
-    turnArray.push(playerOrder);
-    console.log(turnArray);
+    var playerOrderIndex = Math.floor(Math.random()*arrayOfPlayers.length);
+    var playerNumber = arrayOfPlayers[playerOrderIndex];
+    var playerparent = document.getElementById("playerboxidentifiers");
+    var newplayerspan = document.createElement("span");
+    newplayerspan.innerHTML = "Player " + playerNumber;
+    newplayerspan.setAttribute("id", "player"+playerNumber+"span");
+    playerparent.appendChild(newplayerspan);
+    arrayOfPlayers.splice(playerOrderIndex,1)
+    turnArray.push(playerNumber);
     i++
   }
   // document.getElementById("startgamebutton").style.display = "none";
