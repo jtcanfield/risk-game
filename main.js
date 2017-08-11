@@ -235,8 +235,10 @@ function startGame(){
   }
   document.getElementById("startgamebutton").style.display = "none";
 }
-
 //END GAME START
+
+
+
 //BEGIN PLAYER PLACING
 
 //END PLAYER PLACING
@@ -246,6 +248,7 @@ function startGame(){
 /*TODO
 STEP ONE: Roll Dice to see who goes first
 STEP TWO: Every Player Puts down a piece
+HAVE A GLOW AROUND WHICH PLAYERS TURN IT IS
 */
 
 function logtest(x, index){
