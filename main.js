@@ -15,7 +15,7 @@ $('#imgmap').mapster({
 });
 //okay now dont do anymore jquery
 
-
+var turnArray = [];
 //BEGIN GAMEBOARDOBJECT HOLDER
 var gameBoardObject = [
   //ORDER OF CONTINENTS: NA, SA, EU, AF, OC, AS
@@ -201,8 +201,24 @@ function rollTheWhiteDice(){
 }
 //END DIE FUNCTION
 
+
+//BEGIN PLAYER TURN TRACKER
+function whosTurnIsIt(){
+  // turnArray = [];
+}
+//END PLAYER TURN TRACKER
+
+
 //BEGIN GAME START
 function startGame(){
+  let i = 0;
+  while (i < 6){
+    var arrayOfPlayers = [1, 2, 3, 4, 5, 6];
+    var playerOrder = Math.floor(Math.random()*arrayOfPlayers.length);
+    turnArray.push(playerOrder);
+    console.log(turnArray);
+    i++
+  }
   // document.getElementById("startgamebutton").style.display = "none";
   console.log(rollTheWhiteDice());
 }
