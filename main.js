@@ -310,6 +310,8 @@ function rollTheRedDice(){
 }
 //END DIE FUNCTION
 
+
+//STAGING OBJECT HERE
 var gameStage = {stage:"placing", substage:"NA", turn:0};
 //Stages: placing, beginning reinforcement, main gameplay(activates substages)
 //SubStages: Reinforcement, Cards, Attack, FreeMove
@@ -347,12 +349,16 @@ function whosTurnIsIt(indexOfTurn){
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   setHighlight.setAttribute("class", "highlight");
   console.log(playerObjectArray[checkForPlayer1Index-1].playername);
-  if (playerObjectArray[checkForPlayer1Index-1].playername === "player1"){
-    playerTurnBoolean = true;
+  if (gameStage.stage === "placing"){
+    if (playerObjectArray[checkForPlayer1Index-1].playername !== "player1"){
+      playerTurnBoolean = false;
+      computerSelecting(indexOfTurn);
+    } else {
+      playerTurnBoolean = true;
+    }
   }
-  if (playerObjectArray[checkForPlayer1Index-1].playername !== "player1") {
-    playerTurnBoolean = false;
-    computerSelecting(indexOfTurn);
+  if (gameStage.stage === "reinforceStart"){
+    console.log("well, game should start soon");
   }
 }
 //END BEGINNING TURN TRACKER
@@ -391,8 +397,7 @@ function placingTurn(province, index, playerindex, idOfClicked){
 function mapClick(province, index){
   var idOfClicked = $(province).attr('id');
   if (playerTurnBoolean === false){
-    console.log(province);
-    console.log(index);
+    console.log("its not your turn yet");
   }
   if (playerTurnBoolean === true){
     placingTurn(province, index, "0", idOfClicked);
