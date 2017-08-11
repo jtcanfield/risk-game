@@ -800,6 +800,8 @@ function whosTurnIsIt(indexOfTurn){
 
 //BEGIN VALUE CALCULATIONS
 function valueCalculationFunction(i){
+  // Detect Continent Determination
+
   var valueAdd = "valueTo"+playerObjectArray[i].playername;
   //clear current values
   for (let c = 0; c < 42; c++){
