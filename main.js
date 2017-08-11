@@ -856,26 +856,39 @@ function valueCalculationFunction(i){
 //BEGIN COMPUTER REINFORCING LOGIC
 function computerReinforce(indexOfTurn){
   var playerindex = turnArray[indexOfTurn]-1;
-  console.log(playerObjectArray[playerindex].playername);
+  console.log(playerObjectArray[playerindex].playername + " is about to renif...");
   valueCalculationFunction(playerindex);
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
-  var index = Math.floor(Math.random()*(42-0+0)+0);
-  var idOfClicked = gameBoardObject[index].provincename;
-  reinforceTurn(index, playerindex+1, idOfClicked, indexOfTurn);
+  var randonumbeomax = playerObjectArray[playerindex].provincesOwnedIndex.length;
+  var indexofplayerarray = Math.floor(Math.random()*(randonumbeomax-0+0)+0);
+  var index = playerObjectArray[playerindex].provincesOwnedIndex[indexofplayerarray];
+  var idOfClicked = gameBoardObject[index].provincename
+  reinforceTurn(index, playerindex, idOfClicked, indexOfTurn);
 }
 //END COMPUTER REINFORCING LOGIC
 
 
 //BEGIN REINFORCE FUNCTION
 function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn){
-  console.log(playerindex);
+  console.log(idOfClicked);
+  if (gameBoardObject[index].owner !== "player1" && playerindex === "0"){
+    console.log("you cant reinforce there");
+    return
+  }
+  console.log(playerObjectArray[playerindex].playername + " Is Now Reinforcing. They are adding a unit to " + idOfClicked);
   if (playerindex === "0"){
+    var counterDiv = document.getElementById(idOfClicked+"Counter");
+    gameBoardObject[index].numberOfTroops += 1;
+    counterDiv.innerHTML = gameBoardObject[index].numberOfTroops;
     var setHighlight = document.getElementById("player1span");
     setHighlight.setAttribute("class", "");
     whosTurnIsIt((turnArray.indexOf(1)) + 1);
   } else if (playerindex !== "0"){
+    var counterDiv = document.getElementById(idOfClicked+"Counter");
+    gameBoardObject[index].numberOfTroops += 1;
+    counterDiv.innerHTML = gameBoardObject[index].numberOfTroops;
     var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
-    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 1);
+    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 100);
   }
 }
 //END REINFORCE FUNCTION
@@ -925,30 +938,28 @@ function computerSelecting(indexOfTurn){
 //BEGIN PLACING FUNCTION
 function placingTurn(index, playerindex, idOfClicked, indexOfTurn){
   if (gameBoardObject[index].owner !== "" && playerindex === "0"){
-    return
+    return // Makes sure player does not click an already filled spot
   } else if (gameBoardObject[index].owner !== ""){
     computerSelecting(indexOfTurn);
-    return
+    return // Makes sure computer does not click an already filled spot
   } else {
-    var playernamePlacing = playerObjectArray[playerindex].playername
-    gameBoardObject[index].owner = playernamePlacing;
-    var counterDiv = document.getElementById(idOfClicked+"Counter");
-    counterDiv.setAttribute("style", "background-color: "+playerObjectArray[playerindex].color+";");
-    var valueAdd = "valueTo"+playernamePlacing;
-    gameBoardObject[index][ valueAdd ] += 1;
-    gameBoardObject[index].numberOfTroops += 1;
-    counterDiv.innerHTML = gameBoardObject[index].numberOfTroops;
-    playerObjectArray[playerindex].numberOfProvincesOwned += 1;
-    (playerObjectArray[playerindex].provincesOwned).push(idOfClicked);
-    (playerObjectArray[playerindex].provincesOwnedIndex).push(index);
+    var playernamePlacing = playerObjectArray[playerindex].playername //gets playername
+    gameBoardObject[index].owner = playernamePlacing ; //makes playername owner of province
+    var counterDiv = document.getElementById(idOfClicked+"Counter"); //selects div counter
+    counterDiv.setAttribute("style", "background-color: "+playerObjectArray[playerindex].color+";");//adds styling to div counter
+    gameBoardObject[index].numberOfTroops += 1; //adds troops to province
+    counterDiv.innerHTML = gameBoardObject[index].numberOfTroops; //appends troop amount to div counter
+    playerObjectArray[playerindex].numberOfProvincesOwned += 1; // adds players owned
+    (playerObjectArray[playerindex].provincesOwned).push(idOfClicked); // adds the province id to player object
+    (playerObjectArray[playerindex].provincesOwnedIndex).push(index); // adds the province index to player object
   }
   if (playerindex === "0"){
-    gameStage.mapFilled -= 1;
+    gameStage.mapFilled -= 1; // brings one step closer to next section
     var setHighlight = document.getElementById("player1span");
     setHighlight.setAttribute("class", "");
     whosTurnIsIt((turnArray.indexOf(1)) + 1);
   } else if (playerindex !== "0"){
-    gameStage.mapFilled -= 1;
+    gameStage.mapFilled -= 1; // brings one step closer to next section
     var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
     setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 1);
   }
