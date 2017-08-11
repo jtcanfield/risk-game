@@ -740,43 +740,10 @@ function whosTurnIsIt(indexOfTurn){
   if (gameStage.stage === "reinforceStart"){
     // outer for loop should loop thru each player
     for (let i = 0; i < 6; i++){
-
+      console.log(playerObjectArray[i].playername);
+      var province
+      console.log(playerObjectArray[i].provincesOwnedIndex);
     }
-
-
-/*
-    for (let i = 0; i < 6; i++){
-      var playerBeingSearched = playerObjectArray[i].playername;
-      var arrayToSearchThru = playerObjectArray[i].provincesOwned;
-      console.log(playerBeingSearched);
-      console.log(arrayToSearchThru);
-      console.log(gameBoardObject[0].provincename);
-      // for every province the player owns, map...
-      arrayToSearchThru.map((i) =>{
-        console.log(i);
-        for (let j = 0; j < 42; j++){
-          //Find the object the player owns
-          if (gameBoardObject[j].provincename === i){
-            //find its adjacentProvinces array
-            var adjacentProvincesToFind = gameBoardObject[j].adjacentProvinces;
-            console.log(adjacentProvincesToFind);
-            //map thru the adjacentProvinces array
-            adjacentProvincesToFind.map((o) =>{
-              for (let j = 0; j < 42; j++){
-                if (gameBoardObject[j].provincename === o){
-                console.log(o);
-                }
-              }
-            });
-          }
-        }
-      });
-    }
-*/
-
-
-
-    console.log("well, game should start soon");
     playerTurnBoolean = true;
   }
 }
@@ -794,9 +761,9 @@ function computerSelecting(indexOfTurn){
 
 
 function mapClick(province, index){
-  console.log(gameBoardObject[index]);
-  console.log(gameBoardObject[index].owner);
-  console.log(gameBoardObject[index].adjacentProvinces);
+  // console.log(gameBoardObject[index]);
+  // console.log(gameBoardObject[index].owner);
+  // console.log(gameBoardObject[index].adjacentProvinces);
   var idOfClicked = $(province).attr('id');
   if (playerTurnBoolean === false){
     console.log("its not your turn yet");
@@ -823,13 +790,12 @@ function placingTurn(index, playerindex, idOfClicked, indexOfTurn){
     var counterDiv = document.getElementById(idOfClicked+"Counter");
     counterDiv.setAttribute("style", "background-color: "+playerObjectArray[playerindex].color+";");
     var valueAdd = "valueTo"+playernamePlacing;
-    gameBoardObject[index][ valueAdd ] += 0.05;
+    gameBoardObject[index][ valueAdd ] += 0.1;
     gameBoardObject[index].numberOfTroops += 1;
     counterDiv.innerHTML = gameBoardObject[index].numberOfTroops;
     playerObjectArray[playerindex].numberOfProvincesOwned += 1;
     (playerObjectArray[playerindex].provincesOwned).push(idOfClicked);
     (playerObjectArray[playerindex].provincesOwnedIndex).push(index);
-    // (index.provincesOwnedIndex).push(idOfClicked);
   }
   if (playerindex === "0"){
     gameStage.mapFilled -= 1;
