@@ -335,7 +335,9 @@ function startGame(){
 
 
 //BEGIN PLAYER PLACING
+function playerPlacingTurn(){
 
+}
 //END PLAYER PLACING
 
 
@@ -345,8 +347,14 @@ STEP ONE: Roll Dice to see who goes first
 STEP TWO: Every Player Puts down a piece
 HAVE A GLOW AROUND WHICH PLAYERS TURN IT IS
 */
-
+var playerTurnBoolean = false;
 function logtest(x, index){
+  if (playerTurnBoolean === false){
+    console.log("no, stop, its not your turn");
+  }
+  if (playerTurnBoolean === true){
+    console.log("okay go");
+  }
   // Math.floor(Math.random()*arrayOfPlayers.length);
   console.log(x);
   var idOfClicked = $(x).attr('id');
