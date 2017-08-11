@@ -340,6 +340,8 @@ function startGame(){
 var playerTurnBoolean = false;
 var indexOfTurn = 0;
 
+
+
 //BEGIN BEGINNING TURN TRACKER
 function whosTurnIsIt(indexOfTurn){
   if (gameStage.mapFilled <= 0){
@@ -368,14 +370,28 @@ function whosTurnIsIt(indexOfTurn){
 //END BEGINNING TURN TRACKER
 
 
-//BEGIN COMPUTER PLACING
+//BEGIN COMPUTER PLACING LOGIC
 function computerSelecting(indexOfTurn){
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   var index = Math.floor(Math.random()*(42-0+0)+0);
   var idOfClicked = gameBoardObject[index].provincename;
   placingTurn(index, (turnArray[indexOfTurn]-1), idOfClicked, indexOfTurn);
 }
-//END COMPUTER PLACING
+//END COMPUTER PLACING LOGIC
+
+
+function mapClick(province, index){
+  var idOfClicked = $(province).attr('id');
+  if (playerTurnBoolean === false){
+    console.log("its not your turn yet");
+  }
+  if (playerTurnBoolean === true){
+    if (gameStage.stage === "placing"){
+      placingTurn(index, "0", idOfClicked);
+    }
+    setTimeout(function() { setplayerTurnBoolean = false;}, 1);
+  }
+}
 
 
 //BEGIN PLACING FUNCTION
@@ -410,17 +426,6 @@ function placingTurn(index, playerindex, idOfClicked, indexOfTurn){
 }
 //END PLACING FUNCTION
 
-
-function mapClick(province, index){
-  var idOfClicked = $(province).attr('id');
-  if (playerTurnBoolean === false){
-    console.log("its not your turn yet");
-  }
-  if (playerTurnBoolean === true){
-    placingTurn(index, "0", idOfClicked);
-    setTimeout(function() { setplayerTurnBoolean = false;}, 1);
-  }
-}
 
 
 /*TODO
