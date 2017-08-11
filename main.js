@@ -738,7 +738,12 @@ function whosTurnIsIt(indexOfTurn){
     }
   }
   if (gameStage.stage === "reinforceStart"){
-    playerTurnBoolean = true;
+    if (playerObjectArray[checkForPlayer1Index-1].playername !== "player1"){
+      playerTurnBoolean = false;
+      computerReinforce(indexOfTurn);
+    } else {
+      playerTurnBoolean = true;
+    }
   }
 }
 //END BEGINNING TURN TRACKER
@@ -809,7 +814,7 @@ function mapClick(province, index){
       placingTurn(index, "0", idOfClicked);
     }
     if (gameStage.stage === "reinforceStart"){
-      placingTurn(index, "0", idOfClicked);
+      reinforceTurn(index, "0", idOfClicked);
     }
     setTimeout(function() { setplayerTurnBoolean = false;}, 1);
   }
@@ -819,17 +824,26 @@ function mapClick(province, index){
 
 //BEGIN COMPUTER REINFORCING LOGIC
 function computerReinforce(indexOfTurn){
+  var playerindex = turnArray[indexOfTurn]-1;
+  console.log(playerObjectArray[playerindex].playername);
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
-  // var index = Math.floor(Math.random()*(42-0+0)+0);
+  var index = Math.floor(Math.random()*(42-0+0)+0);
   var idOfClicked = gameBoardObject[index].provincename;
-  placingTurn(index, (turnArray[indexOfTurn]-1), idOfClicked, indexOfTurn);
+  reinforceTurn(index, playerindex, idOfClicked, indexOfTurn);
 }
 //END COMPUTER REINFORCING LOGIC
 
 
 //BEGIN REINFORCE FUNCTION
 function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn){
-
+  if (playerindex === "0"){
+    var setHighlight = document.getElementById("player1span");
+    setHighlight.setAttribute("class", "");
+    whosTurnIsIt((turnArray.indexOf(1)) + 1);
+  } else if (playerindex !== "0"){
+    var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
+    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 1);
+  }
 }
 //END REINFORCE FUNCTION
 
