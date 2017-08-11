@@ -27,6 +27,7 @@ map area:hover{
 #dice_holder img{
   height: 50px;
   width: 50px;
+  background-size: contain;
 }
 #NA1Counter {
   left: 70px;
