@@ -335,13 +335,16 @@ function startGame(){
 var playerTurnBoolean = true;
 
 //BEGIN PLAYER PLACING
-function placingTurn(province, index, playerindex){
+function placingTurn(province, index, playerindex, idOfClicked){
+  var selectedProvinceObject = gameBoardObject[index];
+  var selectedPlayerPlacingObject = playerObjectArray[playerindex];
   // if (){
   //
   // }
   console.log(province);
-  console.log(gameBoardObject[index]);
-  console.log(playerObjectArray[playerindex]);
+  console.log(selectedProvinceObject);
+  console.log(selectedPlayerPlacingObject);
+  console.log(idOfClicked);
   // playerTurnBoolean = false;
 }
 //END PLAYER PLACING
@@ -354,16 +357,12 @@ STEP TWO: Every Player Puts down a piece
 HAVE A GLOW AROUND WHICH PLAYERS TURN IT IS
 */
 function logtest(province, index){
+  var idOfClicked = $(province).attr('id');
+  // console.log(idOfClicked);
   if (playerTurnBoolean === false){
     console.log("no, stop, its not your turn");
   }
   if (playerTurnBoolean === true){
-    console.log("okay go");
-    placingTurn(province, index, "0");
+    placingTurn(province, index, "0", idOfClicked);
   }
-  // console.log(province);
-  // var idOfClicked = $(province).attr('id');
-  // console.log(idOfClicked);
-  // var objectArrayIndex = gameBoardObject[index];
-  // console.log(objectArrayIndex);
 }
