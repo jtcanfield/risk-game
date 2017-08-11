@@ -28,6 +28,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["NA2", "AS7", "NA6"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"NA2",
       "owner":"",
@@ -38,6 +41,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["NA1", "NA3", "NA4", "NA6"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"NA3",
       "owner":"",
@@ -48,6 +54,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["NA2", "NA4", "NA5", "EU1"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"NA4",
       "owner":"",
@@ -58,6 +67,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["NA2", "NA3", "NA5", "NA6", "NA7", "NA8"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"NA5",
       "owner":"",
@@ -68,6 +80,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["NA3", "NA4", "NA8"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"NA6",
       "owner":"",
@@ -78,6 +93,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["NA1", "NA2", "NA3", "NA4", "NA7"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"NA7",
       "owner":"",
@@ -88,6 +106,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["NA4", "NA6", "NA8", "NA9"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"NA8",
       "owner":"",
@@ -98,6 +119,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["NA4", "NA5", "NA6", "NA7", "NA9"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"NA9",
       "owner":"",
@@ -108,6 +132,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["NA7", "NA8", "SA1"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"SA1",
       "owner":"",
@@ -118,6 +145,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["NA9", "SA2", "SA3"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"SA2",
       "owner":"",
@@ -128,6 +158,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["SA1", "SA3", "SA4", "AF1"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"SA3",
       "owner":"",
@@ -138,6 +171,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["SA1", "SA2", "SA4"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"SA4",
       "owner":"",
@@ -148,6 +184,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["SA2", "SA3"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"EU1",
       "owner":"",
@@ -158,6 +197,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["NA3", "EU2", "EU7"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"EU2",
       "owner":"",
@@ -168,6 +210,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["EU1", "EU3", "EU5", "EU7"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"EU3",
       "owner":"",
@@ -178,6 +223,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["EU2", "EU4", "EU5", "AF1"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"EU4",
       "owner":"",
@@ -188,6 +236,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["EU3", "EU5", "EU6", "AS1", "AF1", "AF2"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"EU5",
       "owner":"",
@@ -198,6 +249,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["EU2", "EU3", "EU4", "EU6", "EU7"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"EU6",
       "owner":"",
@@ -208,6 +262,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["EU4", "EU5", "EU7", "AS1", "AS11", "AS12"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"EU7",
       "owner":"",
@@ -218,6 +275,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["EU1", "EU2", "EU5", "EU7"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"AF1",
       "owner":"",
@@ -228,6 +288,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["SA2", "EU3", "EU4", "AF2", "AF3", "AF4"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"AF2",
       "owner":"",
@@ -238,6 +301,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["AF1", "AF3", "EU4", "AS1"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"AF3",
       "owner":"",
@@ -248,6 +314,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["AF1", "AF2", "AF4", "AF5", "AF6", "AS1"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"AF4",
       "owner":"",
@@ -258,6 +327,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["AF1", "AF3", "AF5"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"AF5",
       "owner":"",
@@ -268,6 +340,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["AF3", "AF4", "AF6"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"AF6",
       "owner":"",
@@ -278,6 +353,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["AF3", "AF5"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"OC1",
       "owner":"",
@@ -288,6 +366,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["AS4", "OC2", "OC3"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"OC2",
       "owner":"",
@@ -298,6 +379,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["OC1", "OC3", "OC4"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"OC3",
       "owner":"",
@@ -308,6 +392,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["OC1", "OC2", "OC4"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"OC4",
       "owner":"",
@@ -318,6 +405,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["OC2", "OC3"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"AS1",
       "owner":"",
@@ -328,6 +418,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["EU4", "EU6", "AF2", "AF3", "AS2", "AS3", "AS11"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"AS2",
       "owner":"",
@@ -338,6 +431,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["AS1", "AS3", "AS4"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"AS3",
       "owner":"",
@@ -348,6 +444,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["AS1", "AS2", "AS4", "AS5", "AS10", "AS12", "AS11"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"AS4",
       "owner":"",
@@ -358,6 +457,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["AS2", "AS3", "OC1"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"AS5",
       "owner":"",
@@ -368,6 +470,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["AS3", "AS6", "AS7", "AS8", "AS10"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"AS6",
       "owner":"",
@@ -378,6 +483,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["AS5", "AS7"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"AS7",
       "owner":"",
@@ -388,6 +496,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["NA1", "AS5", "AS6", "AS8", "AS9"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"AS8",
       "owner":"",
@@ -398,6 +509,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["AS5", "AS7", "AS9", "AS10"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"AS9",
       "owner":"",
@@ -408,6 +522,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["AS7", "AS8", "AS10"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"AS10",
       "owner":"",
@@ -418,6 +535,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["AS3", "AS5", "AS8", "AS9", "AS12"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename":"AS11",
       "owner":"",
@@ -428,6 +548,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["AS1", "AS3", "AS12", "EU6"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
     { "provincename": "AS12",
       "owner":"",
@@ -438,6 +561,9 @@ var gameBoardObject = [
       "valueToplayer5":0,
       "valueToplayer6":0,
       "adjacentProvinces":["AS3", "AS10", "AS11", "EU6"],
+      "adjacentProvinceIndex":["", ],
+      getValues : function(){},
+
     },
 ];
 //END GAMEBOARDOBJECT HOLDER
@@ -582,6 +708,7 @@ var gameStage = {stage:"placing", substage:"NA", turn:0, mapFilled:42};
 
 
 
+
 var playerTurnBoolean = false;
 var indexOfTurn = 0;
 //BEGIN BEGINNING TURN TRACKER
@@ -605,8 +732,6 @@ function whosTurnIsIt(indexOfTurn){
     }
   }
   if (gameStage.stage === "reinforceStart"){
-
-/*
     // outer for loop should loop thru each player
     for (let i = 0; i < 6; i++){
       var playerBeingSearched = playerObjectArray[i].playername;
@@ -620,14 +745,21 @@ function whosTurnIsIt(indexOfTurn){
         for (let j = 0; j < 42; j++){
           //Find the object the player owns
           if (gameBoardObject[j].provincename === i){
-            console.log(gameBoardObject[j].adjacentProvinces);
+            //find its adjacentProvinces array
+            var adjacentProvincesToFind = gameBoardObject[j].adjacentProvinces;
+            console.log(adjacentProvincesToFind);
+            //map thru the adjacentProvinces array
+            adjacentProvincesToFind.map((o) =>{
+              for (let j = 0; j < 42; j++){
+                if (gameBoardObject[j].provincename === o){
+                console.log(o);
+                }
+              }
+            });
           }
         }
       });
     }
-*/
-
-
     console.log("well, game should start soon");
     playerTurnBoolean = true;
   }
