@@ -741,8 +741,18 @@ function whosTurnIsIt(indexOfTurn){
     // outer for loop should loop thru each player
     for (let i = 0; i < 6; i++){
       console.log(playerObjectArray[i].playername);
-      var province
-      console.log(playerObjectArray[i].provincesOwnedIndex);
+      //map thru every object owned by current player selected
+      playerObjectArray[i].provincesOwnedIndex.map((o) =>{
+        // Map thru every object that is adjacent to the province owned by the current player selected
+        gameBoardObject[o].adjacentProvinceIndex.map((p) =>{
+          if (playerObjectArray[i].playername === gameBoardObject[p].owner){
+            console.log("ALLY NEAR");
+          }
+          if (playerObjectArray[i].playername !== gameBoardObject[p].owner){
+            console.log("ENEMY NEAR");
+          }
+        });
+      });
     }
     playerTurnBoolean = true;
   }
