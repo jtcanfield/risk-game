@@ -578,6 +578,8 @@ function whosTurnIsIt(indexOfTurn){
     }
   }
   if (gameStage.stage === "reinforceStart"){
+
+/*    
     // outer for loop should loop thru each player
     for (let i = 0; i < 6; i++){
       var playerBeingSearched = playerObjectArray[i].playername;
@@ -591,11 +593,14 @@ function whosTurnIsIt(indexOfTurn){
         for (let j = 0; j < 42; j++){
           //Find the object the player owns
           if (gameBoardObject[j].provincename === i){
-            console.log(gameBoardObject[j]);
+            console.log(gameBoardObject[j].adjacentProvinces);
           }
         }
       });
     }
+*/
+
+
     console.log("well, game should start soon");
     playerTurnBoolean = true;
   }
