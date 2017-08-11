@@ -332,6 +332,7 @@ function startGame(){
 }
 //END GAME START
 var playerTurnBoolean = false;
+var indexOfTurn = 0;
 //BEGIN PLAYER TURN TRACKER
 function whosTurnIsIt(indexOfTurn){
   if (indexOfTurn >= 6){
@@ -341,7 +342,7 @@ function whosTurnIsIt(indexOfTurn){
   console.log(turnArray[indexOfTurn]);
   console.log(playerObjectArray[checkForPlayer1Index-1].playername);
   if (playerObjectArray[checkForPlayer1Index-1].playername === "player1"){
-    var playerTurnBoolean = true;
+    playerTurnBoolean = true;
     return
   } else {
     computerSelecting(indexOfTurn);
@@ -350,9 +351,8 @@ function whosTurnIsIt(indexOfTurn){
 //END PLAYER TURN TRACKER
 
 //BEGIN PLAYER PLACING
-function placingTurn(province, index, playerindex, idOfClicked){
+function placingTurn(province, index, playerindex, idOfClicked, indexOfTurn){
   if (gameBoardObject[index].owner !== ""){
-    console.log(gameBoardObject[index].owner);
     return
   } else {
     gameBoardObject[index].owner = playerObjectArray[playerindex].playername;
@@ -363,14 +363,18 @@ function placingTurn(province, index, playerindex, idOfClicked){
     playerObjectArray[playerindex].numberOfProvincesOwned += 1;
     (playerObjectArray[playerindex].provincesOwned).push(idOfClicked);
   }
-  // playerTurnBoolean = false;
+  if (playerindex === "0"){
+    // console.log(turnArray.indexOf(1));
+    whosTurnIsIt((turnArray.indexOf(1)) + 1);
+    playerTurnBoolean = false;
+  }
 }
 //END PLAYER PLACING
 
 //BEGIN COMPUTER PLACING
 function computerSelecting(indexOfTurn){
   console.log(turnArray[indexOfTurn]);
-  whosTurnIsIt(indexOfTurn + 1)
+  whosTurnIsIt(indexOfTurn + 1);
 }
 //END COMPUTER PLACING
 
@@ -381,12 +385,12 @@ HAVE A GLOW AROUND WHICH PLAYERS TURN IT IS
 */
 function logtest(province, index){
   var idOfClicked = $(province).attr('id');
-  // console.log(idOfClicked);
   if (playerTurnBoolean === false){
-    console.log("no, stop, its not your turn");
+    console.log("playerTurnBoolean is false")
   }
   if (playerTurnBoolean === true){
     console.log(turnArray);
-    placingTurn(province, index, "0", idOfClicked);
+    var indexOfTurn =
+    placingTurn(province, index, "0", idOfClicked, indexOfTurn);
   }
 }
