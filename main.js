@@ -750,6 +750,8 @@ function whosTurnIsIt(indexOfTurn){
           //Check every adjacent province for ally or enemy
           if (playerObjectArray[i].playername === gameBoardObject[e].owner){
             nextToAlly += 1;
+            gameBoardObject[o][ valueAdd ] -= 1;
+            gameBoardObject[e][ valueAdd ] -= 1;
           }
           if (playerObjectArray[i].playername !== gameBoardObject[e].owner){
             switch (true) {
@@ -796,7 +798,6 @@ function computerSelecting(indexOfTurn){
 function mapClick(province, index){
   console.log(gameBoardObject[index]);
   console.log(gameBoardObject[index].owner);
-  console.log(gameBoardObject[index].adjacentProvinces);
   var idOfClicked = $(province).attr('id');
   if (playerTurnBoolean === false){
     console.log("its not your turn yet");
