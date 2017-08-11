@@ -24,7 +24,12 @@ map area:hover{
   border: 1px solid #555555;
   border-radius: 99999px;
 }
-#dice_holder img{
+#red_dice_holder img{
+  height: 50px;
+  width: 50px;
+  background-size: contain;
+}
+#white_dice_holder img{
   height: 50px;
   width: 50px;
   background-size: contain;

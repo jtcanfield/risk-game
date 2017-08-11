@@ -203,7 +203,7 @@ function rollTheRedDice(){
   var diceParent = document.getElementById("red_dice_holder");
   var reddienumber = Math.floor(Math.random()*(6-1+1)+1);
   var newRedDice = document.createElement("img");
-  newRedDice.setAttribute("style", "background-image: url(white"+reddienumber+".png);");
+  newRedDice.setAttribute("style", "background-image: url(red"+reddienumber+".png);");
   diceParent.appendChild(newRedDice);
   return reddienumber;
 }
