@@ -441,7 +441,34 @@ var gameBoardObject = [
     },
 ];
 //END GAMEBOARDOBJECT HOLDER
-
+//BEGIN CONTINENT HOLDER
+var continentObjectArray = [
+    { "continentname":"NA",
+      "troopbonus":5,
+      "provincesincontinent":["NA1", "NA2", "NA3", "NA4", "NA5", "NA6", "NA7", "NA8", "NA9"],
+    },
+    { "continentname":"SA",
+      "troopbonus":2,
+      "provincesincontinent":["SA1", "SA2", "SA3", "SA4"],
+    },
+    { "continentname":"EU",
+      "troopbonus":5,
+      "provincesincontinent":["EU1", "EU2", "EU3", "EU4", "EU5", "EU6", "EU7"],
+    },
+    { "continentname":"AF",
+      "troopbonus":3,
+      "provincesincontinent":["AF1", "AF2", "AF3", "AF4", "AF5", "AF6"],
+    },
+    { "continentname":"OC",
+      "troopbonus":2,
+      "provincesincontinent":["OC1", "OC2", "OC3", "OC4"],
+    },
+    { "continentname":"AS",
+      "troopbonus":7,
+      "provincesincontinent":["AS1", "AS2", "AS3", "AS4", "AS5", "AS6", "AS7", "AS8", "AS9", "AS10", "AS11", "AS12"],
+    },
+];
+//END CONTINENT HOLDER
 //BEGIN PLAYER OBJECT ARRAY
 var playerObjectArray = [
     { "playername":"player1",
