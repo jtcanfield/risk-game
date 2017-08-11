@@ -193,7 +193,9 @@ var gameBoardObject = [
 
 
 //BEGIN GAME START
-
+function startGame(){
+  console.log("it has begun");
+}
 
 //END GAME START
 //BEGIN PLAYER PLACING
