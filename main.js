@@ -648,7 +648,7 @@ function placingTurn(index, playerindex, idOfClicked, indexOfTurn){
     var counterDiv = document.getElementById(idOfClicked+"Counter");
     counterDiv.setAttribute("style", "background-color: "+playerObjectArray[playerindex].color+";");
     var valueAdd = "valueTo"+playernamePlacing;
-    gameBoardObject[index][ valueAdd ] += 1;
+    gameBoardObject[index][ valueAdd ] += 0.05;
     gameBoardObject[index].numberOfTroops += 1;
     counterDiv.innerHTML = gameBoardObject[index].numberOfTroops;
     playerObjectArray[playerindex].numberOfProvincesOwned += 1;
