@@ -190,11 +190,16 @@ var gameBoardObject = [
 ];
 //END GAMEBOARDOBJECT HOLDER
 
-
+//BEGIN DIE FUNCTION
+function rollTheDice(){
+  return Math.floor(Math.random()*(6-1+1)+1)
+}
+//END DIE FUNCTION
 
 //BEGIN GAME START
 function startGame(){
-  document.getElementById("startgamebutton").style.display = "none";
+  // document.getElementById("startgamebutton").style.display = "none";
+  console.log(rollTheDice());
 }
 
 //END GAME START
