@@ -237,12 +237,14 @@ var playerObjectArray = [
     { "name":"player1",
       "color":"red",
       "numberOfProvincesOwned":0,
+      "provincesOwned":[];
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
     },
     { "name":"player2",
       "color":"green",
       "numberOfProvincesOwned":0,
+      "provincesOwned":[];
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
       "attitude":"normal",
@@ -250,6 +252,7 @@ var playerObjectArray = [
     { "name":"player3",
       "color":"blue",
       "numberOfProvincesOwned":0,
+      "provincesOwned":[];
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
       "attitude":"normal",
@@ -257,6 +260,7 @@ var playerObjectArray = [
     { "name":"player4",
       "color":"yellow",
       "numberOfProvincesOwned":0,
+      "provincesOwned":[];
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
       "attitude":"normal",
@@ -264,6 +268,7 @@ var playerObjectArray = [
     { "name":"player5",
       "color":"purple",
       "numberOfProvincesOwned":0,
+      "provincesOwned":[];
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
       "attitude":"normal",
@@ -271,6 +276,7 @@ var playerObjectArray = [
     { "name":"player6",
       "color":"orange",
       "numberOfProvincesOwned":0,
+      "provincesOwned":[];
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
       "attitude":"normal",
