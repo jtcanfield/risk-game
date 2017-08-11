@@ -744,21 +744,35 @@ function whosTurnIsIt(indexOfTurn){
       //map thru every object owned by current player selected
       playerObjectArray[i].provincesOwnedIndex.map((o) =>{
         // Map thru every object that is adjacent to the province Selected by the current player selected
-        // console.log(gameBoardObject[o].adjacentProvinceIndex.length);
-        gameBoardObject[o].adjacentProvinceIndex.map((p) =>{
+        gameBoardObject[o].adjacentProvinceIndex.map((e) =>{
+          var valueAdd = "valueTo"+playerObjectArray[i].playername;
           var nextToAlly = 0; //begin counter to see if surrounded by allies
           //Check every adjacent province for ally or enemy
-          if (playerObjectArray[i].playername === gameBoardObject[p].owner){
+          if (playerObjectArray[i].playername === gameBoardObject[e].owner){
             nextToAlly += 1;
-            // console.log("ALLY NEAR");
           }
-          if (playerObjectArray[i].playername !== gameBoardObject[p].owner){
-            // console.log("ENEMY NEAR");
+          if (playerObjectArray[i].playername !== gameBoardObject[e].owner){
+            switch (true) {
+              case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
+                  console.log("we have more troops");
+                  gameBoardObject[o][ valueAdd ] -= 5;
+                  gameBoardObject[e][ valueAdd ] += 20;
+                  break;
+              case gameBoardObject[o].numberOfTroops === gameBoardObject[e].numberOfTroops:
+                  console.log("same Amount of troops");
+                  gameBoardObject[o][ valueAdd ] -= 5;
+                  gameBoardObject[e][ valueAdd ] += 5;
+                  break;
+              case gameBoardObject[o].numberOfTroops < gameBoardObject[e].numberOfTroops:
+                  console.log("we have less troops");
+                  gameBoardObject[o][ valueAdd ] += 10;
+                  gameBoardObject[e][ valueAdd ] -= 10;
+                  break;
+            }
           }
           if (nextToAlly === gameBoardObject[o].adjacentProvinceIndex.length){
-              var valueAdd = "valueTo"+playerObjectArray[i].playername;
-              gameBoardObject[o][ valueAdd ] += 1;
-              console.log("surrounded");
+              gameBoardObject[o][ valueAdd ] = 0;
+              console.log("surrounded by friendlies");
           }
         });
       });
@@ -780,9 +794,9 @@ function computerSelecting(indexOfTurn){
 
 
 function mapClick(province, index){
-  // console.log(gameBoardObject[index]);
-  // console.log(gameBoardObject[index].owner);
-  // console.log(gameBoardObject[index].adjacentProvinces);
+  console.log(gameBoardObject[index]);
+  console.log(gameBoardObject[index].owner);
+  console.log(gameBoardObject[index].adjacentProvinces);
   var idOfClicked = $(province).attr('id');
   if (playerTurnBoolean === false){
     console.log("its not your turn yet");
