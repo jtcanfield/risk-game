@@ -194,35 +194,41 @@ var gameBoardObject = [
 var playerObjectArray = [
     { "name":"player1",
       "color":"red",
+      "numberOfProvincesOwned":0,
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
     },
     { "name":"player2",
       "color":"green",
+      "numberOfProvincesOwned":0,
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
       "attitude":"normal",
     },
     { "name":"player3",
       "color":"blue",
+      "numberOfProvincesOwned":0,
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
       "attitude":"normal",
     },
     { "name":"player4",
       "color":"yellow",
+      "numberOfProvincesOwned":0,
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
       "attitude":"normal",
     },
     { "name":"player5",
       "color":"purple",
+      "numberOfProvincesOwned":0,
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
       "attitude":"normal",
     },
     { "name":"player6",
       "color":"orange",
+      "numberOfProvincesOwned":0,
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
       "attitude":"normal",
@@ -293,6 +299,7 @@ HAVE A GLOW AROUND WHICH PLAYERS TURN IT IS
 */
 
 function logtest(x, index){
+  // Math.floor(Math.random()*arrayOfPlayers.length);
   console.log(x);
   var idOfClicked = $(x).attr('id');
   console.log(idOfClicked);
