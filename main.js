@@ -659,10 +659,6 @@ var playerObjectArray = [
 ];
 //END PLAYER OBJECT ARRAY
 
-//BEGIN VALUE CALCULATIONS
-
-//END VALUE CALCULATIONS
-
 //BEGIN DIE FUNCTION
 function rollTheWhiteDice(){
   var diceParent = document.getElementById("white_dice_holder");
@@ -719,15 +715,17 @@ var playerTurnBoolean = false;
 var indexOfTurn = 0;
 //BEGIN BEGINNING TURN TRACKER
 function whosTurnIsIt(indexOfTurn){
-  if (gameStage.mapFilled <= 0){
+  if (gameStage.mapFilled === 0){
     gameStage.stage = "reinforceStart";
+    gameStage.mapFilled -= 99;
   }
   if (indexOfTurn >= 6){
     indexOfTurn = 0;
     gameStage.turn += 1;
+    valueCalculationFunction();
   }
   var changeAvail = document.getElementById("troop_count");
-  changeAvail.innerHTML = 20-gameStage.turn;
+  changeAvail.innerHTML  = 20-gameStage.turn;
   var checkForPlayer1Index = turnArray[indexOfTurn];
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   setHighlight.setAttribute("class", "highlight");
@@ -740,47 +738,6 @@ function whosTurnIsIt(indexOfTurn){
     }
   }
   if (gameStage.stage === "reinforceStart"){
-    // outer for loop should loop thru each player
-    for (let i = 0; i < 6; i++){
-      console.log(playerObjectArray[i].playername);
-      //map thru every object owned by current player selected
-      playerObjectArray[i].provincesOwnedIndex.map((o) =>{
-        // Map thru every object that is adjacent to the province Selected by the current player selected
-        gameBoardObject[o].adjacentProvinceIndex.map((e) =>{
-          var valueAdd = "valueTo"+playerObjectArray[i].playername;
-          var nextToAlly = 0; //begin counter to see if surrounded by allies
-          //Check every adjacent province for ally or enemy
-          if (playerObjectArray[i].playername === gameBoardObject[e].owner){
-            nextToAlly += 1;
-            gameBoardObject[o][ valueAdd ] -= 1;
-            gameBoardObject[e][ valueAdd ] -= 1;
-          }
-          if (playerObjectArray[i].playername !== gameBoardObject[e].owner){
-            switch (true) {
-              case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
-                  console.log("we have more troops");
-                  gameBoardObject[o][ valueAdd ] -= 5;
-                  gameBoardObject[e][ valueAdd ] += 20;
-                  break;
-              case gameBoardObject[o].numberOfTroops === gameBoardObject[e].numberOfTroops:
-                  console.log("same Amount of troops");
-                  gameBoardObject[o][ valueAdd ] -= 5;
-                  gameBoardObject[e][ valueAdd ] += 5;
-                  break;
-              case gameBoardObject[o].numberOfTroops < gameBoardObject[e].numberOfTroops:
-                  console.log("we have less troops");
-                  gameBoardObject[o][ valueAdd ] += 10;
-                  gameBoardObject[e][ valueAdd ] -= 10;
-                  break;
-            }
-          }
-          if (nextToAlly === gameBoardObject[o].adjacentProvinceIndex.length){
-              gameBoardObject[o][ valueAdd ] = 0;
-              console.log("surrounded by friendlies");
-          }
-        });
-      });
-    }
     playerTurnBoolean = true;
   }
 }
@@ -795,6 +752,63 @@ function computerSelecting(indexOfTurn){
   placingTurn(index, (turnArray[indexOfTurn]-1), idOfClicked, indexOfTurn);
 }
 //END COMPUTER PLACING LOGIC
+
+//BEGIN VALUE CALCULATIONS
+function valueCalculationFunction(){
+  // outer for loop should loop thru each player
+  for (let i = 0; i < 6; i++){
+    console.log(playerObjectArray[i].playername);
+    //map thru every object owned by current player selected
+    playerObjectArray[i].provincesOwnedIndex.map((o) =>{
+      // Map thru every object that is adjacent to the province Selected by the current player selected
+      gameBoardObject[o].adjacentProvinceIndex.map((e) =>{
+        var valueAdd = "valueTo"+playerObjectArray[i].playername;
+        var nextToAlly = 0; //begin counter to see if surrounded by allies
+        //Check every adjacent province for ally or enemy
+        if (playerObjectArray[i].playername === gameBoardObject[e].owner){
+          nextToAlly += 1;
+          gameBoardObject[o][ valueAdd ] -= 1;
+          gameBoardObject[e][ valueAdd ] -= 1;
+        }
+        if (playerObjectArray[i].playername !== gameBoardObject[e].owner){
+          switch (true) {
+            case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
+                console.log("we have more troops");
+                gameBoardObject[o][ valueAdd ] -= 5;
+                gameBoardObject[e][ valueAdd ] += 20;
+                break;
+            case gameBoardObject[o].numberOfTroops === gameBoardObject[e].numberOfTroops:
+                console.log("same Amount of troops");
+                gameBoardObject[o][ valueAdd ] -= 5;
+                gameBoardObject[e][ valueAdd ] += 5;
+                break;
+            case gameBoardObject[o].numberOfTroops < gameBoardObject[e].numberOfTroops:
+                console.log("we have less troops");
+                gameBoardObject[o][ valueAdd ] += 10;
+                gameBoardObject[e][ valueAdd ] -= 10;
+                break;
+          }
+        }
+        if (nextToAlly === gameBoardObject[o].adjacentProvinceIndex.length){
+            gameBoardObject[o][ valueAdd ] = 0;
+            console.log("surrounded by friendlies");
+        }
+      });
+    });
+  }
+}
+//END VALUE CALCULATIONS
+
+//BEGIN COMPUTER REINFORCING LOGIC
+function computerReinforce(indexOfTurn){
+  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
+  var index = Math.floor(Math.random()*(42-0+0)+0);
+  var idOfClicked = gameBoardObject[index].provincename;
+  placingTurn(index, (turnArray[indexOfTurn]-1), idOfClicked, indexOfTurn);
+}
+//END COMPUTER REINFORCING LOGIC
+
+
 
 
 function mapClick(province, index){
