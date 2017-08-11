@@ -581,36 +581,47 @@ function whosTurnIsIt(indexOfTurn){
     // outer for loop should loop thru each player
     for (let i = 0; i < 6; i++){
       var playerBeingSearched = playerObjectArray[i].playername;
-      //inner for loop searches thru all game board objects
-      for (let u = 0; u < 42; u++){
-        if (gameBoardObject[u].owner === playerBeingSearched){
-          var arrayOfAdjacents = gameBoardObject[u].adjacentProvinces;
-          //inner inner loop searches adjacent provinces
-          for (let o = 0; o < arrayOfAdjacents.length; o++){
-            var provinceNameToSearchFor = arrayOfAdjacents[o];
-            //WORKS
-            //Inner inner inner loop searches adjacent provences for player name
-            for (let y = 0; y < 42; y++){
-              if (gameBoardObject[y].provincename === provinceNameToSearchFor){
-                console.log("MATCHING PROVINCE NAME @@@@@@@@@@@@@@@");
-                if (gameBoardObject[y].owner === playerBeingSearched){
-                  var theObject = gameBoardObject[u];
-                  var valuename = "valueTo"+playerBeingSearched;
-                  console.log(valuename);
-                  console.log(theObject);
-                  theObject[ "valuename" ] = theObject[ "valuename" ] + 1;
-                  console.log(theObject);
-                  console.log(gameBoardObject[u]);
-                }
-              } else {
-
-              }
-            }
+      var arrayToSearchThru = playerObjectArray[i].provincesOwned;
+      console.log(playerBeingSearched);
+      console.log(arrayToSearchThru);
+      console.log(gameBoardObject[0].provincename);
+      arrayToSearchThru.map((i) =>{
+        console.log(i);
+        for (let j = 0; j < 42; j++){
+          if (gameBoardObject[j].provincename === i){
+            console.log(gameBoardObject[j]);
           }
-        } else {
-
         }
-      }
+      });
+      // for (let u = 0; u < 42; u++){
+      //   if (gameBoardObject[u].owner === playerBeingSearched){
+      //     var arrayOfAdjacents = gameBoardObject[u].adjacentProvinces;
+      //     //inner inner loop searches adjacent provinces
+      //     for (let o = 0; o < arrayOfAdjacents.length; o++){
+      //       var provinceNameToSearchFor = arrayOfAdjacents[o];
+      //       //WORKS
+      //       //Inner inner inner loop searches adjacent provences for player name
+      //       for (let y = 0; y < 42; y++){
+      //         if (gameBoardObject[y].provincename === provinceNameToSearchFor){
+      //           console.log("MATCHING PROVINCE NAME @@@@@@@@@@@@@@@");
+      //           if (gameBoardObject[y].owner === playerBeingSearched){
+      //             var theObject = gameBoardObject[u];
+      //             var valuename = "valueTo"+playerBeingSearched;
+      //             console.log(valuename);
+      //             console.log(theObject);
+      //             theObject[ "valuename" ] = theObject[ "valuename" ] + 1;
+      //             console.log(theObject);
+      //             console.log(gameBoardObject[u]);
+      //           }
+      //         } else {
+      //
+      //         }
+      //       }
+      //     }
+      //   } else {
+      //
+      //   }
+      // }
     }
     console.log("well, game should start soon");
     playerTurnBoolean = true;
