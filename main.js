@@ -336,14 +336,18 @@ var playerTurnBoolean = true;
 
 //BEGIN PLAYER PLACING
 function placingTurn(province, index, playerindex, idOfClicked){
-  var selectedProvinceObject = gameBoardObject[index];
-  var selectedPlayerPlacingObject = playerObjectArray[playerindex];
-  // if (){
-  //
-  // }
+  if (gameBoardObject[index].owner !== ""){
+    console.log(gameBoardObject[index].owner);
+    return
+  } else {
+    gameBoardObject[index].owner = playerObjectArray[playerindex].playername;
+    var backgroundChange = document.getElementById(idOfClicked+"Counter");
+    backgroundChange.setAttribute("style", "background-color: "+playerObjectArray[playerindex].color+";");
+    gameBoardObject[index].numberOfTroops += 1;
+  }
   console.log(province);
-  console.log(selectedProvinceObject);
-  console.log(selectedPlayerPlacingObject);
+  console.log(gameBoardObject[index]);
+  console.log(playerObjectArray[playerindex]);
   console.log(idOfClicked);
   // playerTurnBoolean = false;
 }
