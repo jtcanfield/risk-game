@@ -191,15 +191,20 @@ var gameBoardObject = [
 //END GAMEBOARDOBJECT HOLDER
 
 //BEGIN DIE FUNCTION
-function rollTheDice(){
-  return Math.floor(Math.random()*(6-1+1)+1)
+function rollTheWhiteDice(){
+  var diceParent = document.getElementById("dice_holder");
+  var whitedienumber = Math.floor(Math.random()*(6-1+1)+1);
+  var newWhiteDice = document.createElement("img");
+  newWhiteDice.setAttribute("style", "background-image: url(white"+whitedienumber+".png);");
+  diceParent.appendChild(newWhiteDice);
+  return whitedienumber;
 }
 //END DIE FUNCTION
 
 //BEGIN GAME START
 function startGame(){
   // document.getElementById("startgamebutton").style.display = "none";
-  console.log(rollTheDice());
+  console.log(rollTheWhiteDice());
 }
 
 //END GAME START

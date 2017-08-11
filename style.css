@@ -24,6 +24,10 @@ map area:hover{
   border: 1px solid #555555;
   border-radius: 99999px;
 }
+#dice_holder img{
+  height: 50px;
+  width: 50px;
+}
 #NA1Counter {
   left: 70px;
   top: 120px;
