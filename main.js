@@ -583,20 +583,24 @@ function whosTurnIsIt(indexOfTurn){
       var playerBeingSearched = playerObjectArray[i].playername;
       //inner for loop searches thru all game board objects
       for (let u = 0; u < 42; u++){
-        var valueChange = gameBoardObject[u][ "valueTo"+playerBeingSearched ];
-        console.log(valueChange);
-        console.log(gameBoardObject[u].owner);
-        console.log(playerBeingSearched);
         if (gameBoardObject[u].owner === playerBeingSearched){
           var arrayOfAdjacents = gameBoardObject[u].adjacentProvinces;
           //inner inner loop searches adjacent provinces
           for (let o = 0; o < arrayOfAdjacents.length; o++){
             var provinceNameToSearchFor = arrayOfAdjacents[o];
+            //WORKS
             //Inner inner inner loop searches adjacent provences for player name
             for (let y = 0; y < 42; y++){
               if (gameBoardObject[y].provincename === provinceNameToSearchFor){
+                console.log("MATCHING PROVINCE NAME @@@@@@@@@@@@@@@");
                 if (gameBoardObject[y].owner === playerBeingSearched){
-                  valueChange += 0.2;
+                  var theObject = gameBoardObject[u];
+                  var valuename = "valueTo"+playerBeingSearched;
+                  console.log(valuename);
+                  console.log(theObject);
+                  theObject[ "valuename" ] = theObject[ "valuename" ] + 1;
+                  console.log(theObject);
+                  console.log(gameBoardObject[u]);
                 }
               } else {
 
