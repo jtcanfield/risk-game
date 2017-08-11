@@ -749,17 +749,9 @@ function whosTurnIsIt(indexOfTurn){
 //END BEGINNING TURN TRACKER
 
 
-//BEGIN COMPUTER PLACING LOGIC
-function computerSelecting(indexOfTurn){
-  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
-  var index = Math.floor(Math.random()*(42-0+0)+0);
-  var idOfClicked = gameBoardObject[index].provincename;
-  placingTurn(index, (turnArray[indexOfTurn]-1), idOfClicked, indexOfTurn);
-}
-//END COMPUTER PLACING LOGIC
-
 //BEGIN VALUE CALCULATIONS
 function valueCalculationFunction(){
+  console.log("recalculating");
   // outer for loop should loop thru each player
   for (let i = 0; i < 6; i++){
     //map thru every object owned by current player selected
@@ -801,26 +793,6 @@ function valueCalculationFunction(){
 //END VALUE CALCULATIONS
 
 
-//BEGIN PLAYER CLICK FUNCTION
-function mapClick(province, index){
-  console.log(gameBoardObject[index]);
-  console.log(gameBoardObject[index].owner);
-  var idOfClicked = $(province).attr('id');
-  if (playerTurnBoolean === false){
-    console.log("its not your turn yet");
-  }
-  if (playerTurnBoolean === true){
-    if (gameStage.stage === "placing"){
-      placingTurn(index, "0", idOfClicked);
-    }
-    if (gameStage.stage === "reinforceStart"){
-      reinforceTurn(index, "0", idOfClicked);
-    }
-    setTimeout(function() { setplayerTurnBoolean = false;}, 1);
-  }
-}
-//END PLAYER CLICK FUNCTION
-
 
 //BEGIN COMPUTER REINFORCING LOGIC
 function computerReinforce(indexOfTurn){
@@ -847,6 +819,46 @@ function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn){
 }
 //END REINFORCE FUNCTION
 
+
+//BEGIN PLAYER CLICK FUNCTION
+function mapClick(province, index){
+  console.log(gameBoardObject[index]);
+  console.log(gameBoardObject[index].owner);
+  var idOfClicked = $(province).attr('id');
+  if (playerTurnBoolean === false){
+    console.log("its not your turn yet");
+  }
+  if (playerTurnBoolean === true){
+    if (gameStage.stage === "placing"){
+      placingTurn(index, "0", idOfClicked);
+    }
+    if (gameStage.stage === "reinforceStart"){
+      reinforceTurn(index, "0", idOfClicked);
+    }
+    setTimeout(function() { setplayerTurnBoolean = false;}, 1);
+  }
+}
+//END PLAYER CLICK FUNCTION
+
+
+
+
+
+
+
+
+
+
+
+
+//BEGIN COMPUTER PLACING LOGIC
+function computerSelecting(indexOfTurn){
+  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
+  var index = Math.floor(Math.random()*(42-0+0)+0);
+  var idOfClicked = gameBoardObject[index].provincename;
+  placingTurn(index, (turnArray[indexOfTurn]-1), idOfClicked, indexOfTurn);
+}
+//END COMPUTER PLACING LOGIC
 
 
 //BEGIN PLACING FUNCTION
