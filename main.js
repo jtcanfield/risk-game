@@ -345,8 +345,9 @@ function placingTurn(province, index, playerindex, idOfClicked){
     counterDiv.setAttribute("style", "background-color: "+playerObjectArray[playerindex].color+";");
     gameBoardObject[index].numberOfTroops += 1;
     counterDiv.innerHTML = gameBoardObject[index].numberOfTroops;
+    playerObjectArray[playerindex].numberOfProvincesOwned += 1;
+    (playerObjectArray[playerindex].provincesOwned).push(idOfClicked);
   }
-  console.log(province);
   console.log(gameBoardObject[index]);
   console.log(playerObjectArray[playerindex]);
   console.log(idOfClicked);
