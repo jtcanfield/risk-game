@@ -228,6 +228,10 @@ span {
   padding: 10px;
   border-radius: 10000px;
 }
+#troop_count{
+  background-color: black;
+  color: white;
+}
 #player1span{
   background-color: red;
 }
@@ -239,6 +243,7 @@ span {
 }
 #player4span{
   background-color: yellow;
+  color: black;
 }
 #player5span{
   background-color: purple;

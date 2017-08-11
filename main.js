@@ -726,6 +726,8 @@ function whosTurnIsIt(indexOfTurn){
     indexOfTurn = 0;
     gameStage.turn += 1;
   }
+  var changeAvail = document.getElementById("troop_count");
+  changeAvail.innerHTML = 20-gameStage.turn;
   var checkForPlayer1Index = turnArray[indexOfTurn];
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   setHighlight.setAttribute("class", "highlight");
