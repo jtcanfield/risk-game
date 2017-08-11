@@ -238,6 +238,7 @@ var playerObjectArray = [
       "color":"red",
       "numberOfProvincesOwned":0,
       "provincesOwned":[],
+      "continentsOwned":[],
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
     },
@@ -245,6 +246,7 @@ var playerObjectArray = [
       "color":"green",
       "numberOfProvincesOwned":0,
       "provincesOwned":[],
+      "continentsOwned":[],
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
       "attitude":"normal",
@@ -253,6 +255,7 @@ var playerObjectArray = [
       "color":"blue",
       "numberOfProvincesOwned":0,
       "provincesOwned":[],
+      "continentsOwned":[],
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
       "attitude":"normal",
@@ -261,6 +264,7 @@ var playerObjectArray = [
       "color":"yellow",
       "numberOfProvincesOwned":0,
       "provincesOwned":[],
+      "continentsOwned":[],
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
       "attitude":"normal",
@@ -269,6 +273,7 @@ var playerObjectArray = [
       "color":"purple",
       "numberOfProvincesOwned":0,
       "provincesOwned":[],
+      "continentsOwned":[],
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
       "attitude":"normal",
@@ -277,6 +282,7 @@ var playerObjectArray = [
       "color":"orange",
       "numberOfProvincesOwned":0,
       "provincesOwned":[],
+      "continentsOwned":[],
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
       "attitude":"normal",
@@ -348,9 +354,6 @@ function placingTurn(province, index, playerindex, idOfClicked){
     playerObjectArray[playerindex].numberOfProvincesOwned += 1;
     (playerObjectArray[playerindex].provincesOwned).push(idOfClicked);
   }
-  console.log(gameBoardObject[index]);
-  console.log(playerObjectArray[playerindex]);
-  console.log(idOfClicked);
   // playerTurnBoolean = false;
 }
 //END PLAYER PLACING
