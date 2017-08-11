@@ -371,7 +371,7 @@ function whosTurnIsIt(indexOfTurn){
 //BEGIN COMPUTER PLACING
 function computerSelecting(indexOfTurn){
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
-  var index = Math.floor(Math.random()*(41-0+0)+1);
+  var index = Math.floor(Math.random()*(42-0+0)+0);
   var idOfClicked = gameBoardObject[index].provincename;
   placingTurn(index, (turnArray[indexOfTurn]-1), idOfClicked, indexOfTurn);
 }
@@ -396,14 +396,16 @@ function placingTurn(index, playerindex, idOfClicked, indexOfTurn){
     (playerObjectArray[playerindex].provincesOwned).push(idOfClicked);
   }
   if (playerindex === "0"){
+    console.log("placed");
     gameStage.mapFilled -= 1;
     var setHighlight = document.getElementById("player1span");
     setHighlight.setAttribute("class", "");
     whosTurnIsIt((turnArray.indexOf(1)) + 1);
   } else if (playerindex !== "0"){
+    console.log("placed");
     gameStage.mapFilled -= 1;
     var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
-    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 1500);
+    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 1);
   }
 }
 //END PLACING FUNCTION
