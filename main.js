@@ -190,6 +190,17 @@ var gameBoardObject = [
 ];
 //END GAMEBOARDOBJECT HOLDER
 
+//BEGIN PLAYER OBJECT ARRAY
+var playerObjectArray = [
+    { "name":"player1",
+      "color":"red",
+      "numberOfTroopsPerTurn":0,
+      "cardStack":"",
+    },
+];
+//END PLAYER OBJECT ARRAY
+
+
 //BEGIN DIE FUNCTION
 function rollTheWhiteDice(){
   var diceParent = document.getElementById("white_dice_holder");
