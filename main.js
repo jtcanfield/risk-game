@@ -757,7 +757,6 @@ function computerSelecting(indexOfTurn){
 function valueCalculationFunction(){
   // outer for loop should loop thru each player
   for (let i = 0; i < 6; i++){
-    console.log(playerObjectArray[i].playername);
     //map thru every object owned by current player selected
     playerObjectArray[i].provincesOwnedIndex.map((o) =>{
       // Map thru every object that is adjacent to the province Selected by the current player selected
@@ -773,17 +772,14 @@ function valueCalculationFunction(){
         if (playerObjectArray[i].playername !== gameBoardObject[e].owner){
           switch (true) {
             case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
-                console.log("we have more troops");
                 gameBoardObject[o][ valueAdd ] -= 5;
                 gameBoardObject[e][ valueAdd ] += 20;
                 break;
             case gameBoardObject[o].numberOfTroops === gameBoardObject[e].numberOfTroops:
-                console.log("same Amount of troops");
                 gameBoardObject[o][ valueAdd ] -= 5;
                 gameBoardObject[e][ valueAdd ] += 5;
                 break;
             case gameBoardObject[o].numberOfTroops < gameBoardObject[e].numberOfTroops:
-                console.log("we have less troops");
                 gameBoardObject[o][ valueAdd ] += 10;
                 gameBoardObject[e][ valueAdd ] -= 10;
                 break;
@@ -799,18 +795,8 @@ function valueCalculationFunction(){
 }
 //END VALUE CALCULATIONS
 
-//BEGIN COMPUTER REINFORCING LOGIC
-function computerReinforce(indexOfTurn){
-  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
-  var index = Math.floor(Math.random()*(42-0+0)+0);
-  var idOfClicked = gameBoardObject[index].provincename;
-  placingTurn(index, (turnArray[indexOfTurn]-1), idOfClicked, indexOfTurn);
-}
-//END COMPUTER REINFORCING LOGIC
 
-
-
-
+//BEGIN PLAYER CLICK FUNCTION
 function mapClick(province, index){
   console.log(gameBoardObject[index]);
   console.log(gameBoardObject[index].owner);
@@ -822,9 +808,31 @@ function mapClick(province, index){
     if (gameStage.stage === "placing"){
       placingTurn(index, "0", idOfClicked);
     }
+    if (gameStage.stage === "reinforceStart"){
+      placingTurn(index, "0", idOfClicked);
+    }
     setTimeout(function() { setplayerTurnBoolean = false;}, 1);
   }
 }
+//END PLAYER CLICK FUNCTION
+
+
+//BEGIN COMPUTER REINFORCING LOGIC
+function computerReinforce(indexOfTurn){
+  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
+  // var index = Math.floor(Math.random()*(42-0+0)+0);
+  var idOfClicked = gameBoardObject[index].provincename;
+  placingTurn(index, (turnArray[indexOfTurn]-1), idOfClicked, indexOfTurn);
+}
+//END COMPUTER REINFORCING LOGIC
+
+
+//BEGIN REINFORCE FUNCTION
+function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn){
+
+}
+//END REINFORCE FUNCTION
+
 
 
 //BEGIN PLACING FUNCTION
