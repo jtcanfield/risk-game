@@ -342,16 +342,17 @@ function whosTurnIsIt(indexOfTurn){
   console.log(turnArray[indexOfTurn]);
   console.log(playerObjectArray[checkForPlayer1Index-1].playername);
   if (playerObjectArray[checkForPlayer1Index-1].playername === "player1"){
+    console.log("playerTurnBoolean fired for true");
     playerTurnBoolean = true;
-    return
-  } else {
+  }
+  if (playerObjectArray[checkForPlayer1Index-1].playername !== "player1") {
     computerSelecting(indexOfTurn);
   }
 }
 //END PLAYER TURN TRACKER
 
 //BEGIN PLAYER PLACING
-function placingTurn(province, index, playerindex, idOfClicked, indexOfTurn){
+function placingTurn(province, index, playerindex, idOfClicked){
   if (gameBoardObject[index].owner !== ""){
     return
   } else {
@@ -364,7 +365,7 @@ function placingTurn(province, index, playerindex, idOfClicked, indexOfTurn){
     (playerObjectArray[playerindex].provincesOwned).push(idOfClicked);
   }
   if (playerindex === "0"){
-    // console.log(turnArray.indexOf(1));
+    console.log("playerTurnBoolean fired for FALSE");
     whosTurnIsIt((turnArray.indexOf(1)) + 1);
     playerTurnBoolean = false;
   }
@@ -383,14 +384,14 @@ STEP ONE: Roll Dice to see who goes first
 STEP TWO: Every Player Puts down a piece
 HAVE A GLOW AROUND WHICH PLAYERS TURN IT IS
 */
-function logtest(province, index){
+function mapClick(province, index){
   var idOfClicked = $(province).attr('id');
   if (playerTurnBoolean === false){
-    console.log("playerTurnBoolean is false")
+    console.log(playerTurnBoolean);
+    console.log("playerTurnBoolean is false");
   }
   if (playerTurnBoolean === true){
     console.log(turnArray);
-    var indexOfTurn =
-    placingTurn(province, index, "0", idOfClicked, indexOfTurn);
+    placingTurn(province, index, "0", idOfClicked);
   }
 }
