@@ -339,7 +339,8 @@ function whosTurnIsIt(indexOfTurn){
     indexOfTurn = 0;
   }
   var checkForPlayer1Index = turnArray[indexOfTurn];
-  console.log(turnArray[indexOfTurn]);
+  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
+  setHighlight.setAttribute("class", "highlight");
   console.log(playerObjectArray[checkForPlayer1Index-1].playername);
   if (playerObjectArray[checkForPlayer1Index-1].playername === "player1"){
     playerTurnBoolean = true;
@@ -365,6 +366,8 @@ function placingTurn(province, index, playerindex, idOfClicked){
     (playerObjectArray[playerindex].provincesOwned).push(idOfClicked);
   }
   if (playerindex === "0"){
+    var setHighlight = document.getElementById("player1span");
+    setHighlight.setAttribute("class", "");
     whosTurnIsIt((turnArray.indexOf(1)) + 1);
   }
 }
@@ -372,8 +375,8 @@ function placingTurn(province, index, playerindex, idOfClicked){
 
 //BEGIN COMPUTER PLACING
 function computerSelecting(indexOfTurn){
-  console.log(turnArray[indexOfTurn]);
-  setTimeout(function() { whosTurnIsIt(indexOfTurn + 1);}, 1000);
+  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
+  setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 1000);
 }
 //END COMPUTER PLACING
 
@@ -388,7 +391,7 @@ function mapClick(province, index){
     console.log("its not your turn yet");
   }
   if (playerTurnBoolean === true){
-    console.log(turnArray);
+    console.log("CLICK REGISTERED");
     placingTurn(province, index, "0", idOfClicked);
     setTimeout(function() { console.log("FALSE FIRED"); setplayerTurnBoolean = false;}, 1);
   }
