@@ -310,6 +310,10 @@ function rollTheRedDice(){
 }
 //END DIE FUNCTION
 
+var gameStage = {stage:"placing", substage:"NA", turn:0};
+//Stages: placing, beginning reinforcement, main gameplay(activates substages)
+//SubStages: Reinforcement, Cards, Attack, FreeMove 
+
 
 //BEGIN GAME START
 function startGame(){
@@ -333,7 +337,8 @@ function startGame(){
 //END GAME START
 var playerTurnBoolean = false;
 var indexOfTurn = 0;
-//BEGIN PLAYER TURN TRACKER
+
+//BEGIN BEGINNING TURN TRACKER
 function whosTurnIsIt(indexOfTurn){
   if (indexOfTurn >= 6){
     indexOfTurn = 0;
@@ -350,9 +355,18 @@ function whosTurnIsIt(indexOfTurn){
     computerSelecting(indexOfTurn);
   }
 }
-//END PLAYER TURN TRACKER
+//END BEGINNING TURN TRACKER
 
-//BEGIN PLAYER PLACING
+
+//BEGIN COMPUTER PLACING
+function computerSelecting(indexOfTurn){
+  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
+  setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 1000);
+}
+//END COMPUTER PLACING
+
+
+//BEGIN PLACING FUNCTION
 function placingTurn(province, index, playerindex, idOfClicked){
   if (gameBoardObject[index].owner !== ""){
     return
@@ -371,28 +385,23 @@ function placingTurn(province, index, playerindex, idOfClicked){
     whosTurnIsIt((turnArray.indexOf(1)) + 1);
   }
 }
-//END PLAYER PLACING
+//END PLACING FUNCTION
 
-//BEGIN COMPUTER PLACING
-function computerSelecting(indexOfTurn){
-  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
-  setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 1000);
-}
-//END COMPUTER PLACING
 
-/*TODO
-STEP ONE: Roll Dice to see who goes first
-STEP TWO: Every Player Puts down a piece
-HAVE A GLOW AROUND WHICH PLAYERS TURN IT IS
-*/
 function mapClick(province, index){
   var idOfClicked = $(province).attr('id');
   if (playerTurnBoolean === false){
     console.log("its not your turn yet");
   }
   if (playerTurnBoolean === true){
-    console.log("CLICK REGISTERED");
     placingTurn(province, index, "0", idOfClicked);
-    setTimeout(function() { console.log("FALSE FIRED"); setplayerTurnBoolean = false;}, 1);
+    setTimeout(function() { setplayerTurnBoolean = false;}, 1);
   }
 }
+
+
+/*TODO
+STEP ONE: Roll Dice to see who goes first
+STEP TWO: Every Player Puts down a piece
+HAVE A GLOW AROUND WHICH PLAYERS TURN IT IS
+*/
