@@ -312,7 +312,7 @@ function rollTheRedDice(){
 
 var gameStage = {stage:"placing", substage:"NA", turn:0};
 //Stages: placing, beginning reinforcement, main gameplay(activates substages)
-//SubStages: Reinforcement, Cards, Attack, FreeMove 
+//SubStages: Reinforcement, Cards, Attack, FreeMove
 
 
 //BEGIN GAME START
@@ -391,7 +391,8 @@ function placingTurn(province, index, playerindex, idOfClicked){
 function mapClick(province, index){
   var idOfClicked = $(province).attr('id');
   if (playerTurnBoolean === false){
-    console.log("its not your turn yet");
+    console.log(province);
+    console.log(index);
   }
   if (playerTurnBoolean === true){
     placingTurn(province, index, "0", idOfClicked);
