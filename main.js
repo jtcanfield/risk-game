@@ -225,8 +225,7 @@ function startGame(){
     turnArray.push(playerNumber);
     i++
   }
-  // document.getElementById("startgamebutton").style.display = "none";
-  console.log(rollTheWhiteDice());
+  document.getElementById("startgamebutton").style.display = "none";
 }
 
 //END GAME START
