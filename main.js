@@ -345,6 +345,7 @@ function whosTurnIsIt(indexOfTurn){
     playerTurnBoolean = true;
   }
   if (playerObjectArray[checkForPlayer1Index-1].playername !== "player1") {
+    playerTurnBoolean = false;
     computerSelecting(indexOfTurn);
   }
 }
@@ -364,9 +365,7 @@ function placingTurn(province, index, playerindex, idOfClicked){
     (playerObjectArray[playerindex].provincesOwned).push(idOfClicked);
   }
   if (playerindex === "0"){
-    console.log("playerTurnBoolean fired for FALSE");
     whosTurnIsIt((turnArray.indexOf(1)) + 1);
-    // playerTurnBoolean = false;
   }
 }
 //END PLAYER PLACING
@@ -374,7 +373,7 @@ function placingTurn(province, index, playerindex, idOfClicked){
 //BEGIN COMPUTER PLACING
 function computerSelecting(indexOfTurn){
   console.log(turnArray[indexOfTurn]);
-  whosTurnIsIt(indexOfTurn + 1);
+  setTimeout(function() { whosTurnIsIt(indexOfTurn + 1);}, 1000);
 }
 //END COMPUTER PLACING
 
@@ -386,9 +385,11 @@ HAVE A GLOW AROUND WHICH PLAYERS TURN IT IS
 function mapClick(province, index){
   var idOfClicked = $(province).attr('id');
   if (playerTurnBoolean === false){
+    console.log("its not your turn yet");
   }
   if (playerTurnBoolean === true){
     console.log(turnArray);
     placingTurn(province, index, "0", idOfClicked);
+    setTimeout(function() { console.log("FALSE FIRED"); setplayerTurnBoolean = false;}, 1);
   }
 }
