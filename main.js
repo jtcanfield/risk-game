@@ -311,13 +311,6 @@ function rollTheRedDice(){
 //END DIE FUNCTION
 
 
-//BEGIN PLAYER TURN TRACKER
-function whosTurnIsIt(){
-  // turnArray = [];
-}
-//END PLAYER TURN TRACKER
-
-
 //BEGIN GAME START
 function startGame(){
   let i = 0;
@@ -335,10 +328,26 @@ function startGame(){
     i++
   }
   document.getElementById("startgamebutton").style.display = "none";
+  whosTurnIsIt(0);
 }
 //END GAME START
-
-var playerTurnBoolean = true;
+var playerTurnBoolean = false;
+//BEGIN PLAYER TURN TRACKER
+function whosTurnIsIt(indexOfTurn){
+  if (indexOfTurn >= 6){
+    indexOfTurn = 0;
+  }
+  var checkForPlayer1Index = turnArray[indexOfTurn];
+  console.log(turnArray[indexOfTurn]);
+  console.log(playerObjectArray[checkForPlayer1Index-1].playername);
+  if (playerObjectArray[checkForPlayer1Index-1].playername === "player1"){
+    var playerTurnBoolean = true;
+    return
+  } else {
+    computerSelecting(indexOfTurn);
+  }
+}
+//END PLAYER TURN TRACKER
 
 //BEGIN PLAYER PLACING
 function placingTurn(province, index, playerindex, idOfClicked){
@@ -358,7 +367,12 @@ function placingTurn(province, index, playerindex, idOfClicked){
 }
 //END PLAYER PLACING
 
-
+//BEGIN COMPUTER PLACING
+function computerSelecting(indexOfTurn){
+  console.log(turnArray[indexOfTurn]);
+  whosTurnIsIt(indexOfTurn + 1)
+}
+//END COMPUTER PLACING
 
 /*TODO
 STEP ONE: Roll Dice to see who goes first
@@ -372,6 +386,7 @@ function logtest(province, index){
     console.log("no, stop, its not your turn");
   }
   if (playerTurnBoolean === true){
+    console.log(turnArray);
     placingTurn(province, index, "0", idOfClicked);
   }
 }
