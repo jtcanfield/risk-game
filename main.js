@@ -601,6 +601,7 @@ var playerObjectArray = [
       "color":"red",
       "numberOfProvincesOwned":0,
       "provincesOwned":[],
+      "provincesOwnedIndex":[],
       "continentsOwned":[],
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
@@ -609,6 +610,7 @@ var playerObjectArray = [
       "color":"green",
       "numberOfProvincesOwned":0,
       "provincesOwned":[],
+      "provincesOwnedIndex":[],
       "continentsOwned":[],
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
@@ -618,6 +620,7 @@ var playerObjectArray = [
       "color":"blue",
       "numberOfProvincesOwned":0,
       "provincesOwned":[],
+      "provincesOwnedIndex":[],
       "continentsOwned":[],
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
@@ -627,6 +630,7 @@ var playerObjectArray = [
       "color":"yellow",
       "numberOfProvincesOwned":0,
       "provincesOwned":[],
+      "provincesOwnedIndex":[],
       "continentsOwned":[],
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
@@ -636,6 +640,7 @@ var playerObjectArray = [
       "color":"purple",
       "numberOfProvincesOwned":0,
       "provincesOwned":[],
+      "provincesOwnedIndex":[],
       "continentsOwned":[],
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
@@ -645,6 +650,7 @@ var playerObjectArray = [
       "color":"orange",
       "numberOfProvincesOwned":0,
       "provincesOwned":[],
+      "provincesOwnedIndex":[],
       "continentsOwned":[],
       "numberOfTroopsPerTurn":0,
       "cardStack":"",
@@ -734,6 +740,12 @@ function whosTurnIsIt(indexOfTurn){
   if (gameStage.stage === "reinforceStart"){
     // outer for loop should loop thru each player
     for (let i = 0; i < 6; i++){
+
+    }
+
+
+/*
+    for (let i = 0; i < 6; i++){
       var playerBeingSearched = playerObjectArray[i].playername;
       var arrayToSearchThru = playerObjectArray[i].provincesOwned;
       console.log(playerBeingSearched);
@@ -760,6 +772,10 @@ function whosTurnIsIt(indexOfTurn){
         }
       });
     }
+*/
+
+
+
     console.log("well, game should start soon");
     playerTurnBoolean = true;
   }
@@ -812,6 +828,8 @@ function placingTurn(index, playerindex, idOfClicked, indexOfTurn){
     counterDiv.innerHTML = gameBoardObject[index].numberOfTroops;
     playerObjectArray[playerindex].numberOfProvincesOwned += 1;
     (playerObjectArray[playerindex].provincesOwned).push(idOfClicked);
+    (playerObjectArray[playerindex].provincesOwnedIndex).push(index);
+    // (index.provincesOwnedIndex).push(idOfClicked);
   }
   if (playerindex === "0"){
     gameStage.mapFilled -= 1;
@@ -830,4 +848,5 @@ function placingTurn(index, playerindex, idOfClicked, indexOfTurn){
 
 /*TODO
 PLACING IS CURRENTLY RANDOM, MAKE COMPUTER THINK
+IF IT IS A TIE, THE DEFENDER WINS
 */
