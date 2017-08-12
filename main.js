@@ -803,6 +803,7 @@ function valueCalculationFunction(i){
     gameBoardObject[c][ valueAdd ] = 0;
   }
   console.log("recalculating for " + playerObjectArray[i].playername);
+  //ADJACENCY DETECTION
   //map thru every object owned by current player selected
   playerObjectArray[i].provincesOwnedIndex.map((o) =>{
     // Map thru every object that is adjacent to the province Selected by the current player selected
@@ -845,6 +846,12 @@ function valueCalculationFunction(i){
       }
     });
   });
+  //CONTINENT DETECTION
+  var naDetect = 0; var saDetect = 0; var euDetect = 0; var afDetect = 0; var ocDetect = 0; var asDetect = 0; 
+  playerObjectArray[i].provincesOwnedIndex.map((a) =>{
+
+  });
+  //RETURN SECTION
   var arrayToChooseFrom = [];
   var arrayofValues = [];
   playerObjectArray[i].provincesOwnedIndex.map((z) =>{
