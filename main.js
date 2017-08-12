@@ -853,7 +853,7 @@ function valueCalculationFunction(i){
   });
   var max = Math.max(...arrayofValues);
   var indexmax = arrayofValues.indexOf(max);
-  console.log(arrayToChooseFrom[indexmax]);
+  return arrayToChooseFrom[indexmax];
 }
 //END VALUE CALCULATIONS
 
