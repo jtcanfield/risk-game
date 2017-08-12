@@ -869,6 +869,12 @@ function valueCalculationFunction(i){
           break;
     }
   });
+  if (naDetect === 9){/*ADD WHAT TO DO WHEN OWNED*/} else if (false){};
+  if (saDetect === 4){/*ADD WHAT TO DO WHEN OWNED*/} else if (false){};
+  if (euDetect === 7){/*ADD WHAT TO DO WHEN OWNED*/} else if (false){};
+  if (afDetect === 6){/*ADD WHAT TO DO WHEN OWNED*/} else if (false){};
+  if (ocDetect === 4){/*ADD WHAT TO DO WHEN OWNED*/} else if (false){};
+  if (asDetect === 12){/*ADD WHAT TO DO WHEN OWNED*/} else if (false){};
   //3. RETURN SECTION
   var arrayToChooseFrom = [];
   var arrayofValues = [];
