@@ -872,42 +872,42 @@ function valueCalculationFunction(i){
   });
   if (naDetect === 9){/*ADD WHAT TO DO WHEN OWNED*/} else if (naDetect !== 9 && naDetect >= 5){
     playerObjectArray[i].provincesOwnedIndex.map((b) =>{
-      if (gameBoardObject[a].continenton === "NA"){
+      if (gameBoardObject[b].continenton === "NA"){
         gameBoardObject[b][ valueAdd ] += 25;
       }
     });
   };
   if (saDetect === 4){/*ADD WHAT TO DO WHEN OWNED*/} else if (saDetect !== 4 && saDetect >= 2){
     playerObjectArray[i].provincesOwnedIndex.map((b) =>{
-      if (gameBoardObject[a].continenton === "SA"){
+      if (gameBoardObject[b].continenton === "SA"){
         gameBoardObject[b][ valueAdd ] += 30;
       }
     });
   };
   if (euDetect === 7){/*ADD WHAT TO DO WHEN OWNED*/} else if (euDetect !== 7 && euDetect >= 4){
     playerObjectArray[i].provincesOwnedIndex.map((b) =>{
-      if (gameBoardObject[a].continenton === "EU"){
+      if (gameBoardObject[b].continenton === "EU"){
         gameBoardObject[b][ valueAdd ] += 15;
       }
     });
   };
   if (afDetect === 6){/*ADD WHAT TO DO WHEN OWNED*/} else if (afDetect !== 6 && afDetect >= 3){
     playerObjectArray[i].provincesOwnedIndex.map((b) =>{
-      if (gameBoardObject[a].continenton === "AF"){
+      if (gameBoardObject[b].continenton === "AF"){
         gameBoardObject[b][ valueAdd ] += 20;
       }
     });
   };
   if (ocDetect === 4){/*ADD WHAT TO DO WHEN OWNED*/} else if (ocDetect !== 4 && ocDetect >= 2){
     playerObjectArray[i].provincesOwnedIndex.map((b) =>{
-      if (gameBoardObject[a].continenton === "OC"){
+      if (gameBoardObject[b].continenton === "OC"){
         gameBoardObject[b][ valueAdd ] += 35;
       }
     });
   };
   if (asDetect === 12){/*ADD WHAT TO DO WHEN OWNED*/} else if (asDetect !== 12 && asDetect >= 7){
     playerObjectArray[i].provincesOwnedIndex.map((b) =>{
-      if (gameBoardObject[a].continenton === "AS"){
+      if (gameBoardObject[b].continenton === "AS"){
         gameBoardObject[b][ valueAdd ] += 10;
       }
     });
