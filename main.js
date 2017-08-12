@@ -839,6 +839,7 @@ function valueCalculationFunction(i){
         }
       }
       if (nextToAlly === gameBoardObject[o].adjacentProvinceIndex.length){
+        //ADD AN IF STATEMENT FOR WEATHER OR NOT TO DEFEND CONT
           gameBoardObject[o][ valueAdd ] -= 100;
           console.log("surrounded by friendlies");
       }
@@ -870,16 +871,46 @@ function valueCalculationFunction(i){
     }
   });
   if (naDetect === 9){/*ADD WHAT TO DO WHEN OWNED*/} else if (naDetect !== 9 && naDetect >= 5){
+    playerObjectArray[i].provincesOwnedIndex.map((b) =>{
+      if (gameBoardObject[a].continenton === "NA"){
+        gameBoardObject[b][ valueAdd ] += 25;
+      }
+    });
   };
   if (saDetect === 4){/*ADD WHAT TO DO WHEN OWNED*/} else if (saDetect !== 4 && saDetect >= 2){
+    playerObjectArray[i].provincesOwnedIndex.map((b) =>{
+      if (gameBoardObject[a].continenton === "SA"){
+        gameBoardObject[b][ valueAdd ] += 30;
+      }
+    });
   };
   if (euDetect === 7){/*ADD WHAT TO DO WHEN OWNED*/} else if (euDetect !== 7 && euDetect >= 4){
+    playerObjectArray[i].provincesOwnedIndex.map((b) =>{
+      if (gameBoardObject[a].continenton === "EU"){
+        gameBoardObject[b][ valueAdd ] += 15;
+      }
+    });
   };
   if (afDetect === 6){/*ADD WHAT TO DO WHEN OWNED*/} else if (afDetect !== 6 && afDetect >= 3){
+    playerObjectArray[i].provincesOwnedIndex.map((b) =>{
+      if (gameBoardObject[a].continenton === "AF"){
+        gameBoardObject[b][ valueAdd ] += 20;
+      }
+    });
   };
   if (ocDetect === 4){/*ADD WHAT TO DO WHEN OWNED*/} else if (ocDetect !== 4 && ocDetect >= 2){
+    playerObjectArray[i].provincesOwnedIndex.map((b) =>{
+      if (gameBoardObject[a].continenton === "OC"){
+        gameBoardObject[b][ valueAdd ] += 35;
+      }
+    });
   };
   if (asDetect === 12){/*ADD WHAT TO DO WHEN OWNED*/} else if (asDetect !== 12 && asDetect >= 7){
+    playerObjectArray[i].provincesOwnedIndex.map((b) =>{
+      if (gameBoardObject[a].continenton === "AS"){
+        gameBoardObject[b][ valueAdd ] += 10;
+      }
+    });
   };
   //3. RETURN SECTION
   var arrayToChooseFrom = [];
