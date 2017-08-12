@@ -819,11 +819,21 @@ function valueCalculationFunction(i){
         var changevalue = 0;
         //Switch for adjacency
         switch (true) {
-          case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops://Selected has more than adjacent
+          case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
+              //Selected has way more than adjacent, and sees no reason to reinforce
+
+              //MAKE THIS SO IF THERE IS A LARGE AMOUNT NEARBY IT DOESNT FIRE
+
+              gameBoardObject[o][ valueAdd ] -= 10;
+              gameBoardObject[e][ valueAdd ] += (Math.floor(gameBoardObject[o].numberOfTroops/gameBoardObject[e].numberOfTroops)*5);
+              break;
+          case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
+              //Selected has more than adjacent
               gameBoardObject[o][ valueAdd ] += 5;
               gameBoardObject[e][ valueAdd ] += (Math.floor(gameBoardObject[o].numberOfTroops/gameBoardObject[e].numberOfTroops)*5);
               break;
           case gameBoardObject[o].numberOfTroops === gameBoardObject[e].numberOfTroops:
+              //Selected is equal to adjacent
               gameBoardObject[o][ valueAdd ] += 5;
               gameBoardObject[e][ valueAdd ] += 5;
               break;
@@ -832,7 +842,8 @@ function valueCalculationFunction(i){
               gameBoardObject[o][ valueAdd ] -= 20;
               gameBoardObject[e][ valueAdd ] -= 30;
               break;
-          case gameBoardObject[o].numberOfTroops < gameBoardObject[e].numberOfTroops://Selected has less than adjacent
+          case gameBoardObject[o].numberOfTroops < gameBoardObject[e].numberOfTroops:
+              //Selected has less than adjacent
               gameBoardObject[o][ valueAdd ] += 20;
               gameBoardObject[e][ valueAdd ] -= 10;
               break;
