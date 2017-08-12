@@ -817,8 +817,8 @@ function valueCalculationFunction(i){
       //The Higher the Value for "o", the more it needs reinforcements
       //The Higher the value for "e", the more likely the computer should attack
       if (playerObjectArray[i].playername !== gameBoardObject[e].owner){
-
         var changevalue = 0;
+        //Switch for adjacency
         switch (true) {
           case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops://Selected has more than adjacent
               gameBoardObject[o][ valueAdd ] += 5;
@@ -878,7 +878,6 @@ function computerReinforce(indexOfTurn){
   var index = calculateIndex(objectChosen);
   var idOfClicked = objectChosen.provincename;
   setTimeout(function() { reinforceTurn(index, playerindex, idOfClicked, indexOfTurn); }, 1000);
-
   // var randonumbeomax = playerObjectArray[playerindex].provincesOwnedIndex.length;
   // var indexofplayerarray = Math.floor(Math.random()*(randonumbeomax-0+0)+0);
   // var index = playerObjectArray[playerindex].provincesOwnedIndex[indexofplayerarray];
@@ -933,13 +932,6 @@ function mapClick(province, index){
   }
 }
 //END PLAYER CLICK FUNCTION
-
-
-
-
-
-
-
 
 
 
