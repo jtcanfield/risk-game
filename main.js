@@ -869,12 +869,18 @@ function valueCalculationFunction(i){
           break;
     }
   });
-  if (naDetect === 9){/*ADD WHAT TO DO WHEN OWNED*/} else if (false){};
-  if (saDetect === 4){/*ADD WHAT TO DO WHEN OWNED*/} else if (false){};
-  if (euDetect === 7){/*ADD WHAT TO DO WHEN OWNED*/} else if (false){};
-  if (afDetect === 6){/*ADD WHAT TO DO WHEN OWNED*/} else if (false){};
-  if (ocDetect === 4){/*ADD WHAT TO DO WHEN OWNED*/} else if (false){};
-  if (asDetect === 12){/*ADD WHAT TO DO WHEN OWNED*/} else if (false){};
+  if (naDetect === 9){/*ADD WHAT TO DO WHEN OWNED*/} else if (naDetect !== 9 && naDetect >= 5){
+  };
+  if (saDetect === 4){/*ADD WHAT TO DO WHEN OWNED*/} else if (saDetect !== 4 && saDetect >= 2){
+  };
+  if (euDetect === 7){/*ADD WHAT TO DO WHEN OWNED*/} else if (euDetect !== 7 && euDetect >= 4){
+  };
+  if (afDetect === 6){/*ADD WHAT TO DO WHEN OWNED*/} else if (afDetect !== 6 && afDetect >= 3){
+  };
+  if (ocDetect === 4){/*ADD WHAT TO DO WHEN OWNED*/} else if (ocDetect !== 4 && ocDetect >= 2){
+  };
+  if (asDetect === 12){/*ADD WHAT TO DO WHEN OWNED*/} else if (asDetect !== 12 && asDetect >= 7){
+  };
   //3. RETURN SECTION
   var arrayToChooseFrom = [];
   var arrayofValues = [];
