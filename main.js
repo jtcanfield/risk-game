@@ -847,9 +847,29 @@ function valueCalculationFunction(i){
     });
   });
   //CONTINENT DETECTION
-  var naDetect = 0; var saDetect = 0; var euDetect = 0; var afDetect = 0; var ocDetect = 0; var asDetect = 0; 
+  var naDetect = 0; var saDetect = 0; var euDetect = 0; var afDetect = 0; var ocDetect = 0; var asDetect = 0;
+  var contDetection = [];
   playerObjectArray[i].provincesOwnedIndex.map((a) =>{
+    switch (gameBoardObject[a].continenton) {
+      case "NA":
 
+          break;
+      case "SA":
+
+          break;
+      case "EU":
+
+          break;
+      case "AF":
+
+          break;
+      case "OC":
+
+          break;
+      case "AS":
+
+          break;
+    }
   });
   //RETURN SECTION
   var arrayToChooseFrom = [];
