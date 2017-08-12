@@ -669,7 +669,7 @@ var playerObjectArray = [
       "attitude":"normal",
     },
     { "playername":"player4",
-      "color":"yellow",
+      "color":"hotpink",
       "numberOfProvincesOwned":0,
       "provincesOwned":[],
       "provincesOwnedIndex":[],

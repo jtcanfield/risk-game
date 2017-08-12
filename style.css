@@ -240,13 +240,14 @@ span {
 }
 #player3span{
   background-color: blue;
+  color: white;
 }
 #player4span{
-  background-color: yellow;
-  color: black;
+  background-color: hotpink;
 }
 #player5span{
   background-color: purple;
+  color: white;
 }
 #player6span{
   background-color: orange;
