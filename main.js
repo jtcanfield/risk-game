@@ -793,17 +793,15 @@ function whosTurnIsIt(indexOfTurn){
 //END BEGINNING TURN TRACKER
 
 
-//BEGIN VALUE CALCULATIONS
+//BEGIN AI LOGIC AND VALUE CALCULATIONS
 function valueCalculationFunction(i){
-  // Detect Continent Determination
-
   var valueAdd = "valueTo"+playerObjectArray[i].playername;
   //clear current values
   for (let c = 0; c < 42; c++){
     gameBoardObject[c][ valueAdd ] = 0;
   }
   console.log("recalculating for " + playerObjectArray[i].playername);
-  //ADJACENCY DETECTION
+  //1. ADJACENCY DETECTION
   //map thru every object owned by current player selected
   playerObjectArray[i].provincesOwnedIndex.map((o) =>{
     // Map thru every object that is adjacent to the province Selected by the current player selected
@@ -846,7 +844,7 @@ function valueCalculationFunction(i){
       }
     });
   });
-  //CONTINENT DETECTION
+  //2. CONTINENT DETECTION
   var naDetect = 0; var saDetect = 0; var euDetect = 0; var afDetect = 0; var ocDetect = 0; var asDetect = 0;
   var contDetection = [];
   playerObjectArray[i].provincesOwnedIndex.map((a) =>{
@@ -871,7 +869,7 @@ function valueCalculationFunction(i){
           break;
     }
   });
-  //RETURN SECTION
+  //3. RETURN SECTION
   var arrayToChooseFrom = [];
   var arrayofValues = [];
   playerObjectArray[i].provincesOwnedIndex.map((z) =>{
@@ -882,7 +880,7 @@ function valueCalculationFunction(i){
   var indexmax = arrayofValues.indexOf(max);
   return arrayToChooseFrom[indexmax];
 }
-//END VALUE CALCULATIONS
+//END AI LOGIC AND VALUE CALCULATIONS
 
 
 //BEGIN INDEX CALCULATIONS
