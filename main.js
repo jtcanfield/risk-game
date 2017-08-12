@@ -845,9 +845,15 @@ function valueCalculationFunction(i){
       }
     });
   });
+  var arrayToChooseFrom = [];
+  var arrayofValues = [];
   playerObjectArray[i].provincesOwnedIndex.map((z) =>{
-    console.log(z);
+      arrayToChooseFrom.push(gameBoardObject[z]);
+      arrayofValues.push(gameBoardObject[z][ valueAdd ]);
   });
+  var max = Math.max(...arrayofValues);
+  var indexmax = arrayofValues.indexOf(max);
+  console.log(arrayToChooseFrom[indexmax]);
 }
 //END VALUE CALCULATIONS
 
