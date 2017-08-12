@@ -840,10 +840,13 @@ function valueCalculationFunction(i){
         }
       }
       if (nextToAlly === gameBoardObject[o].adjacentProvinceIndex.length){
-          gameBoardObject[o][ valueAdd ] += 100;
+          gameBoardObject[o][ valueAdd ] -= 100;
           console.log("surrounded by friendlies");
       }
     });
+  });
+  playerObjectArray[i].provincesOwnedIndex.map((z) =>{
+    console.log(z);
   });
 }
 //END VALUE CALCULATIONS
