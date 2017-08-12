@@ -858,18 +858,33 @@ function valueCalculationFunction(i){
 //END VALUE CALCULATIONS
 
 
+//BEGIN INDEX CALCULATIONS
+function calculateIndex(x){
+  for (let i = 0; i < 43; i++){
+    if (x.provincename === gameBoardObject[i].provincename){
+      return i;
+    }
+  }
+}
+//END INDEX CALCULATIONS
+
 
 //BEGIN COMPUTER REINFORCING LOGIC
 function computerReinforce(indexOfTurn){
   var playerindex = turnArray[indexOfTurn]-1;
   console.log(playerObjectArray[playerindex].playername + " is about to renif...");
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
-  var randonumbeomax = playerObjectArray[playerindex].provincesOwnedIndex.length;
-  var indexofplayerarray = Math.floor(Math.random()*(randonumbeomax-0+0)+0);
-  var index = playerObjectArray[playerindex].provincesOwnedIndex[indexofplayerarray];
-  var idOfClicked = gameBoardObject[index].provincename;
-  setTimeout(function() { valueCalculationFunction(playerindex); }, 500);
+  var objectChosen = valueCalculationFunction(playerindex);
+  var index = calculateIndex(objectChosen);
+  var idOfClicked = objectChosen.provincename;
   setTimeout(function() { reinforceTurn(index, playerindex, idOfClicked, indexOfTurn); }, 1000);
+
+  // var randonumbeomax = playerObjectArray[playerindex].provincesOwnedIndex.length;
+  // var indexofplayerarray = Math.floor(Math.random()*(randonumbeomax-0+0)+0);
+  // var index = playerObjectArray[playerindex].provincesOwnedIndex[indexofplayerarray];
+  // var idOfClicked = gameBoardObject[index].provincename;
+  // setTimeout(function() { valueCalculationFunction(playerindex); }, 500);
+  // setTimeout(function() { reinforceTurn(index, playerindex, idOfClicked, indexOfTurn); }, 1000);
 }
 //END COMPUTER REINFORCING LOGIC
 
