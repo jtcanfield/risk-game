@@ -852,22 +852,22 @@ function valueCalculationFunction(i){
   playerObjectArray[i].provincesOwnedIndex.map((a) =>{
     switch (gameBoardObject[a].continenton) {
       case "NA":
-
+          naDetect += 1;
           break;
       case "SA":
-
+          saDetect += 1;
           break;
       case "EU":
-
+          euDetect += 1;
           break;
       case "AF":
-
+          afDetect += 1;
           break;
       case "OC":
-
+          ocDetect += 1;
           break;
       case "AS":
-
+          asDetect += 1;
           break;
     }
   });
