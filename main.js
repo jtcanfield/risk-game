@@ -942,6 +942,8 @@ function valueCalculationFunction(i){
   });
   var max = Math.max(...arrayofValues);
   var indexmax = arrayofValues.indexOf(max);
+  console.log(arrayToChooseFrom);
+  console.log(arrayofValues);
   return arrayToChooseFrom[indexmax];
 }
 //END AI LOGIC AND VALUE CALCULATIONS
@@ -1010,11 +1012,11 @@ function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn){
 
 //BEGIN PLAYER CLICK FUNCTION
 function mapClick(province, index){
-  console.log(gameBoardObject[index]);
-  console.log(gameBoardObject[index].owner);
+  // console.log(gameBoardObject[index]);
+  // console.log(gameBoardObject[index].owner);
   var idOfClicked = $(province).attr('id');
   if (playerTurnBoolean === false){
-    console.log("its not your turn yet");
+    // console.log("its not your turn yet");
   }
   if (playerTurnBoolean === true){
     if (gameStage.stage === "placing"){
