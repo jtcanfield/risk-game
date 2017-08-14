@@ -795,18 +795,18 @@ function valueCalculationFunction(i){
               break;
           case gameBoardObject[o].numberOfTroops === gameBoardObject[e].numberOfTroops:
               //Selected is equal to adjacent
-              gameBoardObject[o][ valueAdd ] += 5;
-              gameBoardObject[e][ valueAdd ] += 5;
+              gameBoardObject[o][ valueAdd ] += Math.floor(Math.random() * (10 - 5)) + 5;//5;
+              gameBoardObject[e][ valueAdd ] += Math.floor(Math.random() * (10 - 5)) + 5;//5;
               break;
           case gameBoardObject[o].numberOfTroops < gameBoardObject[e].numberOfTroops && gameBoardObject[o].numberOfTroops > 20 && (Math.floor(gameBoardObject[e].numberOfTroops/gameBoardObject[o].numberOfTroops)) < 3:
               //Selected has less than adjacent and figures its pointless
-              gameBoardObject[o][ valueAdd ] -= 20;
-              gameBoardObject[e][ valueAdd ] -= 30;
+              gameBoardObject[o][ valueAdd ] -= Math.floor(Math.random() * (25 - 20)) + 20;//20;
+              gameBoardObject[e][ valueAdd ] -= Math.floor(Math.random() * (35 - 25)) + 25;//30;
               break;
           case gameBoardObject[o].numberOfTroops < gameBoardObject[e].numberOfTroops:
               //Selected has less than adjacent
-              gameBoardObject[o][ valueAdd ] += 20;
-              gameBoardObject[e][ valueAdd ] -= 10;
+              gameBoardObject[o][ valueAdd ] += Math.floor(Math.random() * (25 - 15)) + 15;//20;
+              gameBoardObject[e][ valueAdd ] -= Math.floor(Math.random() * (15 - 5)) + 5;//10;
               break;
         }
       }
@@ -994,7 +994,7 @@ function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn){
       whosTurnIsIt((turnArray.indexOf(1)) + 1);
     }
     if (gameStage.stage === "maingameplay"){
-      console.log("ITS MAINGAMEPLAY TIME FIRED EARLY BY PLAYER");
+      console.log("ITS MAINGAMEPLAY TIME");
     }
   } else if (playerindex !== "0"){
     var counterDiv = document.getElementById(idOfClicked+"Counter");
@@ -1005,7 +1005,7 @@ function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn){
       setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 100);
     }
     if (gameStage.stage === "maingameplay"){
-      console.log("ITS MAINGAMEPLAY TIME FIRED EARLY BY COMPUTER");
+      console.log("ITS MAINGAMEPLAY TIME FIRED, END OF DEMO");
     }
   }
 }
