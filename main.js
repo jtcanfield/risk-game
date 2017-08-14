@@ -790,15 +790,15 @@ function whosTurnIsIt(indexOfTurn){
     }
   }
   if (gameStage.stage === "maingameplay"){
-    if (playerObjectArray[checkForPlayer1Index-1].playername !== "player1"){
-
-    }
-    if (gameStage.subStage === "attack"){
-      playerTurnBoolean = true;
-    }
-    if (gameStage.subStage === "move"){
-      playerTurnBoolean = true;
-    }
+    // if (playerObjectArray[checkForPlayer1Index-1].playername !== "player1"){
+    //
+    // }
+    // if (gameStage.subStage === "attack"){
+    //   playerTurnBoolean = true;
+    // }
+    // if (gameStage.subStage === "move"){
+    //   playerTurnBoolean = true;
+    // }
       console.log("MAIN GAMEPLAY BEGINS");
       playerTurnBoolean = true;
   }
@@ -986,13 +986,23 @@ function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn){
     counterDiv.innerHTML = gameBoardObject[index].numberOfTroops;
     var setHighlight = document.getElementById("player1span");
     setHighlight.setAttribute("class", "");
-    whosTurnIsIt((turnArray.indexOf(1)) + 1);
+    if (gameStage.stage === "reinforceStart"){
+      whosTurnIsIt((turnArray.indexOf(1)) + 1);
+    }
+    if (gameStage.stage === "maingameplay"){
+      console.log("ITS MAINGAMEPLAY TIME");
+    }
   } else if (playerindex !== "0"){
     var counterDiv = document.getElementById(idOfClicked+"Counter");
     gameBoardObject[index].numberOfTroops += 1;
     counterDiv.innerHTML = gameBoardObject[index].numberOfTroops;
     var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
-    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 100);
+    if (gameStage.stage === "reinforceStart"){
+      setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 100);
+    }
+    if (gameStage.stage === "maingameplay"){
+      console.log("ITS MAINGAMEPLAY TIME");
+    }
   }
 }
 //END REINFORCE FUNCTION
