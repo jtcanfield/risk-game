@@ -756,8 +756,10 @@ var indexOfTurn = 0;
 //BEGIN BEGINNING TURN TRACKER
 function whosTurnIsIt(indexOfTurn){
   if (indexOfTurn >= 6){
-    indexOfTurn = 0;
+    // indexOfTurn = 0;
     gameStage.turn += 1;
+    setTimeout(function() { whosTurnIsIt(0); }, 10);
+    return
   }
   if (gameStage.mapFilled === 0){
     gameStage.stage = "reinforceStart";
@@ -790,17 +792,13 @@ function whosTurnIsIt(indexOfTurn){
     }
   }
   if (gameStage.stage === "maingameplay"){
-    // if (playerObjectArray[checkForPlayer1Index-1].playername !== "player1"){
-    //
-    // }
-    // if (gameStage.subStage === "attack"){
-    //   playerTurnBoolean = true;
-    // }
-    // if (gameStage.subStage === "move"){
-    //   playerTurnBoolean = true;
-    // }
-      console.log("MAIN GAMEPLAY BEGINS");
+    console.log("maingameplay begins");
+    if (playerObjectArray[checkForPlayer1Index-1].playername !== "player1"){
+      playerTurnBoolean = false;
+      computerReinforce(indexOfTurn);
+    } else {
       playerTurnBoolean = true;
+    }
   }
 }
 //END BEGINNING TURN TRACKER
@@ -831,7 +829,7 @@ function valueCalculationFunction(i){
         var changevalue = 0;
         //Switch for adjacency
         switch (true) {
-        /*  case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
+          /*case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
               //Selected has way more than adjacent, and sees no reason to reinforce
 
               //MAKE THIS SO IF THERE IS A LARGE AMOUNT NEARBY IT DOESNT FIRE
@@ -968,7 +966,7 @@ function computerReinforce(indexOfTurn){
   var objectChosen = valueCalculationFunction(playerindex);
   var index = calculateIndex(objectChosen);
   var idOfClicked = objectChosen.provincename;
-  setTimeout(function() { reinforceTurn(index, playerindex, idOfClicked, indexOfTurn); }, 1000);
+  setTimeout(function() { reinforceTurn(index, playerindex, idOfClicked, indexOfTurn); }, 10/*00*/);
 }
 //END COMPUTER REINFORCING LOGIC
 
@@ -990,7 +988,7 @@ function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn){
       whosTurnIsIt((turnArray.indexOf(1)) + 1);
     }
     if (gameStage.stage === "maingameplay"){
-      console.log("ITS MAINGAMEPLAY TIME");
+      console.log("ITS MAINGAMEPLAY TIME FIRED EARLY BY PLAYER");
     }
   } else if (playerindex !== "0"){
     var counterDiv = document.getElementById(idOfClicked+"Counter");
@@ -1001,11 +999,13 @@ function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn){
       setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 100);
     }
     if (gameStage.stage === "maingameplay"){
-      console.log("ITS MAINGAMEPLAY TIME");
+      console.log("ITS MAINGAMEPLAY TIME FIRED EARLY BY COMPUTER");
     }
   }
 }
 //END REINFORCE FUNCTION
+
+
 
 
 //BEGIN PLAYER CLICK FUNCTION
@@ -1021,7 +1021,7 @@ function mapClick(province, index){
       setTimeout(function() { placingTurn(index, "0", idOfClicked);}, 1);
     }
     if (gameStage.stage === "reinforceStart"){
-      setTimeout(function() { reinforceTurn(index, "0", idOfClicked);}, 1);
+      setTimeout(function() { reinforceTurn(index, "0", idOfClicked);}, 2);
     }
     setTimeout(function() { setplayerTurnBoolean = false;}, 3);
   }
