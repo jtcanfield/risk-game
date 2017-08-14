@@ -957,12 +957,6 @@ function computerReinforce(indexOfTurn){
   var index = calculateIndex(objectChosen);
   var idOfClicked = objectChosen.provincename;
   setTimeout(function() { reinforceTurn(index, playerindex, idOfClicked, indexOfTurn); }, 1000);
-  // var randonumbeomax = playerObjectArray[playerindex].provincesOwnedIndex.length;
-  // var indexofplayerarray = Math.floor(Math.random()*(randonumbeomax-0+0)+0);
-  // var index = playerObjectArray[playerindex].provincesOwnedIndex[indexofplayerarray];
-  // var idOfClicked = gameBoardObject[index].provincename;
-  // setTimeout(function() { valueCalculationFunction(playerindex); }, 500);
-  // setTimeout(function() { reinforceTurn(index, playerindex, idOfClicked, indexOfTurn); }, 1000);
 }
 //END COMPUTER REINFORCING LOGIC
 
