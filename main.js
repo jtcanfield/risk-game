@@ -753,55 +753,6 @@ function startGame(){
 
 var playerTurnBoolean = false;
 var indexOfTurn = 0;
-//BEGIN BEGINNING TURN TRACKER
-function whosTurnIsIt(indexOfTurn){
-  if (indexOfTurn >= 6){
-    // indexOfTurn = 0;
-    gameStage.turn += 1;
-    setTimeout(function() { whosTurnIsIt(0); }, 10);
-    return
-  }
-  if (gameStage.mapFilled === 0){
-    gameStage.stage = "reinforceStart";
-    gameStage.mapFilled -= 99;
-  }
-  var changeAvail = document.getElementById("troop_count");
-  changeAvail.innerHTML  = 20-gameStage.turn;
-  if (gameStage.turn === 20){
-    gameStage.stage = "maingameplay";
-  }
-  var checkForPlayer1Index = turnArray[indexOfTurn];
-  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
-  setHighlight.setAttribute("class", "highlight");
-  if (gameStage.stage === "placing"){
-    announcements.innerHTML = playerObjectArray[turnArray[indexOfTurn]-1].playername + " is Placing"
-    if (playerObjectArray[checkForPlayer1Index-1].playername !== "player1"){
-      playerTurnBoolean = false;
-      computerSelecting(indexOfTurn);
-    } else {
-      playerTurnBoolean = true;
-    }
-  }
-  if (gameStage.stage === "reinforceStart"){
-    announcements.innerHTML = playerObjectArray[turnArray[indexOfTurn]-1].playername + " is Reinforcing"
-    if (playerObjectArray[checkForPlayer1Index-1].playername !== "player1"){
-      playerTurnBoolean = false;
-      computerReinforce(indexOfTurn);
-    } else {
-      playerTurnBoolean = true;
-    }
-  }
-  if (gameStage.stage === "maingameplay"){
-    console.log("maingameplay begins");
-    if (playerObjectArray[checkForPlayer1Index-1].playername !== "player1"){
-      playerTurnBoolean = false;
-      computerReinforce(indexOfTurn);
-    } else {
-      playerTurnBoolean = true;
-    }
-  }
-}
-//END BEGINNING TURN TRACKER
 
 
 //BEGIN AI LOGIC AND VALUE CALCULATIONS
@@ -947,6 +898,59 @@ function valueCalculationFunction(i){
   return arrayToChooseFrom[indexmax];
 }
 //END AI LOGIC AND VALUE CALCULATIONS
+
+
+
+//BEGIN BEGINNING TURN TRACKER
+function whosTurnIsIt(indexOfTurn){
+  if (indexOfTurn >= 6){
+    // indexOfTurn = 0;
+    gameStage.turn += 1;
+    setTimeout(function() { whosTurnIsIt(0); }, 10);
+    return
+  }
+  if (gameStage.mapFilled === 0){
+    gameStage.stage = "reinforceStart";
+    gameStage.mapFilled -= 99;
+  }
+  var changeAvail = document.getElementById("troop_count");
+  changeAvail.innerHTML  = 20-gameStage.turn;
+  if (gameStage.turn === 20){
+    gameStage.stage = "maingameplay";
+  }
+  var checkForPlayer1Index = turnArray[indexOfTurn];
+  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
+  setHighlight.setAttribute("class", "highlight");
+  if (gameStage.stage === "placing"){
+    announcements.innerHTML = playerObjectArray[turnArray[indexOfTurn]-1].playername + " is Placing"
+    if (playerObjectArray[checkForPlayer1Index-1].playername !== "player1"){
+      playerTurnBoolean = false;
+      computerSelecting(indexOfTurn);
+    } else {
+      playerTurnBoolean = true;
+    }
+  }
+  if (gameStage.stage === "reinforceStart"){
+    announcements.innerHTML = playerObjectArray[turnArray[indexOfTurn]-1].playername + " is Reinforcing"
+    if (playerObjectArray[checkForPlayer1Index-1].playername !== "player1"){
+      playerTurnBoolean = false;
+      computerReinforce(indexOfTurn);
+    } else {
+      playerTurnBoolean = true;
+    }
+  }
+  if (gameStage.stage === "maingameplay"){
+    console.log("maingameplay begins");
+    if (playerObjectArray[checkForPlayer1Index-1].playername !== "player1"){
+      playerTurnBoolean = false;
+      computerReinforce(indexOfTurn);
+    } else {
+      playerTurnBoolean = true;
+    }
+  }
+}
+//END BEGINNING TURN TRACKER
+
 
 
 //BEGIN INDEX CALCULATIONS
