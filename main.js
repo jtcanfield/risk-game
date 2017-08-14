@@ -701,6 +701,8 @@ var playerObjectArray = [
 ];
 //END PLAYER OBJECT ARRAY
 
+var announcements = document.getElementById("announcements");
+
 //BEGIN DIE FUNCTION
 function rollTheWhiteDice(){
   var diceParent = document.getElementById("white_dice_holder");
@@ -770,6 +772,7 @@ function whosTurnIsIt(indexOfTurn){
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   setHighlight.setAttribute("class", "highlight");
   if (gameStage.stage === "placing"){
+    announcements.innerHTML = playerObjectArray[turnArray[indexOfTurn]-1].playername + " is Placing"
     if (playerObjectArray[checkForPlayer1Index-1].playername !== "player1"){
       playerTurnBoolean = false;
       computerSelecting(indexOfTurn);
@@ -778,6 +781,7 @@ function whosTurnIsIt(indexOfTurn){
     }
   }
   if (gameStage.stage === "reinforceStart"){
+    announcements.innerHTML = playerObjectArray[turnArray[indexOfTurn]-1].playername + " is Reinforcing"
     if (playerObjectArray[checkForPlayer1Index-1].playername !== "player1"){
       playerTurnBoolean = false;
       computerReinforce(indexOfTurn);
@@ -786,6 +790,15 @@ function whosTurnIsIt(indexOfTurn){
     }
   }
   if (gameStage.stage === "maingameplay"){
+    if (playerObjectArray[checkForPlayer1Index-1].playername !== "player1"){
+
+    }
+    if (gameStage.subStage === "attack"){
+      playerTurnBoolean = true;
+    }
+    if (gameStage.subStage === "move"){
+      playerTurnBoolean = true;
+    }
       console.log("MAIN GAMEPLAY BEGINS");
       playerTurnBoolean = true;
   }
@@ -800,7 +813,6 @@ function valueCalculationFunction(i){
   for (let c = 0; c < 42; c++){
     gameBoardObject[c][ valueAdd ] = 0;
   }
-  console.log("recalculating for " + playerObjectArray[i].playername);
   //1. ADJACENCY DETECTION
   //map thru every object owned by current player selected
   playerObjectArray[i].provincesOwnedIndex.map((o) =>{
@@ -819,14 +831,14 @@ function valueCalculationFunction(i){
         var changevalue = 0;
         //Switch for adjacency
         switch (true) {
-          case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
+        /*  case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
               //Selected has way more than adjacent, and sees no reason to reinforce
 
               //MAKE THIS SO IF THERE IS A LARGE AMOUNT NEARBY IT DOESNT FIRE
 
               gameBoardObject[o][ valueAdd ] -= 10;
               gameBoardObject[e][ valueAdd ] += (Math.floor(gameBoardObject[o].numberOfTroops/gameBoardObject[e].numberOfTroops)*5);
-              break;
+              break;*/
           case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
               //Selected has more than adjacent
               gameBoardObject[o][ valueAdd ] += 5;
@@ -951,7 +963,7 @@ function calculateIndex(x){
 //BEGIN COMPUTER REINFORCING LOGIC
 function computerReinforce(indexOfTurn){
   var playerindex = turnArray[indexOfTurn]-1;
-  console.log(playerObjectArray[playerindex].playername + " is about to renif...");
+  // console.log(playerObjectArray[turnArray[indexOfTurn]-1].playername + " is Reinforcing");
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   var objectChosen = valueCalculationFunction(playerindex);
   var index = calculateIndex(objectChosen);
@@ -967,7 +979,7 @@ function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn){
     console.log("you cant reinforce there");
     return
   }
-  console.log(playerObjectArray[playerindex].playername + " Is Now Reinforcing. They are adding a unit to " + idOfClicked);
+  // console.log(playerObjectArray[playerindex].playername + " Is Now Reinforcing. They are adding a unit to " + idOfClicked);
   if (playerindex === "0"){
     var counterDiv = document.getElementById(idOfClicked+"Counter");
     gameBoardObject[index].numberOfTroops += 1;
@@ -1046,7 +1058,7 @@ function placingTurn(index, playerindex, idOfClicked, indexOfTurn){
   } else if (playerindex !== "0"){
     gameStage.mapFilled -= 1; // brings one step closer to next section
     var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
-    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 1);
+    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 100);
   }
 }
 //END PLACING FUNCTION
