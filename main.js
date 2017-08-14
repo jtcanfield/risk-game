@@ -994,7 +994,7 @@ function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn){
       whosTurnIsIt((turnArray.indexOf(1)) + 1);
     }
     if (gameStage.stage === "maingameplay"){
-      console.log("ITS MAINGAMEPLAY TIME");
+      console.log("ITS MAINGAMEPLAY TIME FOR PLAYER");
     }
   } else if (playerindex !== "0"){
     var counterDiv = document.getElementById(idOfClicked+"Counter");
@@ -1027,6 +1027,9 @@ function mapClick(province, index){
       setTimeout(function() { placingTurn(index, "0", idOfClicked);}, 1);
     }
     if (gameStage.stage === "reinforceStart"){
+      setTimeout(function() { reinforceTurn(index, "0", idOfClicked);}, 2);
+    }
+    if (gameStage.stage === "maingameplay"){
       setTimeout(function() { reinforceTurn(index, "0", idOfClicked);}, 2);
     }
     setTimeout(function() { setplayerTurnBoolean = false;}, 3);
