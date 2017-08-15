@@ -893,8 +893,8 @@ function valueCalculationFunction(i){
   });
   var max = Math.max(...arrayofValues);
   var indexmax = arrayofValues.indexOf(max);
-  console.log(arrayToChooseFrom);
-  console.log(arrayofValues);
+  // console.log(arrayToChooseFrom);
+  // console.log(arrayofValues);
   return arrayToChooseFrom[indexmax];
 }
 //END AI LOGIC AND VALUE CALCULATIONS
@@ -994,7 +994,7 @@ function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn){
       whosTurnIsIt((turnArray.indexOf(1)) + 1);
     }
     if (gameStage.stage === "maingameplay"){
-      setTimeout(function() { attackTurn((turnArray.indexOf(1)), playerindex);}, 100);
+      attackTurn((turnArray.indexOf(1)), playerindex);
     }
   } else if (playerindex !== "0"){
     var counterDiv = document.getElementById(idOfClicked+"Counter");
@@ -1018,7 +1018,6 @@ function attackTurn(indexOfTurn, playerindex){
   if (playerindex === "0"){
     console.log("player"+turnArray[indexOfTurn]+" is now attacking");
     setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt((turnArray.indexOf(1)) + 1);}, 100);
-    setTimeout(function() { setplayerTurnBoolean = false;}, 3);
   } else if (playerindex !== "0"){
     console.log("player"+turnArray[indexOfTurn]+" is now attacking");
     setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 100);
@@ -1045,7 +1044,8 @@ function mapClick(province, index){
       setTimeout(function() { setplayerTurnBoolean = false;}, 3);
     }
     if (gameStage.stage === "maingameplay"){
-      setTimeout(function() { reinforceTurn(index, "0", idOfClicked);}, 2);
+      reinforceTurn(index, "0", idOfClicked);
+      setplayerTurnBoolean = false;
     }
   }
 }
