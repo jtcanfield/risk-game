@@ -723,7 +723,7 @@ function rollTheRedDice(){
 //END DIE FUNCTION
 
 //STAGING OBJECT HERE
-var gameStage = {stage:"placing", substage:"NA", turn:0, mapFilled:42};
+var gameStage = {stage:"placing", substage:"NA", turn:-20, mapFilled:42};
 //Stages: placing, beginning reinforcement, maingameplay(activates substages)
 //SubStages: Reinforcement, Cards, Attack, FreeMove
 
@@ -915,12 +915,11 @@ function whosTurnIsIt(indexOfTurn){
     gameStage.stage = "reinforceStart";
     gameStage.mapFilled -= 99;
   }
-  // var changeAvail = document.getElementById("troop_count");
   var changeAvail = document.getElementsByClassName('troop_count')[0];
-  if (gameStage.stage !== "maingameplay"){
-    changeAvail.innerHTML  = 20-gameStage.turn;
-  }
-  if (gameStage.turn === 20){
+  // if (gameStage.stage !== "maingameplay"){
+  //   changeAvail.innerHTML  = 20-gameStage.turn;
+  // }
+  if (gameStage.turn === 0){
     gameStage.stage = "maingameplay";
   }
   var checkForPlayer1Index = turnArray[indexOfTurn];
@@ -968,22 +967,29 @@ function calculateIndex(x){
 }
 //END INDEX CALCULATIONS
 
+function calculateTroopPerTurn(x){
+
+}
+
 
 //BEGIN COMPUTER REINFORCING LOGIC
 function computerReinforce(indexOfTurn){
   var playerindex = turnArray[indexOfTurn]-1;
+  var reinforceAllowed = 1;
+  var troopsAllowedToReinforce = calculateTroopPerTurn(playerObjectArray[playerindex].numberOfProvincesOwned);
+  console.log(playerObjectArray[playerindex].numberOfProvincesOwned);
   announcements.innerHTML = playerObjectArray[playerindex].playername + " is Reinforcing"
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   var objectChosen = valueCalculationFunction(playerindex);
   var index = calculateIndex(objectChosen);
   var idOfClicked = objectChosen.provincename;
-  setTimeout(function() { reinforceTurn(index, playerindex, idOfClicked, indexOfTurn); }, 10/*00*/);
+  setTimeout(function() { reinforceTurn(index, playerindex, idOfClicked, indexOfTurn, reinforceAllowed); }, 10/*00*/);
 }
 //END COMPUTER REINFORCING LOGIC
 
 
 //BEGIN REINFORCE FUNCTION
-function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn){
+function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn, reinforceAllowed){
   if (gameBoardObject[index].owner !== "player1" && playerindex === "0"){
     console.log("you cant reinforce there");
     return
