@@ -977,22 +977,25 @@ function calculateTroopPerTurn(x){
 
 
 //BEGIN COMPUTER REINFORCING LOGIC
-function computerReinforce(indexOfTurn){
+function computerReinforce(indexOfTurn, reinforceAllowed){
   var playerindex = turnArray[indexOfTurn]-1;
+  console.log(reinforceAllowed);
+  // if (reinforceAllowed === undefined){
+  //   var reinforceAllowed = calculateTroopPerTurn(playerObjectArray[playerindex].numberOfProvincesOwned);
+  // }
   var reinforceAllowed = calculateTroopPerTurn(playerObjectArray[playerindex].numberOfProvincesOwned);
-  // console.log(reinforceAllowed);
   announcements.innerHTML = playerObjectArray[playerindex].playername + " is Reinforcing"
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   var objectChosen = valueCalculationFunction(playerindex);
   var index = calculateIndex(objectChosen);
   var idOfClicked = objectChosen.provincename;
-  setTimeout(function() { reinforceTurn(index, playerindex, idOfClicked, indexOfTurn, reinforceAllowed); }, 10/*00*/);
+  setTimeout(function() { reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed, indexOfTurn); }, 10/*00*/);
 }
 //END COMPUTER REINFORCING LOGIC
 
 
 //BEGIN REINFORCE FUNCTION
-function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn, reinforceAllowed){
+function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed, indexOfTurn){
   if (gameBoardObject[index].owner !== "player1" && playerindex === "0"){
     console.log("you cant reinforce there");
     return
@@ -1008,7 +1011,12 @@ function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn, reinforceAl
       whosTurnIsIt((turnArray.indexOf(1)) + 1);
     }
     if (gameStage.stage === "maingameplay"){
-      attackTurn((turnArray.indexOf(1)), playerindex);
+      if (reinforceAllowed > 0){
+        computerReinforce(indexOfTurn, reinforceAllowed-1);
+      } else if (reinforceAllowed === 0){
+        setTimeout(function() { attackTurn(indexOfTurn, playerindex);}, 100);
+        attackTurn((turnArray.indexOf(1)), playerindex);
+      }
     }
   } else if (playerindex !== "0"){
     var counterDiv = document.getElementById(idOfClicked+"Counter");
@@ -1019,7 +1027,11 @@ function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn, reinforceAl
       setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 100);
     }
     if (gameStage.stage === "maingameplay"){
-      setTimeout(function() { attackTurn(indexOfTurn, playerindex);}, 100);
+      if (reinforceAllowed > 0){
+        computerReinforce(indexOfTurn, reinforceAllowed-1);
+      } else if (reinforceAllowed === 0){
+        setTimeout(function() { attackTurn(indexOfTurn, playerindex);}, 100);
+      }
     }
   }
 }
@@ -1058,7 +1070,10 @@ function mapClick(province, index){
       setTimeout(function() { setplayerTurnBoolean = false;}, 3);
     }
     if (gameStage.stage === "maingameplay"){
-      reinforceTurn(index, "0", idOfClicked);
+      var reinforceAllowed = calculateTroopPerTurn(playerObjectArray[0].numberOfProvincesOwned);
+      if (reinforceAllowed > 0){
+        reinforceTurn(index, "0", idOfClicked, turnArray.indexOf(1));
+      }
       setplayerTurnBoolean = false;
     }
   }
