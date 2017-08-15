@@ -228,7 +228,7 @@ span {
   padding: 10px;
   border-radius: 10000px;
 }
-#troop_count{
+.troop_count{
   background-color: black;
   color: white;
 }

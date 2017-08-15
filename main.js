@@ -913,8 +913,11 @@ function whosTurnIsIt(indexOfTurn){
     gameStage.stage = "reinforceStart";
     gameStage.mapFilled -= 99;
   }
-  var changeAvail = document.getElementById("troop_count");
-  changeAvail.innerHTML  = 20-gameStage.turn;
+  // var changeAvail = document.getElementById("troop_count");
+  var changeAvail = document.getElementsByClassName('troop_count')[0];
+  if (gameStage.stage !== "maingameplay"){
+    changeAvail.innerHTML  = 20-gameStage.turn;
+  }
   if (gameStage.turn === 20){
     gameStage.stage = "maingameplay";
   }
