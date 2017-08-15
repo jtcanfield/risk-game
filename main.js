@@ -1034,7 +1034,7 @@ function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed, indexO
       if (reinforceAllowed > 0){
         computerReinforce(indexOfTurn, reinforceAllowed-1);
       } else if (reinforceAllowed === 0){
-        setTimeout(function() { attackTurn(indexOfTurn, playerindex);}, 100);
+        setTimeout(function() { attackTurn(indexOfTurn, playerindex);}, 10/*00*/);
       }
     }
   }
@@ -1050,7 +1050,7 @@ function attackTurn(indexOfTurn, playerindex){
     setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt((turnArray.indexOf(1)) + 1);}, 100);
   } else if (playerindex !== "0"){
     console.log("player"+turnArray[indexOfTurn]+" is now attacking");
-    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 100);
+    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 10/*00*/);
   }
 }
 //END ATTACK TURN FUNCTION
