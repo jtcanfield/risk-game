@@ -931,21 +931,21 @@ function whosTurnIsIt(indexOfTurn){
     }
   }
   if (gameStage.stage === "reinforceStart"){
-    announcements.innerHTML = playerObjectArray[turnArray[indexOfTurn]-1].playername + " is Reinforcing"
     if (playerObjectArray[checkForPlayer1Index-1].playername !== "player1"){
       playerTurnBoolean = false;
       computerReinforce(indexOfTurn);
     } else {
       playerTurnBoolean = true;
+      announcements.innerHTML = "Your Turn!";
     }
   }
   if (gameStage.stage === "maingameplay"){
-    console.log("maingameplay begins");
     if (playerObjectArray[checkForPlayer1Index-1].playername !== "player1"){
       playerTurnBoolean = false;
       computerReinforce(indexOfTurn);
     } else {
       playerTurnBoolean = true;
+      announcements.innerHTML = "Your Turn!";
     }
   }
 }
@@ -967,7 +967,7 @@ function calculateIndex(x){
 //BEGIN COMPUTER REINFORCING LOGIC
 function computerReinforce(indexOfTurn){
   var playerindex = turnArray[indexOfTurn]-1;
-  // console.log(playerObjectArray[turnArray[indexOfTurn]-1].playername + " is Reinforcing");
+  announcements.innerHTML = playerObjectArray[playerindex].playername + " is Reinforcing"
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   var objectChosen = valueCalculationFunction(playerindex);
   var index = calculateIndex(objectChosen);
@@ -994,7 +994,7 @@ function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn){
       whosTurnIsIt((turnArray.indexOf(1)) + 1);
     }
     if (gameStage.stage === "maingameplay"){
-      console.log("ITS MAINGAMEPLAY TIME FOR PLAYER");
+      setTimeout(function() { attackTurn((turnArray.indexOf(1)), playerindex);}, 100);
     }
   } else if (playerindex !== "0"){
     var counterDiv = document.getElementById(idOfClicked+"Counter");
@@ -1005,12 +1005,24 @@ function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn){
       setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 100);
     }
     if (gameStage.stage === "maingameplay"){
-      console.log("ITS MAINGAMEPLAY TIME FIRED, END OF DEMO");
+      setTimeout(function() { attackTurn(indexOfTurn, playerindex);}, 100);
     }
   }
 }
 //END REINFORCE FUNCTION
 
+
+
+function attackTurn(indexOfTurn, playerindex){
+  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
+  if (playerindex === "0"){
+    console.log("player"+turnArray[indexOfTurn]+" is now attacking");
+    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt((turnArray.indexOf(1)) + 1);}, 100);
+  } else if (playerindex !== "0"){
+    console.log("player"+turnArray[indexOfTurn]+" is now attacking");
+    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 100);
+  }
+}
 
 
 
