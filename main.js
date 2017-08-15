@@ -903,6 +903,8 @@ function valueCalculationFunction(i){
 
 //BEGIN BEGINNING TURN TRACKER
 function whosTurnIsIt(indexOfTurn){
+  var turns = document.getElementById("turns_lapsed");
+  turns_lapsed.innerHTML = "Turn " + gameStage.turn;
   if (indexOfTurn >= 6){
     // indexOfTurn = 0;
     gameStage.turn += 1;
