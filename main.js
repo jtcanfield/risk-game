@@ -968,16 +968,19 @@ function calculateIndex(x){
 //END INDEX CALCULATIONS
 
 function calculateTroopPerTurn(x){
-
+  if (x <= 9){
+    return 3
+  }
+  if (x > 9)
+  return Math.floor(x/3);
 }
 
 
 //BEGIN COMPUTER REINFORCING LOGIC
 function computerReinforce(indexOfTurn){
   var playerindex = turnArray[indexOfTurn]-1;
-  var reinforceAllowed = 1;
-  var troopsAllowedToReinforce = calculateTroopPerTurn(playerObjectArray[playerindex].numberOfProvincesOwned);
-  console.log(playerObjectArray[playerindex].numberOfProvincesOwned);
+  var reinforceAllowed = calculateTroopPerTurn(playerObjectArray[playerindex].numberOfProvincesOwned);
+  // console.log(reinforceAllowed);
   announcements.innerHTML = playerObjectArray[playerindex].playername + " is Reinforcing"
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   var objectChosen = valueCalculationFunction(playerindex);
