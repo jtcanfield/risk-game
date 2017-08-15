@@ -1018,6 +1018,7 @@ function attackTurn(indexOfTurn, playerindex){
   if (playerindex === "0"){
     console.log("player"+turnArray[indexOfTurn]+" is now attacking");
     setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt((turnArray.indexOf(1)) + 1);}, 100);
+    setTimeout(function() { setplayerTurnBoolean = false;}, 3);
   } else if (playerindex !== "0"){
     console.log("player"+turnArray[indexOfTurn]+" is now attacking");
     setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 100);
@@ -1037,14 +1038,15 @@ function mapClick(province, index){
   if (playerTurnBoolean === true){
     if (gameStage.stage === "placing"){
       setTimeout(function() { placingTurn(index, "0", idOfClicked);}, 1);
+      setTimeout(function() { setplayerTurnBoolean = false;}, 3);
     }
     if (gameStage.stage === "reinforceStart"){
       setTimeout(function() { reinforceTurn(index, "0", idOfClicked);}, 2);
+      setTimeout(function() { setplayerTurnBoolean = false;}, 3);
     }
     if (gameStage.stage === "maingameplay"){
       setTimeout(function() { reinforceTurn(index, "0", idOfClicked);}, 2);
     }
-    setTimeout(function() { setplayerTurnBoolean = false;}, 3);
   }
 }
 //END PLAYER CLICK FUNCTION
