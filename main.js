@@ -1015,7 +1015,7 @@ function reinforceTurn(index, playerindex, idOfClicked, indexOfTurn){
 //END REINFORCE FUNCTION
 
 
-
+//BEGIN ATTACK TURN FUNCTION
 function attackTurn(indexOfTurn, playerindex){
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   if (playerindex === "0"){
@@ -1026,7 +1026,7 @@ function attackTurn(indexOfTurn, playerindex){
     setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 100);
   }
 }
-
+//END ATTACK TURN FUNCTION
 
 
 //BEGIN PLAYER CLICK FUNCTION
