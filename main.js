@@ -968,6 +968,8 @@ function calculateIndex(x){
 }
 //END INDEX CALCULATIONS
 
+
+//BEGIN REINFORCE TROOP CALCULATIONS
 function calculateTroopPerTurn(x){
   if (x <= 9){
     return 3
@@ -975,6 +977,7 @@ function calculateTroopPerTurn(x){
   if (x > 9)
   return Math.floor(x/3);
 }
+//END REINFORCE TROOP CALCULATIONS
 
 
 //BEGIN COMPUTER REINFORCING LOGIC
@@ -984,7 +987,6 @@ function computerReinforce(indexOfTurn, reinforceAllowed){
   if (reinforceAllowed === undefined){
     reinforceAllowed = calculateTroopPerTurn(playerObjectArray[playerindex].numberOfProvincesOwned);
   }
-  // var reinforceAllowed = calculateTroopPerTurn(playerObjectArray[playerindex].numberOfProvincesOwned);
   announcements.innerHTML = playerObjectArray[playerindex].playername + " is Reinforcing"
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   var objectChosen = valueCalculationFunction(playerindex);
