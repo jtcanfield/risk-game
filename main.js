@@ -1089,8 +1089,7 @@ function mapClick(province, index){
 
 //BEGIN CLICK AND DRAG FUNCTION
 function eleMouseDown (ele) {
-  console.log("nope,not yet")
-    /*document.addEventListener ("mousemove" , eleMouseMove , false);
+    document.addEventListener ("mousemove" , eleMouseMove , false);
     function eleMouseMove (ev) {
         var pX = ev.pageX;
         var pY = ev.pageY;
@@ -1104,7 +1103,7 @@ function eleMouseDown (ele) {
     		ele.style.left = ""
         document.removeEventListener ("mousemove" , eleMouseMove , false);
         document.removeEventListener ("mouseup" , eleMouseUp , false);
-    }*/
+    }
 }
 //END CLICK AND DRAG FUNCTION
 

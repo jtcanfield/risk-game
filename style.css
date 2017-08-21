@@ -15,8 +15,9 @@ map area:hover{
   height: 20px;
   width: 20px;
   background-color: black;
-  /*pointer-events: none;*/
   color: white;
+  /*IN ORDER TO GET CLICK AND DRAG TO WORK, COMMENT OUT BELOW:*/
+  pointer-events: none;
 }
 
 .highlight{
