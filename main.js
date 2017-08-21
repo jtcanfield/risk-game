@@ -1077,6 +1077,7 @@ function mapClick(province, index){
       if (playerrenif > 0){
         reinforceTurn(index, "0", idOfClicked, playerrenif);
       } else if (playerrenif === 0){
+        announcements.innerHTML = "ATTACK!";
         attackTurn(indexOfTurn, "0");
       }
       // playerTurnBoolean = false;
