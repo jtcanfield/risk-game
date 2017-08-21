@@ -1086,6 +1086,27 @@ function mapClick(province, index){
 //END PLAYER CLICK FUNCTION
 
 
+//BEGIN CLICK AND DRAG FUNCTION
+function eleMouseDown (ele) {
+    document.addEventListener ("mousemove" , eleMouseMove , false);
+    function eleMouseMove (ev) {
+        var pX = ev.pageX;
+        var pY = ev.pageY;
+        ele.style.left = pX + "px";
+        ele.style.top = pY + "px";
+        document.addEventListener ("mouseup" , eleMouseUp , false);
+    }
+
+    function eleMouseUp () {
+        ele.style.top = ""
+    		ele.style.left = ""
+        document.removeEventListener ("mousemove" , eleMouseMove , false);
+        document.removeEventListener ("mouseup" , eleMouseUp , false);
+    }
+}
+//END CLICK AND DRAG FUNCTION
+
+
 
 
 

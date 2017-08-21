@@ -15,9 +15,10 @@ map area:hover{
   height: 20px;
   width: 20px;
   background-color: black;
-  pointer-events: none;
+  /*pointer-events: none;*/
   color: white;
 }
+
 .highlight{
   border: 10px solid gold;
 }
