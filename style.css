@@ -66,11 +66,12 @@ map area:hover{
   background-size: contain;
 }
 #arrow_holder{
-  width: 150px;
+  /*margin-left: 50px;*/
+  width: 145px;
 }
 .whitearrow, .redarrow{
   height: 50px;
-  width: 150px;
+  width: 145px;
   background-size: contain;
 }
 .whitearrow{
