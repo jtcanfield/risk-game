@@ -983,7 +983,7 @@ function calculateTroopPerTurn(x){
 //BEGIN COMPUTER REINFORCING LOGIC
 function computerReinforce(indexOfTurn, reinforceAllowed){
   var playerindex = turnArray[indexOfTurn]-1;
-  console.log(reinforceAllowed);
+  // console.log(reinforceAllowed);
   if (reinforceAllowed === undefined){
     reinforceAllowed = calculateTroopPerTurn(playerObjectArray[playerindex].numberOfProvincesOwned);
   }
