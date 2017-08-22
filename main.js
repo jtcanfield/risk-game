@@ -952,6 +952,7 @@ function calculateIndex(x){
 
 //BEGIN REINFORCE TROOP CALCULATIONS
 function calculateTroopPerTurn(x){
+  //ADD CONTINENT OWNERSHIP TO CALCULATIONS
   if (x <= 9){
     return 3
   }
@@ -1041,7 +1042,12 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
       if (playerselected === "" && gameBoardObject[index].owner !== "player1"){
         return
       }
+      if (gameBoardObject[index].owner === "player1" && gameBoardObject[index].numberOfTroops === 1){
+        announcements.innerHTML = "Your province must have more than 1 troop!";
+        return
+      }
       if (playerselected === "" && gameBoardObject[index].owner === "player1"){
+        announcements.innerHTML = "Select an adjacent province to attack!";
         playerselected = idOfClicked;
         var counterflash = document.getElementById(playerselected+"Counter");
         counterflash.classList.add('flashing');
@@ -1062,7 +1068,7 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
           }
         });
         if (isadjacenttrue === false){
-          announcements.innerHTML = "Select an adjacent province to attack!";
+          announcements.innerHTML = "Province must be adjacent!";
           console.log("PLEASE SELECT ADJACENT, CLICK SHOULD STOP HERE");
           return
         } else if (isadjacenttrue === true){
@@ -1083,21 +1089,21 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
 
 
 //BEGIN DIE FUNCTION
-function rollTheWhiteDice(num){
-  var diceParent = document.getElementById("white_dice_holder");
-  var whitedienumber = Math.floor(Math.random()*(6-1+1)+1);
-  var newWhiteDice = document.createElement("img");
-  newWhiteDice.setAttribute("style", "background-image: url(white"+whitedienumber+".png);");
-  diceParent.appendChild(newWhiteDice);
-  return whitedienumber;
-}
-function rollTheRedDice(num){
+function rollTheRedDice(){
   var diceParent = document.getElementById("red_dice_holder");
   var reddienumber = Math.floor(Math.random()*(6-1+1)+1);
   var newRedDice = document.createElement("img");
   newRedDice.setAttribute("style", "background-image: url(red"+reddienumber+".png);");
   diceParent.appendChild(newRedDice);
   return reddienumber;
+}
+function rollTheWhiteDice(){
+  var diceParent = document.getElementById("white_dice_holder");
+  var whitedienumber = Math.floor(Math.random()*(6-1+1)+1);
+  var newWhiteDice = document.createElement("img");
+  newWhiteDice.setAttribute("style", "background-image: url(white"+whitedienumber+".png);");
+  diceParent.appendChild(newWhiteDice);
+  return whitedienumber;
 }
 //END DIE FUNCTION
 
