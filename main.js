@@ -701,6 +701,9 @@ var playerObjectArray = [
 ];
 //END PLAYER OBJECT ARRAY
 
+
+var turnskipper = document.getElementById("skipTurn");
+turnskipper.style.display = "none";
 var announcements = document.getElementById("announcements");
 
 //STAGING OBJECT HERE
@@ -1073,10 +1076,8 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
           return
         } else if (isadjacenttrue === true){
           counterflash.classList.remove('flashing');
-          console.log("player"+turnArray[indexOfTurn]+" HAS ATTACKED");
           playerselected = "";
-          playerTurnBoolean = false;
-          setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt((turnArray.indexOf(1)) + 1);}, 100);
+          console.log("you have battled");
         }
       }
     }
@@ -1191,6 +1192,8 @@ function mapClick(province, index){
       if (playerrenif > 0){
         reinforceTurn(index, "0", idOfClicked, playerrenif);
       } else if (playerrenif === 0){
+        var turnskipper = document.getElementById("skipTurn");
+        turnskipper.style.display = "";
         announcements.innerHTML = "Attack Time!";
         attackTurn(index, "0", idOfClicked, false, indexOfTurn);
       }
@@ -1198,8 +1201,12 @@ function mapClick(province, index){
     }
   }
 }
-function skipTurn(){
-  attackTurn(index, "0", idOfClicked, true, indexOfTurn);
+function finishTurn(){
+  var setHighlight = document.getElementById("player1span");
+  playerTurnBoolean = false;
+  var turnskipper = document.getElementById("skipTurn");
+  turnskipper.style.display = "none";
+  setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt((turnArray.indexOf(1)) + 1);}, 100);
 }
 //END PLAYER CLICK FUNCTION
 
