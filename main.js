@@ -1076,6 +1076,15 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
           return
         } else if (isadjacenttrue === true){
           counterflash.classList.remove('flashing');
+          var allyprovince = "";
+          gameBoardObject.map((b) =>{
+            console.log(b);
+            if (b.provincename === playerselected){
+              console.log("PROVINCE FOUND");
+              allyprovince = b;
+            }
+          });
+          battleFunction(gameBoardObject[index].numberOfTroops, allyprovince.numberOfTroops);
           playerselected = "";
           console.log("you have battled");
         }
@@ -1090,7 +1099,9 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
 
 
 //BEGIN AND DIE FUNCTION BATTLE FUNCTION
-function battleFunction(atknbr, defnbr){
+function battleFunction(enemy, ally, atknbr, defnbr){
+  console.log(enemy);
+  console.log(ally);
   //Step one: Clear and set die divs
   var reddiceParent = document.getElementById("red_dice_holder");
   while (reddiceParent.hasChildNodes()) {
@@ -1141,28 +1152,28 @@ function battleFunction(atknbr, defnbr){
   //Step four: compare atk and def die
   //find which array is shorter
   var longestarray = "";
-  if (attackDieArray.length >= defDieArray.length){
+  if (attackDieArray.length >= defDieArray.length){//if attacker has more than def
     for (var a = 0; a < defDieArray.length; a++){
-      if (defDieArray[a] >= attackDieArray[a]){
+      if (defDieArray[a] >= attackDieArray[a]){//Def Wins
         var newarrow = document.createElement("img");
         newarrow.setAttribute("class", "whitearrow");
         arrowParent.appendChild(newarrow);
       }
-      if (defDieArray[a] < attackDieArray[a]){
+      if (defDieArray[a] < attackDieArray[a]){//Def loses
         var newarrow = document.createElement("img");
         newarrow.setAttribute("class", "redarrow");
         arrowParent.appendChild(newarrow);
       }
     }
   }
-  if (attackDieArray.length < defDieArray.length){
+  if (attackDieArray.length < defDieArray.length){//if attacker has less than def (why tho)
     for (var a = 0; a < attackDieArray.length; a++){
-      if (defDieArray[a] >= attackDieArray[a]){
+      if (defDieArray[a] >= attackDieArray[a]){//Def Wins
         var newarrow = document.createElement("img");
         newarrow.setAttribute("class", "whitearrow");
         arrowParent.appendChild(newarrow);
       }
-      if (defDieArray[a] < attackDieArray[a]){
+      if (defDieArray[a] < attackDieArray[a]){//Def loses
         var newarrow = document.createElement("img");
         newarrow.setAttribute("class", "redarrow");
         arrowParent.appendChild(newarrow);
