@@ -1143,8 +1143,6 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
 var enemyProvince = "";
 var allyProvince = "";
 function setPlayerBattle(enempv, allpv){
-  var numinput = document.getElementById("numberOfTroopsToMove");
-  numinput.style.display = "none";
   var attackButton = document.getElementById("attackButton");
   attackButton.innerHTML = "Attack!";
   var dieholder = document.getElementById("die_holder");
@@ -1209,10 +1207,14 @@ function playerbattleFunction(){
         defnbr = 1;
         break;
       case enemynumoftroops === 0://Attacker Won
+        var dieholderThing = document.getElementById("die_holder");
+        var troopsnumberinput = document.getElementById("numberOfTroopsToMove");
+        if (troopsnumberinput === null){
+          var holder = `<input type="number" id="numberOfTroopsToMove" value="0">`;
+          dieholderThing.appendChild = holder;
+        }
         var numtroops = Number(document.getElementById("numberOfTroopsToMove").value);
         console.log(numtroops);
-        var numinput = document.getElementById("numberOfTroopsToMove");
-        numinput.style.display = "";
         var attackButton = document.getElementById("attackButton");
         attackButton.innerHTML = "Move Troops";
         if (numtroops > allynumoftroops || numtroops===undefined || numtroops===0){
@@ -1306,18 +1308,12 @@ function playerbattleFunction(){
         }
       }
     }
-    if (enemynumoftroops.numberOfTroops === 0){
-      var numinput = document.getElementById("numberOfTroopsToMove");
-      numinput.style.display = "";
-      var attackButton = document.getElementById("attackButton");
-      attackButton.innerHTML = "Move Troops";
-    }
 }
 function cleanUpBattle(){
+  var inputtroops = document.getElementById("numberOfTroopsToMove");
+  inputtroops.parentElement.removeChild(inputtroops);
   var dieholder = document.getElementById("die_holder");
   dieholder.style.display = "none";
-  var numinput = document.getElementById("numberOfTroopsToMove");
-  numinput.style.display = "none";
   enemyProvince = "";
   allyProvince = "";
   var atkcntr = document.getElementById("attacker");
