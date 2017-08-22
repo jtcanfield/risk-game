@@ -65,6 +65,9 @@ map area:hover{
   width: 50px;
   background-size: contain;
 }
+#arrow_holder{
+  width: 150px;
+}
 .whitearrow, .redarrow{
   height: 50px;
   width: 150px;
