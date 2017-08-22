@@ -1090,9 +1090,17 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
 
 //BEGIN BATTLE FUNCTION
 function battleFunction(atknbr, defnbr){
-  //Step one: Roll Atk Die
-  attackDieArray = [];
+  //Step one: Clear and set die divs
   var reddiceParent = document.getElementById("red_dice_holder");
+  while (reddiceParent.hasChildNodes()) {
+    reddiceParent.removeChild(reddiceParent.lastChild);
+  }
+  var whitediceParent = document.getElementById("white_dice_holder");
+  while (whitediceParent.hasChildNodes()) {
+    whitediceParent.removeChild(whitediceParent.lastChild);
+  }
+  //Step two: Roll Atk Die
+  attackDieArray = [];
   var atkvar = 0;
   while (atkvar < atknbr){
     var reddienumber = Math.floor(Math.random()*(6-1+1)+1);
@@ -1101,9 +1109,8 @@ function battleFunction(atknbr, defnbr){
     reddiceParent.appendChild(newRedDice);
     atkvar++
   }
-  //Step two: Roll Def Die
+  //Step three: Roll Def Die
   defDieArray = [];
-  var whitediceParent = document.getElementById("white_dice_holder");
   var defvar = 0;
   while (defvar < defnbr){
     var whitedienumber = Math.floor(Math.random()*(6-1+1)+1);
