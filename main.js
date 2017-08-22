@@ -1093,34 +1093,27 @@ function battleFunction(atknbr, defnbr){
   //Step one: Roll Atk Die
   attackDieArray = [];
   var reddiceParent = document.getElementById("red_dice_holder");
-  while (attackDieArray.length <= atknbr){
+  var atkvar = 0;
+  while (atkvar < atknbr){
     var reddienumber = Math.floor(Math.random()*(6-1+1)+1);
+    var newRedDice = document.createElement("img");
     newRedDice.setAttribute("style", "background-image: url(red"+reddienumber+".png);");
     reddiceParent.appendChild(newRedDice);
-    x++
+    atkvar++
   }
   //Step two: Roll Def Die
-  console.log("WHITE: " + rollTheWhiteDice());
+  defDieArray = [];
+  var whitediceParent = document.getElementById("white_dice_holder");
+  var defvar = 0;
+  while (defvar < defnbr){
+    var whitedienumber = Math.floor(Math.random()*(6-1+1)+1);
+    var newWhiteDice = document.createElement("img");
+    newWhiteDice.setAttribute("style", "background-image: url(white"+whitedienumber+".png);");
+    whitediceParent.appendChild(newWhiteDice);
+    defvar++
+  }
 }
 //END BATTLE FUNCTION
-
-//BEGIN DIE FUNCTION
-function rollTheWhiteDice(){
-  var whitediceParent = document.getElementById("white_dice_holder");
-  var whitedienumber = Math.floor(Math.random()*(6-1+1)+1);
-  var newWhiteDice = document.createElement("img");
-  newWhiteDice.setAttribute("style", "background-image: url(white"+whitedienumber+".png);");
-  whitediceParent.appendChild(newWhiteDice);
-  return whitedienumber;
-}
-function rollTheRedDice(){
-  var reddienumber = Math.floor(Math.random()*(6-1+1)+1);
-  var newRedDice = document.createElement("img");
-  newRedDice.setAttribute("style", "background-image: url(red"+reddienumber+".png);");
-  reddiceParent.appendChild(newRedDice);
-  return reddienumber;
-}
-//END DIE FUNCTION
 
 
 //BEGIN PLAYER CLICK FUNCTION
