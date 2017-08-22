@@ -1315,15 +1315,29 @@ function cleanUpBattle(){
 
 
 //BEGIN ATTACKER WON BATTLE FUNCTION
-function attackerWon(mapareaobj, losingplayerobj, winningplayerobj){
+function attackerWon(mapareaobj, losingplayerobj, winningplayerobj, numboftroopstomove){
   //MAPOBJECT: Need to change owner, Background Color, Number of Troops
   //losingplayerobj: Subtract 1 from numberOfProvincesOwned, Take province from provincesOwned, take province from provincesOwnedIndex
   //winningplayerobj: Add 1 to numberOfProvincesOwned, add province to provincesOwned, add province to provincesOwnedIndex
+  //Changes Province Owner
   mapareaobj.owner = winningplayerobj.playername;
+  //Change Province Background Color
   var changing = mapareaobj.provincename;
   var counterDiv = document.getElementById(changing+"Counter");
   counterDiv.setAttribute("style", "background-color: "+winningplayerobj.color+";");
-
+  //changes number of provinces owned
+  losingplayerobj.numberOfProvincesOwned -= 1;
+  winningplayerobj.numberOfProvincesOwned += 1;
+  console.log(mapareaobj.provinceindexnumber);
+  //MOVES PROVINCE NAME FROM ONE PLAYER TO ANOTHER
+  var provchangenameindex = losingplayerobj.provincesOwned.indexOf(mapareaobj.provincename);
+  var provnamechange = losingplayerobj.provincesOwned.shift(provchangenameindex);
+  winningplayerobj.provincesOwned.push(provnamechange);
+  //MOVES PROVINCE INDEX FROM ONE PLAYER TO ANOTHER
+  var provchangeindexindex = losingplayerobj.provincesOwnedIndex.indexOf(mapareaobj.provinceindexnumber);
+  var provindexchange = losingplayerobj.provincesOwnedIndex.shift(provchangeindexindex);
+  winningplayerobj.provincesOwned.push(provnamechange);
+  mapareaobj.numberOfTroops = numboftroopstomove;
 }
 //END ATTACKER WON BATTLE FUNCTION
 
