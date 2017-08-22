@@ -71,10 +71,10 @@ map area:hover{
   background-size: contain;
 }
 .whitearrow{
-
+  background-image: url("whitearrow.png");
 }
 .redarrow{
-  
+  background-image: url("redarrow.png");
 }
 #NA1Counter {
   left: 70px;

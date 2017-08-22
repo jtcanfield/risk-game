@@ -1134,7 +1134,9 @@ function battleFunction(atknbr, defnbr){
     defvar++
   }
   //Step four: compare atk and def die
-  
+  var newarrow = document.createElement("img");
+  newarrow.setAttribute("style", "background-image: url("+"white"+"arrow.png);");
+  whitediceParent.appendChild(newarrow);
 }
 //END AND DIE FUNCTION BATTLE FUNCTION
 
