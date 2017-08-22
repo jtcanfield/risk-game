@@ -84,7 +84,7 @@ map area:hover{
   margin: auto;
   overflow: visible;
 }
-#defender{
+#attacker{
   margin-left: 100px;
   float: left;
   position: relative;
@@ -92,7 +92,7 @@ map area:hover{
   top: 30px;
   font-size: 30px;
 }
-#attacker{
+#defender{
   margin-right: 100px;
   float: right;
   position: relative;
