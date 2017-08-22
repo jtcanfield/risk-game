@@ -80,7 +80,7 @@ map area:hover{
 .redarrow{
   background-image: url("redarrow.png");
 }
-#attackouter, #defendouter{
+#numberouter{
   width: 1px;
   margin: auto;
   overflow: visible;
@@ -90,7 +90,7 @@ map area:hover{
   float: left;
   position: relative;
   left: 150px;
-  top: 25px;
+  bottom: 30px;
   font-size: 30px;
 }
 #attacker{
