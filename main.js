@@ -704,6 +704,8 @@ var playerObjectArray = [
 
 var turnskipper = document.getElementById("skipTurn");
 turnskipper.style.display = "none";
+var dieholder = document.getElementById("die_holder");
+dieholder.style.display = "none";
 var announcements = document.getElementById("announcements");
 
 //STAGING OBJECT HERE
@@ -1084,9 +1086,8 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
               allyprovince = b;
             }
           });
-          playerbattleFunction(gameBoardObject[index], allyprovince);
+          setPlayerBattle(gameBoardObject[index], allyprovince);
           playerselected = "";
-          console.log("you have battled");
         }
       }
     }
@@ -1097,11 +1098,65 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
 }
 //END ATTACK TURN SELECTION FUNCTION
 
+//BEGIN BATTLE SETUP
+var enemyProvince = "";
+var allyProvince = "";
+function setPlayerBattle(enempv, allpv){
+  var dieholder = document.getElementById("die_holder");
+  dieholder.style.display = "";
+  enemyProvince = enempv;
+  allyProvince = allpv;
+  playerTurnBoolean = false;
+}
+//END BATTLE SETUP
+
 
 //BEGIN AND DIE FUNCTION BATTLE FUNCTION
-function playerbattleFunction(enemyProvince, allyProvince, atknbr, defnbr){
-  function attackFunction(){
+function playerbattleFunction(){
+  var atknbr = 0;
+  var defnbr = 0;
+  var endBattle = false;
     //Step one: Clear and set die divs
+    var atkcntr = document.getElementById("attacker");
+    var allynumoftroops = allyProvince.numberOfTroops-1;
+    atkcntr.innerHTML = allynumoftroops;
+    switch (true) {
+      case allynumoftroops >= 3:
+        atknbr = 3
+        break;
+      case allynumoftroops === 2:
+        atknbr = 2
+        break;
+      case allynumoftroops === 1:
+        atknbr = 1
+        break;
+      case allynumoftroops === 0:
+        retreatButton();
+        endBattle = true;
+        break;
+      default:
+        break;
+    }
+    var defcntr = document.getElementById("defender");
+    var enemynumoftroops = enemyProvince.numberOfTroops;
+    defcntr.innerHTML = enemynumoftroops;
+    switch (true) {
+      case enemynumoftroops >= 2:
+        defnbr = 2
+        break;
+      case enemynumoftroops === 1:
+        defnbr = 1
+        break;
+      case enemynumoftroops === 0:
+        retreatButton();
+        endBattle = true;
+        break;
+      default:
+        break;
+    }
+    if (endBattle === false){
+      return
+    }
     var reddiceParent = document.getElementById("red_dice_holder");
     while (reddiceParent.hasChildNodes()) {
       reddiceParent.removeChild(reddiceParent.lastChild);
@@ -1179,7 +1234,29 @@ function playerbattleFunction(enemyProvince, allyProvince, atknbr, defnbr){
         }
       }
     }
+}
+function retreatButton(){
+  var dieholder = document.getElementById("die_holder");
+  dieholder.style.display = "none";
+  enemyProvince = "";
+  allyProvince = "";
+  var atkcntr = document.getElementById("attacker");
+  atkcntr.innerHTML = "";
+  var defcntr = document.getElementById("defender");
+  defcntr.innerHTML = "";
+  var reddiceParent = document.getElementById("red_dice_holder");
+  while (reddiceParent.hasChildNodes()) {
+    reddiceParent.removeChild(reddiceParent.lastChild);
   }
+  var whitediceParent = document.getElementById("white_dice_holder");
+  while (whitediceParent.hasChildNodes()) {
+    whitediceParent.removeChild(whitediceParent.lastChild);
+  }
+  var arrowParent = document.getElementById("arrow_holder");
+  while (arrowParent.hasChildNodes()) {
+    arrowParent.removeChild(arrowParent.lastChild);
+  }
+  playerTurnBoolean = true;
 }
 //END AND DIE FUNCTION BATTLE FUNCTION
 
