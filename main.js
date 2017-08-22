@@ -1209,7 +1209,7 @@ function playerbattleFunction(){
         defnbr = 1;
         break;
       case enemynumoftroops === 0://Attacker Won
-        var numtroops = document.getElementById("numberOfTroopsToMove").value;
+        var numtroops = Number(document.getElementById("numberOfTroopsToMove").value);
         console.log(numtroops);
         var numinput = document.getElementById("numberOfTroopsToMove");
         numinput.style.display = "";
@@ -1219,6 +1219,7 @@ function playerbattleFunction(){
           return
         } else {
           allyProvince.numberOfTroops -= numtroops;
+          atkcounter.innerHTML = allyProvince.numberOfTroops;
           var losinplayer = 0;
           for (let i = 0; i < 6; i++){
             if (enemyProvince.owner === playerObjectArray[i].playername){
@@ -1365,8 +1366,10 @@ function attackerWon(mapareaobj, losingplayerobj, winningplayerobj, numboftroops
   //MOVES PROVINCE INDEX FROM ONE PLAYER TO ANOTHER
   var provchangeindexindex = losingplayerobj.provincesOwnedIndex.indexOf(mapareaobj.provinceindexnumber);
   var provindexchange = losingplayerobj.provincesOwnedIndex.shift(provchangeindexindex);
-  winningplayerobj.provincesOwned.push(provnamechange);
+  winningplayerobj.provincesOwnedIndex.push(provindexchange);
   mapareaobj.numberOfTroops = numboftroopstomove;
+  var counter = document.getElementById(mapareaobj.provincename+"Counter");
+  counter.innerHTML = numboftroopstomove;
   console.log("AFTER:");
   console.log(mapareaobj);
   console.log(losingplayerobj);
@@ -1377,7 +1380,7 @@ function attackerWon(mapareaobj, losingplayerobj, winningplayerobj, numboftroops
 
 //BEGIN PLAYER CLICK FUNCTION
 function mapClick(province, index){
-  console.log(gameBoardObject[index]);
+  // console.log(gameBoardObject[index]);
   // console.log(gameBoardObject[index].owner);
   var idOfClicked = $(province).attr('id');
   if (playerTurnBoolean === false){
