@@ -20,6 +20,7 @@ var turnArray = [];
 var gameBoardObject = [
   //ORDER OF CONTINENTS: NA, SA, EU, AF, OC, AS
     { "provincename":"NA1",
+      "provinceindexnumber": 0;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -34,6 +35,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"NA2",
+      "provinceindexnumber": 1;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -48,6 +50,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"NA3",
+      "provinceindexnumber": 2;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -62,6 +65,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"NA4",
+      "provinceindexnumber": 3;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -76,6 +80,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"NA5",
+      "provinceindexnumber": 4;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -90,6 +95,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"NA6",
+      "provinceindexnumber": 5;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -104,6 +110,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"NA7",
+      "provinceindexnumber": 6;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -118,6 +125,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"NA8",
+      "provinceindexnumber": 7;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -132,6 +140,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"NA9",
+      "provinceindexnumber": 8;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -146,6 +155,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"SA1",
+      "provinceindexnumber": 9;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -160,6 +170,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"SA2",
+      "provinceindexnumber": 10;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -174,6 +185,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"SA3",
+      "provinceindexnumber": 11;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -188,6 +200,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"SA4",
+      "provinceindexnumber": 12;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -202,6 +215,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"EU1",
+      "provinceindexnumber": 13;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -216,6 +230,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"EU2",
+      "provinceindexnumber": 14;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -230,6 +245,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"EU3",
+      "provinceindexnumber": 15;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -244,6 +260,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"EU4",
+      "provinceindexnumber": 16;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -258,6 +275,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"EU5",
+      "provinceindexnumber": 17;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -272,6 +290,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"EU6",
+      "provinceindexnumber": 18;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -286,6 +305,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"EU7",
+      "provinceindexnumber": 19;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -300,6 +320,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"AF1",
+      "provinceindexnumber": 20;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -314,6 +335,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"AF2",
+      "provinceindexnumber": 21;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -328,6 +350,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"AF3",
+      "provinceindexnumber": 22;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -342,6 +365,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"AF4",
+      "provinceindexnumber": 23;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -356,6 +380,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"AF5",
+      "provinceindexnumber": 24;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -370,6 +395,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"AF6",
+      "provinceindexnumber": 25;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -384,6 +410,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"OC1",
+      "provinceindexnumber": 26;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -398,6 +425,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"OC2",
+      "provinceindexnumber": 27;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -412,6 +440,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"OC3",
+      "provinceindexnumber": 28;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -426,6 +455,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"OC4",
+      "provinceindexnumber": 29;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -440,6 +470,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"AS1",
+      "provinceindexnumber": 30;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -454,6 +485,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"AS2",
+      "provinceindexnumber": 31;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -468,6 +500,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"AS3",
+      "provinceindexnumber": 32;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -482,6 +515,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"AS4",
+      "provinceindexnumber": 33;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -496,6 +530,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"AS5",
+      "provinceindexnumber": 34;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -510,6 +545,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"AS6",
+      "provinceindexnumber": 35;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -524,6 +560,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"AS7",
+      "provinceindexnumber": 36;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -538,6 +575,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"AS8",
+      "provinceindexnumber": 37;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -552,6 +590,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"AS9",
+      "provinceindexnumber": 38;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -566,6 +605,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"AS10",
+      "provinceindexnumber": 39;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -580,6 +620,7 @@ var gameBoardObject = [
 
     },
     { "provincename":"AS11",
+      "provinceindexnumber": 40;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -594,6 +635,7 @@ var gameBoardObject = [
 
     },
     { "provincename": "AS12",
+      "provinceindexnumber": 41;
       "owner":"",
       "numberOfTroops":0,
       "valueToplayer2":0,
@@ -1080,7 +1122,6 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
           counterflash.classList.remove('flashing');
           var allyprovince = "";
           gameBoardObject.map((b) =>{
-            console.log(b);
             if (b.provincename === playerselected){
               console.log("PROVINCE FOUND");
               allyprovince = b;
@@ -1142,8 +1183,8 @@ function playerbattleFunction(){
       case allynumoftroops === 1:
         atknbr = 1;
         break;
-      case allynumoftroops === 0:
-        retreatButton();
+      case allynumoftroops === 0://Attacker Lost
+        cleanUpBattle();
         endBattle = true;
         break;
       default:
@@ -1159,8 +1200,16 @@ function playerbattleFunction(){
       case enemynumoftroops === 1:
         defnbr = 1;
         break;
-      case enemynumoftroops === 0:
-        retreatButton();
+      case enemynumoftroops === 0://Attacker Won
+        var losinplayer = "";
+        for (let i = 0; i < 6; i++){
+          if (enemyProvince.owner === playerObjectArray[i].playername){
+            losinplayer = i;
+          }
+        }
+        var losinplayer = enemyProvince.owner;
+        attackerWon(enemyProvince, playerObjectArray[losinplayer], playerObjectArray[0])
+        cleanUpBattle();
         endBattle = true;
         break;
       default:
@@ -1239,7 +1288,7 @@ function playerbattleFunction(){
       }
     }
 }
-function retreatButton(){
+function cleanUpBattle(){
   var dieholder = document.getElementById("die_holder");
   dieholder.style.display = "none";
   enemyProvince = "";
@@ -1263,6 +1312,20 @@ function retreatButton(){
   playerTurnBoolean = true;
 }
 //END AND DIE FUNCTION BATTLE FUNCTION
+
+
+//BEGIN ATTACKER WON BATTLE FUNCTION
+function attackerWon(mapareaobj, losingplayerobj, winningplayerobj){
+  //MAPOBJECT: Need to change owner, Background Color, Number of Troops
+  //losingplayerobj: Subtract 1 from numberOfProvincesOwned, Take province from provincesOwned, take province from provincesOwnedIndex
+  //winningplayerobj: Add 1 to numberOfProvincesOwned, add province to provincesOwned, add province to provincesOwnedIndex
+  mapareaobj.owner = winningplayerobj.playername;
+  var changing = mapareaobj.provincename;
+  var counterDiv = document.getElementById(changing+"Counter");
+  counterDiv.setAttribute("style", "background-color: "+winningplayerobj.color+";");
+
+}
+//END ATTACKER WON BATTLE FUNCTION
 
 
 //BEGIN PLAYER CLICK FUNCTION
