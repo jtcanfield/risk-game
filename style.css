@@ -45,7 +45,7 @@ map area:hover{
 }
 #die_holder{
   display: inline-block;
-  width: 20%;
+  width: 250px;
 }
 #red_dice_holder{
   float: left;
@@ -64,6 +64,17 @@ map area:hover{
   height: 50px;
   width: 50px;
   background-size: contain;
+}
+.whitearrow, .redarrow{
+  height: 50px;
+  width: 150px;
+  background-size: contain;
+}
+.whitearrow{
+
+}
+.redarrow{
+  
 }
 #NA1Counter {
   left: 70px;
