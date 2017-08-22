@@ -1036,25 +1036,45 @@ function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed, indexO
       if (reinforceAllowed > 0){
         computerReinforce(indexOfTurn, reinforceAllowed-1);
       } else if (reinforceAllowed === 0){
-        setTimeout(function() { attackTurn(indexOfTurn, playerindex);}, 10/*00*/);
+        // index = 0;
+        // idOfClicked = 0;
+        setTimeout(function() { attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn);}, 10/*00*/);
       }
     }
   }
 }
 //END REINFORCE FUNCTION
 
-
+var playerselected = "";
 //BEGIN ATTACK TURN FUNCTION
-function attackTurn(indexOfTurn, playerindex, skip){
+function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
-  if (playerindex === "0"){
+  if (playerindex === "0" ){
     if (skip === true){
       console.log("player"+turnArray[indexOfTurn]+" is skipping their turn");
       setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt((turnArray.indexOf(1)) + 1);}, 100);
     }
     if (skip !== true){
-      console.log("player"+turnArray[indexOfTurn]+" is skipping their turn");
-      setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt((turnArray.indexOf(1)) + 1);}, 100);
+      if (playerselected === "" && gameBoardObject[index].owner !== "player1"){
+        return
+      }
+      if (playerselected === "" && gameBoardObject[index].owner === "player1"){
+        playerselected = idOfClicked+"Counter";
+        var counterflash = document.getElementById(playerselected);
+        counterflash.classList.add('flashing');
+      }
+      if (playerselected !== "" && gameBoardObject[index].owner === "player1"){
+        var counterflash = document.getElementById(playerselected);
+        counterflash.classList.remove('flashing');
+        playerselected = idOfClicked+"Counter";
+        var counterflash = document.getElementById(playerselected);
+        counterflash.classList.add('flashing');
+      }
+      if (playerselected !== "" && gameBoardObject[index].owner !== "player1"){
+        console.log("player"+turnArray[indexOfTurn]+" HAS ATTACKED");
+        playerselected = "";
+        setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt((turnArray.indexOf(1)) + 1);}, 100);
+      }
     }
   } else if (playerindex !== "0"){
     console.log("player"+turnArray[indexOfTurn]+" is now attacking");
@@ -1084,14 +1104,14 @@ function mapClick(province, index){
         reinforceTurn(index, "0", idOfClicked, playerrenif);
       } else if (playerrenif === 0){
         announcements.innerHTML = "Attack Time!";
-        attackTurn(indexOfTurn, "0", false);
+        attackTurn(index, "0", idOfClicked, false, indexOfTurn);
       }
       // playerTurnBoolean = false;
     }
   }
 }
 function skipTurn(){
-  attackTurn(indexOfTurn, "0", true);
+  attackTurn(index, "0", idOfClicked, true, indexOfTurn);
 }
 //END PLAYER CLICK FUNCTION
 
