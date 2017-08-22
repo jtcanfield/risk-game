@@ -703,25 +703,6 @@ var playerObjectArray = [
 
 var announcements = document.getElementById("announcements");
 
-//BEGIN DIE FUNCTION
-function rollTheWhiteDice(){
-  var diceParent = document.getElementById("white_dice_holder");
-  var whitedienumber = Math.floor(Math.random()*(6-1+1)+1);
-  var newWhiteDice = document.createElement("img");
-  newWhiteDice.setAttribute("style", "background-image: url(white"+whitedienumber+".png);");
-  diceParent.appendChild(newWhiteDice);
-  return whitedienumber;
-}
-function rollTheRedDice(){
-  var diceParent = document.getElementById("red_dice_holder");
-  var reddienumber = Math.floor(Math.random()*(6-1+1)+1);
-  var newRedDice = document.createElement("img");
-  newRedDice.setAttribute("style", "background-image: url(red"+reddienumber+".png);");
-  diceParent.appendChild(newRedDice);
-  return reddienumber;
-}
-//END DIE FUNCTION
-
 //STAGING OBJECT HERE
 var gameStage = {stage:"placing", substage:"NA", turn:-20, mapFilled:42};
 //Stages: placing, beginning reinforcement, maingameplay(activates substages)
@@ -1102,8 +1083,29 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
 //END ATTACK TURN SELECTION FUNCTION
 
 
-//BEGIN BATTLE FUNCTION
+//BEGIN DIE FUNCTION
+function rollTheWhiteDice(num){
+  var diceParent = document.getElementById("white_dice_holder");
+  var whitedienumber = Math.floor(Math.random()*(6-1+1)+1);
+  var newWhiteDice = document.createElement("img");
+  newWhiteDice.setAttribute("style", "background-image: url(white"+whitedienumber+".png);");
+  diceParent.appendChild(newWhiteDice);
+  return whitedienumber;
+}
+function rollTheRedDice(num){
+  var diceParent = document.getElementById("red_dice_holder");
+  var reddienumber = Math.floor(Math.random()*(6-1+1)+1);
+  var newRedDice = document.createElement("img");
+  newRedDice.setAttribute("style", "background-image: url(red"+reddienumber+".png);");
+  diceParent.appendChild(newRedDice);
+  return reddienumber;
+}
+//END DIE FUNCTION
 
+//BEGIN BATTLE FUNCTION
+function battleFunction(){
+
+}
 //END BATTLE FUNCTION
 
 
