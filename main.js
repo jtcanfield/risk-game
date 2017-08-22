@@ -1099,6 +1099,10 @@ function battleFunction(atknbr, defnbr){
   while (whitediceParent.hasChildNodes()) {
     whitediceParent.removeChild(whitediceParent.lastChild);
   }
+  var arrowParent = document.getElementById("arrow_holder");
+  while (arrowParent.hasChildNodes()) {
+    arrowParent.removeChild(arrowParent.lastChild);
+  }
   //Step two: Roll and sort Atk Die
   attackDieArray = [];
   var atkvar = 0;
@@ -1134,7 +1138,6 @@ function battleFunction(atknbr, defnbr){
     defvar++
   }
   //Step four: compare atk and def die
-  var arrowParent = document.getElementById("arrow_holder");
   //find which array is shorter
   var longestarray = "";
   if (attackDieArray.length >= defDieArray.length){
