@@ -43,12 +43,26 @@ map area:hover{
   border: 1px solid #555555;
   border-radius: 99999px;
 }
+#die_holder{
+  display: inline-block;
+  width: 30%;
+}
+#red_dice_holder{
+  float: right;
+  width: 50%;
+}
 #red_dice_holder img{
+  float: right;
   height: 50px;
   width: 50px;
   background-size: contain;
 }
+#white_dice_holder{
+  float: left;
+  width: 50%;
+}
 #white_dice_holder img{
+  float: left;
   height: 50px;
   width: 50px;
   background-size: contain;
