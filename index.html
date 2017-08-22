@@ -125,9 +125,11 @@
     <br><br>
     <button id="skipTurn" onclick="finishTurn()">Finish Attack Turn</button>
     <br><br>
-    <button onclick="battleFunction(3, 2)">Test Dice!</button>
+    <button id="attackButton" onclick="attackFunction()">Attack!</button>
     <br><br>
     <div id="die_holder">
+      <div id="attacker"></div>
+      <div id="defender"></div>
       <div id="red_dice_holder"></div>
       <div id="white_dice_holder"></div>
       <div id="arrow_holder"></div>

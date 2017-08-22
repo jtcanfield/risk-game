@@ -1084,7 +1084,7 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
               allyprovince = b;
             }
           });
-          battleFunction(gameBoardObject[index].numberOfTroops, allyprovince.numberOfTroops);
+          playerbattleFunction(gameBoardObject[index], allyprovince);
           playerselected = "";
           console.log("you have battled");
         }
@@ -1099,82 +1099,84 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
 
 
 //BEGIN AND DIE FUNCTION BATTLE FUNCTION
-function battleFunction(enemytroops, allytroops, atknbr, defnbr){
-  //Step one: Clear and set die divs
-  var reddiceParent = document.getElementById("red_dice_holder");
-  while (reddiceParent.hasChildNodes()) {
-    reddiceParent.removeChild(reddiceParent.lastChild);
-  }
-  var whitediceParent = document.getElementById("white_dice_holder");
-  while (whitediceParent.hasChildNodes()) {
-    whitediceParent.removeChild(whitediceParent.lastChild);
-  }
-  var arrowParent = document.getElementById("arrow_holder");
-  while (arrowParent.hasChildNodes()) {
-    arrowParent.removeChild(arrowParent.lastChild);
-  }
-  //Step two: Roll and sort Atk Die
-  attackDieArray = [];
-  var atkvar = 0;
-  while (atkvar < atknbr){
-    var reddienumber = Math.floor(Math.random()*(6-1+1)+1);
-    attackDieArray.push(reddienumber);
-    atkvar++
-  }
-  attackDieArray.sort((a, b) => (b - a));//sort attack die array from high to low
-  atkvar = 0;
-  while (atkvar < attackDieArray.length){
-    var newRedDice = document.createElement("img");
-    var numbertoappend = attackDieArray[atkvar];
-    newRedDice.setAttribute("style", "background-image: url(red"+numbertoappend+".png);");
-    reddiceParent.appendChild(newRedDice);
-    atkvar++
-  }
-  //Step three: Roll and sort Def Die
-  defDieArray = [];
-  var defvar = 0;
-  while (defvar < defnbr){
-    var whitedienumber = Math.floor(Math.random()*(6-1+1)+1);
-    defDieArray.push(whitedienumber);
-    defvar++
-  }
-  defDieArray.sort((a, b) => (b - a));//sort def die array from high to low
-  defvar = 0;
-  while (defvar < defDieArray.length){
-    var newWhiteDice = document.createElement("img");
-    var numbertoappend = defDieArray[defvar];
-    newWhiteDice.setAttribute("style", "background-image: url(white"+numbertoappend+".png);");
-    whitediceParent.appendChild(newWhiteDice);
-    defvar++
-  }
-  //Step four: compare atk and def die
-  //find which array is shorter
-  var longestarray = "";
-  if (attackDieArray.length >= defDieArray.length){//if attacker has more than def
-    for (var a = 0; a < defDieArray.length; a++){
-      if (defDieArray[a] >= attackDieArray[a]){//Def Wins
-        var newarrow = document.createElement("img");
-        newarrow.setAttribute("class", "whitearrow");
-        arrowParent.appendChild(newarrow);
-      }
-      if (defDieArray[a] < attackDieArray[a]){//Def loses
-        var newarrow = document.createElement("img");
-        newarrow.setAttribute("class", "redarrow");
-        arrowParent.appendChild(newarrow);
+function playerbattleFunction(enemyProvince, allyProvince, atknbr, defnbr){
+  function attackFunction(){
+    //Step one: Clear and set die divs
+    var reddiceParent = document.getElementById("red_dice_holder");
+    while (reddiceParent.hasChildNodes()) {
+      reddiceParent.removeChild(reddiceParent.lastChild);
+    }
+    var whitediceParent = document.getElementById("white_dice_holder");
+    while (whitediceParent.hasChildNodes()) {
+      whitediceParent.removeChild(whitediceParent.lastChild);
+    }
+    var arrowParent = document.getElementById("arrow_holder");
+    while (arrowParent.hasChildNodes()) {
+      arrowParent.removeChild(arrowParent.lastChild);
+    }
+    //Step two: Roll and sort Atk Die
+    attackDieArray = [];
+    var atkvar = 0;
+    while (atkvar < atknbr){
+      var reddienumber = Math.floor(Math.random()*(6-1+1)+1);
+      attackDieArray.push(reddienumber);
+      atkvar++
+    }
+    attackDieArray.sort((a, b) => (b - a));//sort attack die array from high to low
+    atkvar = 0;
+    while (atkvar < attackDieArray.length){
+      var newRedDice = document.createElement("img");
+      var numbertoappend = attackDieArray[atkvar];
+      newRedDice.setAttribute("style", "background-image: url(red"+numbertoappend+".png);");
+      reddiceParent.appendChild(newRedDice);
+      atkvar++
+    }
+    //Step three: Roll and sort Def Die
+    defDieArray = [];
+    var defvar = 0;
+    while (defvar < defnbr){
+      var whitedienumber = Math.floor(Math.random()*(6-1+1)+1);
+      defDieArray.push(whitedienumber);
+      defvar++
+    }
+    defDieArray.sort((a, b) => (b - a));//sort def die array from high to low
+    defvar = 0;
+    while (defvar < defDieArray.length){
+      var newWhiteDice = document.createElement("img");
+      var numbertoappend = defDieArray[defvar];
+      newWhiteDice.setAttribute("style", "background-image: url(white"+numbertoappend+".png);");
+      whitediceParent.appendChild(newWhiteDice);
+      defvar++
+    }
+    //Step four: compare atk and def die
+    //find which array is shorter
+    var longestarray = "";
+    if (attackDieArray.length >= defDieArray.length){//if attacker has more than def
+      for (var a = 0; a < defDieArray.length; a++){
+        if (defDieArray[a] >= attackDieArray[a]){//Def Wins
+          var newarrow = document.createElement("img");
+          newarrow.setAttribute("class", "whitearrow");
+          arrowParent.appendChild(newarrow);
+        }
+        if (defDieArray[a] < attackDieArray[a]){//Def loses
+          var newarrow = document.createElement("img");
+          newarrow.setAttribute("class", "redarrow");
+          arrowParent.appendChild(newarrow);
+        }
       }
     }
-  }
-  if (attackDieArray.length < defDieArray.length){//if attacker has less than def (why tho)
-    for (var a = 0; a < attackDieArray.length; a++){
-      if (defDieArray[a] >= attackDieArray[a]){//Def Wins
-        var newarrow = document.createElement("img");
-        newarrow.setAttribute("class", "whitearrow");
-        arrowParent.appendChild(newarrow);
-      }
-      if (defDieArray[a] < attackDieArray[a]){//Def loses
-        var newarrow = document.createElement("img");
-        newarrow.setAttribute("class", "redarrow");
-        arrowParent.appendChild(newarrow);
+    if (attackDieArray.length < defDieArray.length){//if attacker has less than def (why tho)
+      for (var a = 0; a < attackDieArray.length; a++){
+        if (defDieArray[a] >= attackDieArray[a]){//Def Wins
+          var newarrow = document.createElement("img");
+          newarrow.setAttribute("class", "whitearrow");
+          arrowParent.appendChild(newarrow);
+        }
+        if (defDieArray[a] < attackDieArray[a]){//Def loses
+          var newarrow = document.createElement("img");
+          newarrow.setAttribute("class", "redarrow");
+          arrowParent.appendChild(newarrow);
+        }
       }
     }
   }
