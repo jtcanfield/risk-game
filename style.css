@@ -3,12 +3,12 @@ html {
 }
 @-webkit-keyframes flash {
 	0% { opacity: 1; }
-	50% { opacity: .1; }
+	50% { opacity: 0; }
 	100% { opacity: 1; }
 }
 @keyframes flash {
 	0% { opacity: 1; }
-	50% { opacity: .1; }
+	50% { opacity: 0; }
 	100% { opacity: 1; }
 }
 body {
@@ -30,8 +30,8 @@ map area:hover{
   pointer-events: none;
 }
 .flashing{
-  -webkit-animation: flash linear 1s infinite;
-	animation: flash linear 1s infinite;
+  -webkit-animation: flash linear .5s infinite;
+	animation: flash linear .5s infinite;
 }
 .highlight{
   border: 10px solid gold;
