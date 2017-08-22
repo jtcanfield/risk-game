@@ -1209,6 +1209,7 @@ function playerbattleFunction(){
         if (numtroops > allynumoftroops){
           return
         } else {
+          allyProvince.numberOfTroops -= numtroops;
           var losinplayer = "";
           for (let i = 0; i < 6; i++){
             if (enemyProvince.owner === playerObjectArray[i].playername){
@@ -1336,6 +1337,10 @@ function attackerWon(mapareaobj, losingplayerobj, winningplayerobj, numboftroops
   //MAPOBJECT: Need to change owner, Background Color, Number of Troops
   //losingplayerobj: Subtract 1 from numberOfProvincesOwned, Take province from provincesOwned, take province from provincesOwnedIndex
   //winningplayerobj: Add 1 to numberOfProvincesOwned, add province to provincesOwned, add province to provincesOwnedIndex
+  console.log("BEFORE:");
+  console.log(mapareaobj);
+  console.log(losingplayerobj);
+  console.log(winningplayerobj);
   //Changes Province Owner
   mapareaobj.owner = winningplayerobj.playername;
   //Change Province Background Color
@@ -1345,7 +1350,6 @@ function attackerWon(mapareaobj, losingplayerobj, winningplayerobj, numboftroops
   //changes number of provinces owned
   losingplayerobj.numberOfProvincesOwned -= 1;
   winningplayerobj.numberOfProvincesOwned += 1;
-  console.log(mapareaobj.provinceindexnumber);
   //MOVES PROVINCE NAME FROM ONE PLAYER TO ANOTHER
   var provchangenameindex = losingplayerobj.provincesOwned.indexOf(mapareaobj.provincename);
   var provnamechange = losingplayerobj.provincesOwned.shift(provchangenameindex);
@@ -1355,6 +1359,10 @@ function attackerWon(mapareaobj, losingplayerobj, winningplayerobj, numboftroops
   var provindexchange = losingplayerobj.provincesOwnedIndex.shift(provchangeindexindex);
   winningplayerobj.provincesOwned.push(provnamechange);
   mapareaobj.numberOfTroops = numboftroopstomove;
+  console.log("AFTER:");
+  console.log(mapareaobj);
+  console.log(losingplayerobj);
+  console.log(winningplayerobj);
 }
 //END ATTACKER WON BATTLE FUNCTION
 
