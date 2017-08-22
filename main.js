@@ -1088,7 +1088,7 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
 //END ATTACK TURN SELECTION FUNCTION
 
 
-//BEGIN BATTLE FUNCTION
+//BEGIN AND DIE FUNCTION BATTLE FUNCTION
 function battleFunction(atknbr, defnbr){
   //Step one: Clear and set die divs
   var reddiceParent = document.getElementById("red_dice_holder");
@@ -1099,7 +1099,7 @@ function battleFunction(atknbr, defnbr){
   while (whitediceParent.hasChildNodes()) {
     whitediceParent.removeChild(whitediceParent.lastChild);
   }
-  //Step two: Roll Atk Die
+  //Step two: Roll and sort Atk Die
   attackDieArray = [];
   var atkvar = 0;
   while (atkvar < atknbr){
@@ -1116,7 +1116,7 @@ function battleFunction(atknbr, defnbr){
     reddiceParent.appendChild(newRedDice);
     atkvar++
   }
-  //Step three: Roll Def Die
+  //Step three: Roll and sort Def Die
   defDieArray = [];
   var defvar = 0;
   while (defvar < defnbr){
@@ -1133,8 +1133,10 @@ function battleFunction(atknbr, defnbr){
     whitediceParent.appendChild(newWhiteDice);
     defvar++
   }
+  //Step four: compare atk and def die
+  
 }
-//END BATTLE FUNCTION
+//END AND DIE FUNCTION BATTLE FUNCTION
 
 
 //BEGIN PLAYER CLICK FUNCTION
