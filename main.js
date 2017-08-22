@@ -1045,11 +1045,17 @@ function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed, indexO
 
 
 //BEGIN ATTACK TURN FUNCTION
-function attackTurn(indexOfTurn, playerindex){
+function attackTurn(indexOfTurn, playerindex, skip){
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   if (playerindex === "0"){
-    console.log("player"+turnArray[indexOfTurn]+" is now attacking");
-    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt((turnArray.indexOf(1)) + 1);}, 100);
+    if (skip === true){
+      console.log("player"+turnArray[indexOfTurn]+" is skipping their turn");
+      setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt((turnArray.indexOf(1)) + 1);}, 100);
+    }
+    if (skip !== true){
+      console.log("player"+turnArray[indexOfTurn]+" is skipping their turn");
+      setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt((turnArray.indexOf(1)) + 1);}, 100);
+    }
   } else if (playerindex !== "0"){
     console.log("player"+turnArray[indexOfTurn]+" is now attacking");
     setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 10/*00*/);
@@ -1077,12 +1083,15 @@ function mapClick(province, index){
       if (playerrenif > 0){
         reinforceTurn(index, "0", idOfClicked, playerrenif);
       } else if (playerrenif === 0){
-        announcements.innerHTML = "ATTACK!";
-        attackTurn(indexOfTurn, "0");
+        announcements.innerHTML = "Attack Time!";
+        attackTurn(indexOfTurn, "0", false);
       }
       // playerTurnBoolean = false;
     }
   }
+}
+function skipTurn(){
+  attackTurn(indexOfTurn, "0", true);
 }
 //END PLAYER CLICK FUNCTION
 
