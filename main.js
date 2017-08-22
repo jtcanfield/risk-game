@@ -1048,7 +1048,7 @@ function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed, indexO
 
 
 var playerselected = "";
-//BEGIN ATTACK TURN FUNCTION
+//BEGIN ATTACK TURN SELECTION FUNCTION
 function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
   var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   if (playerindex === "0" ){
@@ -1097,7 +1097,7 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
     setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 10/*00*/);
   }
 }
-//END ATTACK TURN FUNCTION
+//END ATTACK TURN SELECTION FUNCTION
 
 
 //BEGIN PLAYER CLICK FUNCTION
