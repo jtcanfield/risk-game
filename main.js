@@ -1112,7 +1112,6 @@ function battleFunction(atknbr, defnbr){
   while (atkvar < attackDieArray.length){
     var newRedDice = document.createElement("img");
     var numbertoappend = attackDieArray[atkvar];
-    console.log(numbertoappend);
     newRedDice.setAttribute("style", "background-image: url(red"+numbertoappend+".png);");
     reddiceParent.appendChild(newRedDice);
     atkvar++
@@ -1130,7 +1129,7 @@ function battleFunction(atknbr, defnbr){
   while (defvar < defDieArray.length){
     var newWhiteDice = document.createElement("img");
     var numbertoappend = defDieArray[defvar];
-    newWhiteDice.setAttribute("style", "background-image: url(white"+whitedienumber+".png);");
+    newWhiteDice.setAttribute("style", "background-image: url(white"+numbertoappend+".png);");
     whitediceParent.appendChild(newWhiteDice);
     defvar++
   }
