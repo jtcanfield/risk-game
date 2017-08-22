@@ -1,6 +1,16 @@
 html {
   text-align: center;
 }
+@-webkit-keyframes flash {
+	0% { opacity: 1; }
+	50% { opacity: .1; }
+	100% { opacity: 1; }
+}
+@keyframes flash {
+	0% { opacity: 1; }
+	50% { opacity: .1; }
+	100% { opacity: 1; }
+}
 body {
   margin: 0;
   padding: 0;
@@ -19,7 +29,9 @@ map area:hover{
   /*IN ORDER TO GET CLICK AND DRAG TO WORK, COMMENT OUT BELOW:*/
   pointer-events: none;
 }
+.flashing{
 
+}
 .highlight{
   border: 10px solid gold;
 }
