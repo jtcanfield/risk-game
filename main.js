@@ -1135,9 +1135,36 @@ function battleFunction(atknbr, defnbr){
   }
   //Step four: compare atk and def die
   var dieParent = document.getElementById("die_holder");
-  var newarrow = document.createElement("img");
-  newarrow.setAttribute("class", "whitearrow");
-  dieParent.appendChild(newarrow);
+  //find which array is shorter
+  var longestarray = "";
+  if (attackDieArray.length >= defDieArray.length){
+    for (var a = 0; a < defDieArray.length; a++){
+      if (defDieArray[0] >= attackDieArray[0]){
+        var newarrow = document.createElement("img");
+        newarrow.setAttribute("class", "whitearrow");
+        dieParent.appendChild(newarrow);
+      }
+      if (defDieArray[0] < attackDieArray[0]){
+        var newarrow = document.createElement("img");
+        newarrow.setAttribute("class", "redarrow");
+        dieParent.appendChild(newarrow);
+      }
+    }
+  }
+  if (attackDieArray.length < defDieArray.length){
+    for (var a = 0; a < attackDieArray.length; a++){
+      if (defDieArray[0] >= attackDieArray[0]){
+        var newarrow = document.createElement("img");
+        newarrow.setAttribute("class", "whitearrow");
+        dieParent.appendChild(newarrow);
+      }
+      if (defDieArray[0] < attackDieArray[0]){
+        var newarrow = document.createElement("img");
+        newarrow.setAttribute("class", "redarrow");
+        dieParent.appendChild(newarrow);
+      }
+    }
+  }
 }
 //END AND DIE FUNCTION BATTLE FUNCTION
 
