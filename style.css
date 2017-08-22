@@ -80,6 +80,27 @@ map area:hover{
 .redarrow{
   background-image: url("redarrow.png");
 }
+#attackouter, #defendouter{
+  width: 1px;
+  margin: auto;
+  overflow: visible;
+}
+#defender{
+  margin-left: 100px;
+  float: left;
+  position: relative;
+  left: 150px;
+  top: 25px;
+  font-size: 30px;
+}
+#attacker{
+  margin-right: 100px;
+  float: right;
+  position: relative;
+  right: 150px;
+  top: 50px;
+  font-size: 30px;
+}
 #NA1Counter {
   left: 70px;
   top: 120px;
