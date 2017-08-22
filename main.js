@@ -1134,7 +1134,7 @@ function battleFunction(atknbr, defnbr){
     defvar++
   }
   //Step four: compare atk and def die
-  var dieParent = document.getElementById("die_holder");
+  var arrowParent = document.getElementById("arrow_holder");
   //find which array is shorter
   var longestarray = "";
   if (attackDieArray.length >= defDieArray.length){
@@ -1142,12 +1142,12 @@ function battleFunction(atknbr, defnbr){
       if (defDieArray[0] >= attackDieArray[0]){
         var newarrow = document.createElement("img");
         newarrow.setAttribute("class", "whitearrow");
-        dieParent.appendChild(newarrow);
+        arrowParent.appendChild(newarrow);
       }
       if (defDieArray[0] < attackDieArray[0]){
         var newarrow = document.createElement("img");
         newarrow.setAttribute("class", "redarrow");
-        dieParent.appendChild(newarrow);
+        arrowParent.appendChild(newarrow);
       }
     }
   }
@@ -1156,12 +1156,12 @@ function battleFunction(atknbr, defnbr){
       if (defDieArray[0] >= attackDieArray[0]){
         var newarrow = document.createElement("img");
         newarrow.setAttribute("class", "whitearrow");
-        dieParent.appendChild(newarrow);
+        arrowParent.appendChild(newarrow);
       }
       if (defDieArray[0] < attackDieArray[0]){
         var newarrow = document.createElement("img");
         newarrow.setAttribute("class", "redarrow");
-        dieParent.appendChild(newarrow);
+        arrowParent.appendChild(newarrow);
       }
     }
   }
