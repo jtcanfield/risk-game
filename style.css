@@ -30,7 +30,8 @@ map area:hover{
   pointer-events: none;
 }
 .flashing{
-
+  -webkit-animation: flash linear 1s infinite;
+	animation: flash linear 1s infinite;
 }
 .highlight{
   border: 10px solid gold;
