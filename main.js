@@ -313,8 +313,8 @@ var gameBoardObject = [
     "valueToplayer4":0,
     "valueToplayer5":0,
     "valueToplayer6":0,
-    "adjacentProvinces":["EU1", "EU2", "EU5", "EU7"],
-    "adjacentProvinceIndex":["13", "14", "17", "19"],
+    "adjacentProvinces":["EU1", "EU2", "EU5", "EU6"],
+    "adjacentProvinceIndex":["13", "14", "17", "18"],
     "continenton":"EU",
     getValues : function(){},
 
@@ -1210,6 +1210,7 @@ function playerbattleFunction(){
         break;
       case enemynumoftroops === 0://Attacker Won
         var numtroops = document.getElementById("numberOfTroopsToMove").value;
+        console.log(numtroops);
         var numinput = document.getElementById("numberOfTroopsToMove");
         numinput.style.display = "";
         var attackButton = document.getElementById("attackButton");
@@ -1376,7 +1377,7 @@ function attackerWon(mapareaobj, losingplayerobj, winningplayerobj, numboftroops
 
 //BEGIN PLAYER CLICK FUNCTION
 function mapClick(province, index){
-  // console.log(gameBoardObject[index]);
+  console.log(gameBoardObject[index]);
   // console.log(gameBoardObject[index].owner);
   var idOfClicked = $(province).attr('id');
   if (playerTurnBoolean === false){
