@@ -1099,9 +1099,7 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
 
 
 //BEGIN AND DIE FUNCTION BATTLE FUNCTION
-function battleFunction(enemy, ally, atknbr, defnbr){
-  console.log(enemy);
-  console.log(ally);
+function battleFunction(enemytroops, allytroops, atknbr, defnbr){
   //Step one: Clear and set die divs
   var reddiceParent = document.getElementById("red_dice_holder");
   while (reddiceParent.hasChildNodes()) {
