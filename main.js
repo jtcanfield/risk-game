@@ -1209,11 +1209,13 @@ function playerbattleFunction(){
     if (attackDieArray.length >= defDieArray.length){//if attacker has more than def
       for (var a = 0; a < defDieArray.length; a++){
         if (defDieArray[a] >= attackDieArray[a]){//Def Wins
+          allyProvince.numberOfTroops -= 1;
           var newarrow = document.createElement("img");
           newarrow.setAttribute("class", "whitearrow");
           arrowParent.appendChild(newarrow);
         }
         if (defDieArray[a] < attackDieArray[a]){//Def loses
+          enemyProvince.numberOfTroops -= 1;
           var newarrow = document.createElement("img");
           newarrow.setAttribute("class", "redarrow");
           arrowParent.appendChild(newarrow);
@@ -1223,11 +1225,13 @@ function playerbattleFunction(){
     if (attackDieArray.length < defDieArray.length){//if attacker has less than def (why tho)
       for (var a = 0; a < attackDieArray.length; a++){
         if (defDieArray[a] >= attackDieArray[a]){//Def Wins
+          allyProvince.numberOfTroops -= 1;
           var newarrow = document.createElement("img");
           newarrow.setAttribute("class", "whitearrow");
           arrowParent.appendChild(newarrow);
         }
         if (defDieArray[a] < attackDieArray[a]){//Def loses
+          enemyProvince.numberOfTroops -= 1;
           var newarrow = document.createElement("img");
           newarrow.setAttribute("class", "redarrow");
           arrowParent.appendChild(newarrow);
