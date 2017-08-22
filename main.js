@@ -1008,9 +1008,9 @@ function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed, indexO
     var counterDiv = document.getElementById(idOfClicked+"Counter");
     gameBoardObject[index].numberOfTroops += 1;
     counterDiv.innerHTML = gameBoardObject[index].numberOfTroops;
-    var setHighlight = document.getElementById("player1span");
-    setHighlight.setAttribute("class", "");
     if (gameStage.stage === "reinforceStart"){
+      var setHighlight = document.getElementById("player1span");
+      setHighlight.setAttribute("class", "");
       whosTurnIsIt((turnArray.indexOf(1)) + 1);
     }
     if (gameStage.stage === "maingameplay"){
@@ -1046,6 +1046,7 @@ function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed, indexO
 }
 //END REINFORCE FUNCTION
 
+
 var playerselected = "";
 //BEGIN ATTACK TURN FUNCTION
 function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
@@ -1079,7 +1080,6 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
             isadjacenttrue = true;
           }
         });
-        console.log(isadjacenttrue);
         if (isadjacenttrue === false){
           announcements.innerHTML = "Select an adjacent province to attack!";
           console.log("PLEASE SELECT ADJACENT, CLICK SHOULD STOP HERE");
