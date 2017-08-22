@@ -886,8 +886,7 @@ function valueCalculationFunction(i){
 function whosTurnIsIt(indexOfTurn){
   var turns = document.getElementById("turns_lapsed");
   turns_lapsed.innerHTML = "Turn " + gameStage.turn;
-  if (indexOfTurn >= 6){
-    // indexOfTurn = 0;
+  if (indexOfTurn >= turnArray.length){
     gameStage.turn += 1;
     setTimeout(function() { whosTurnIsIt(0); }, 10);
     return
