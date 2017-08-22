@@ -932,6 +932,7 @@ function whosTurnIsIt(indexOfTurn){
       computerSelecting(indexOfTurn);
     } else {
       playerTurnBoolean = true;
+      announcements.innerHTML = "Pick a Province!";
     }
   }
   if (gameStage.stage === "reinforceStart"){
@@ -1088,6 +1089,7 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
           counterflash.classList.remove('flashing');
           console.log("player"+turnArray[indexOfTurn]+" HAS ATTACKED");
           playerselected = "";
+          playerTurnBoolean = false;
           setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt((turnArray.indexOf(1)) + 1);}, 100);
         }
       }
@@ -1098,6 +1100,11 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
   }
 }
 //END ATTACK TURN SELECTION FUNCTION
+
+
+//BEGIN BATTLE FUNCTION
+
+//END BATTLE FUNCTION
 
 
 //BEGIN PLAYER CLICK FUNCTION
