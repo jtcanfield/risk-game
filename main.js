@@ -1210,7 +1210,11 @@ function playerbattleFunction(){
         break;
       case enemynumoftroops === 0://Attacker Won
         var numtroops = document.getElementById("numberOfTroopsToMove").value;
-        if (numtroops > allynumoftroops){
+        var numinput = document.getElementById("numberOfTroopsToMove");
+        numinput.style.display = "";
+        var attackButton = document.getElementById("attackButton");
+        attackButton.innerHTML = "Move Troops";
+        if (numtroops > allynumoftroops || numtroops===undefined || numtroops===0){
           return
         } else {
           allyProvince.numberOfTroops -= numtroops;
@@ -1220,7 +1224,6 @@ function playerbattleFunction(){
               losinplayer = i;
             }
           }
-          var losinplayer = enemyProvince.owner;
           attackerWon(enemyProvince, playerObjectArray[losinplayer], playerObjectArray[0], numtroops);
           cleanUpBattle();
           endBattle = true;
@@ -1301,7 +1304,7 @@ function playerbattleFunction(){
         }
       }
     }
-    if (enemynumoftroops === 0){
+    if (enemynumoftroops.numberOfTroops === 0){
       var numinput = document.getElementById("numberOfTroopsToMove");
       numinput.style.display = "";
       var attackButton = document.getElementById("attackButton");
