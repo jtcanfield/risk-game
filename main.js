@@ -1117,18 +1117,30 @@ function playerbattleFunction(){
   var defnbr = 0;
   var endBattle = false;
     //Step one: Clear and set die divs
+    var reddiceParent = document.getElementById("red_dice_holder");
+    while (reddiceParent.hasChildNodes()) {
+      reddiceParent.removeChild(reddiceParent.lastChild);
+    }
+    var whitediceParent = document.getElementById("white_dice_holder");
+    while (whitediceParent.hasChildNodes()) {
+      whitediceParent.removeChild(whitediceParent.lastChild);
+    }
+    var arrowParent = document.getElementById("arrow_holder");
+    while (arrowParent.hasChildNodes()) {
+      arrowParent.removeChild(arrowParent.lastChild);
+    }
     var atkcntr = document.getElementById("attacker");
     var allynumoftroops = allyProvince.numberOfTroops-1;
     atkcntr.innerHTML = allynumoftroops;
     switch (true) {
       case allynumoftroops >= 3:
-        atknbr = 3
+        atknbr = 3;
         break;
       case allynumoftroops === 2:
-        atknbr = 2
+        atknbr = 2;
         break;
       case allynumoftroops === 1:
-        atknbr = 1
+        atknbr = 1;
         break;
       case allynumoftroops === 0:
         retreatButton();
@@ -1142,10 +1154,10 @@ function playerbattleFunction(){
     defcntr.innerHTML = enemynumoftroops;
     switch (true) {
       case enemynumoftroops >= 2:
-        defnbr = 2
+        defnbr = 2;
         break;
       case enemynumoftroops === 1:
-        defnbr = 1
+        defnbr = 1;
         break;
       case enemynumoftroops === 0:
         retreatButton();
@@ -1154,20 +1166,8 @@ function playerbattleFunction(){
       default:
         break;
     }
-    if (endBattle === false){
+    if (endBattle === true){
       return
-    }
-    var reddiceParent = document.getElementById("red_dice_holder");
-    while (reddiceParent.hasChildNodes()) {
-      reddiceParent.removeChild(reddiceParent.lastChild);
-    }
-    var whitediceParent = document.getElementById("white_dice_holder");
-    while (whitediceParent.hasChildNodes()) {
-      whitediceParent.removeChild(whitediceParent.lastChild);
-    }
-    var arrowParent = document.getElementById("arrow_holder");
-    while (arrowParent.hasChildNodes()) {
-      arrowParent.removeChild(arrowParent.lastChild);
     }
     //Step two: Roll and sort Atk Die
     attackDieArray = [];
