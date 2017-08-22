@@ -84,6 +84,9 @@ map area:hover{
   margin: auto;
   overflow: visible;
 }
+#numberOfTroopsToMove{
+  display: inline-block;
+}
 #attacker{
   margin-left: 100px;
   float: left;
