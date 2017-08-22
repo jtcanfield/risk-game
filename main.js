@@ -1104,8 +1104,16 @@ function battleFunction(atknbr, defnbr){
   var atkvar = 0;
   while (atkvar < atknbr){
     var reddienumber = Math.floor(Math.random()*(6-1+1)+1);
+    attackDieArray.push(reddienumber);
+    atkvar++
+  }
+  attackDieArray.sort((a, b) => (b - a));//sort attack die array from high to low
+  atkvar = 0;
+  while (atkvar < attackDieArray.length){
     var newRedDice = document.createElement("img");
-    newRedDice.setAttribute("style", "background-image: url(red"+reddienumber+".png);");
+    var numbertoappend = attackDieArray[atkvar];
+    console.log(numbertoappend);
+    newRedDice.setAttribute("style", "background-image: url(red"+numbertoappend+".png);");
     reddiceParent.appendChild(newRedDice);
     atkvar++
   }
@@ -1114,7 +1122,14 @@ function battleFunction(atknbr, defnbr){
   var defvar = 0;
   while (defvar < defnbr){
     var whitedienumber = Math.floor(Math.random()*(6-1+1)+1);
+    defDieArray.push(whitedienumber);
+    defvar++
+  }
+  defDieArray.sort((a, b) => (b - a));//sort def die array from high to low
+  defvar = 0;
+  while (defvar < defDieArray.length){
     var newWhiteDice = document.createElement("img");
+    var numbertoappend = defDieArray[defvar];
     newWhiteDice.setAttribute("style", "background-image: url(white"+whitedienumber+".png);");
     whitediceParent.appendChild(newWhiteDice);
     defvar++
