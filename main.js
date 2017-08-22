@@ -1143,6 +1143,10 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
 var enemyProvince = "";
 var allyProvince = "";
 function setPlayerBattle(enempv, allpv){
+  var numinput = document.getElementById("numberOfTroopsToMove");
+  numinput.style.display = "none";
+  var attackButton = document.getElementById("attackButton");
+  attackButton.innerHTML = "Attack!";
   var dieholder = document.getElementById("die_holder");
   dieholder.style.display = "";
   enemyProvince = enempv;
@@ -1201,16 +1205,21 @@ function playerbattleFunction(){
         defnbr = 1;
         break;
       case enemynumoftroops === 0://Attacker Won
-        var losinplayer = "";
-        for (let i = 0; i < 6; i++){
-          if (enemyProvince.owner === playerObjectArray[i].playername){
-            losinplayer = i;
+        var numtroops = document.getElementById("numberOfTroopsToMove").value;
+        if (numtroops > allynumoftroops){
+          return
+        } else {
+          var losinplayer = "";
+          for (let i = 0; i < 6; i++){
+            if (enemyProvince.owner === playerObjectArray[i].playername){
+              losinplayer = i;
+            }
           }
+          var losinplayer = enemyProvince.owner;
+          attackerWon(enemyProvince, playerObjectArray[losinplayer], playerObjectArray[0], numtroops);
+          cleanUpBattle();
+          endBattle = true;
         }
-        var losinplayer = enemyProvince.owner;
-        attackerWon(enemyProvince, playerObjectArray[losinplayer], playerObjectArray[0])
-        cleanUpBattle();
-        endBattle = true;
         break;
       default:
         break;
@@ -1287,10 +1296,18 @@ function playerbattleFunction(){
         }
       }
     }
+    if (enemynumoftroops === 0){
+      var numinput = document.getElementById("numberOfTroopsToMove");
+      numinput.style.display = "";
+      var attackButton = document.getElementById("attackButton");
+      attackButton.innerHTML = "Move Troops";
+    }
 }
 function cleanUpBattle(){
   var dieholder = document.getElementById("die_holder");
   dieholder.style.display = "none";
+  var numinput = document.getElementById("numberOfTroopsToMove");
+  numinput.style.display = "none";
   enemyProvince = "";
   allyProvince = "";
   var atkcntr = document.getElementById("attacker");
