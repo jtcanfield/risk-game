@@ -1036,8 +1036,9 @@ function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed, indexO
       if (reinforceAllowed > 0){
         computerReinforce(indexOfTurn, reinforceAllowed-1);
       } else if (reinforceAllowed === 0){
-        // index = 0;
-        // idOfClicked = 0;
+        index = 0;
+        idOfClicked = 0;
+        skip = false;
         setTimeout(function() { attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn);}, 10/*00*/);
       }
     }
@@ -1059,21 +1060,36 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
         return
       }
       if (playerselected === "" && gameBoardObject[index].owner === "player1"){
-        playerselected = idOfClicked+"Counter";
-        var counterflash = document.getElementById(playerselected);
+        playerselected = idOfClicked;
+        var counterflash = document.getElementById(playerselected+"Counter");
         counterflash.classList.add('flashing');
       }
       if (playerselected !== "" && gameBoardObject[index].owner === "player1"){
-        var counterflash = document.getElementById(playerselected);
+        var counterflash = document.getElementById(playerselected+"Counter");
         counterflash.classList.remove('flashing');
-        playerselected = idOfClicked+"Counter";
-        var counterflash = document.getElementById(playerselected);
+        playerselected = idOfClicked;
+        var counterflash = document.getElementById(playerselected+"Counter");
         counterflash.classList.add('flashing');
       }
       if (playerselected !== "" && gameBoardObject[index].owner !== "player1"){
-        console.log("player"+turnArray[indexOfTurn]+" HAS ATTACKED");
-        playerselected = "";
-        setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt((turnArray.indexOf(1)) + 1);}, 100);
+        var counterflash = document.getElementById(playerselected+"Counter");
+        var isadjacenttrue = false;
+        gameBoardObject[index].adjacentProvinces.map((b) =>{//maps thru each adjacent province id
+          if (b === playerselected){
+            isadjacenttrue = true;
+          }
+        });
+        console.log(isadjacenttrue);
+        if (isadjacenttrue === false){
+          announcements.innerHTML = "Select an adjacent province to attack!";
+          console.log("PLEASE SELECT ADJACENT, CLICK SHOULD STOP HERE");
+          return
+        } else if (isadjacenttrue === true){
+          counterflash.classList.remove('flashing');
+          console.log("player"+turnArray[indexOfTurn]+" HAS ATTACKED");
+          playerselected = "";
+          setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt((turnArray.indexOf(1)) + 1);}, 100);
+        }
       }
     }
   } else if (playerindex !== "0"){
