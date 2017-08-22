@@ -1088,31 +1088,39 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
 //END ATTACK TURN SELECTION FUNCTION
 
 
-//BEGIN DIE FUNCTION
-function rollTheWhiteDice(){
-  var diceParent = document.getElementById("white_dice_holder");
-  var whitedienumber = Math.floor(Math.random()*(6-1+1)+1);
-  var newWhiteDice = document.createElement("img");
-  newWhiteDice.setAttribute("style", "background-image: url(white"+whitedienumber+".png);");
-  diceParent.appendChild(newWhiteDice);
-  return whitedienumber;
-}
-function rollTheRedDice(){
-  var diceParent = document.getElementById("red_dice_holder");
-  var reddienumber = Math.floor(Math.random()*(6-1+1)+1);
-  var newRedDice = document.createElement("img");
-  newRedDice.setAttribute("style", "background-image: url(red"+reddienumber+".png);");
-  diceParent.appendChild(newRedDice);
-  return reddienumber;
-}
-//END DIE FUNCTION
-
 //BEGIN BATTLE FUNCTION
-function battleFunction(){
-  console.log("RED: " + rollTheRedDice());
+function battleFunction(atknbr, defnbr){
+  //Step one: Roll Atk Die
+  attackDieArray = [];
+  var reddiceParent = document.getElementById("red_dice_holder");
+  while (attackDieArray.length <= atknbr){
+    var reddienumber = Math.floor(Math.random()*(6-1+1)+1);
+    newRedDice.setAttribute("style", "background-image: url(red"+reddienumber+".png);");
+    reddiceParent.appendChild(newRedDice);
+    x++
+  }
+  //Step two: Roll Def Die
   console.log("WHITE: " + rollTheWhiteDice());
 }
 //END BATTLE FUNCTION
+
+//BEGIN DIE FUNCTION
+function rollTheWhiteDice(){
+  var whitediceParent = document.getElementById("white_dice_holder");
+  var whitedienumber = Math.floor(Math.random()*(6-1+1)+1);
+  var newWhiteDice = document.createElement("img");
+  newWhiteDice.setAttribute("style", "background-image: url(white"+whitedienumber+".png);");
+  whitediceParent.appendChild(newWhiteDice);
+  return whitedienumber;
+}
+function rollTheRedDice(){
+  var reddienumber = Math.floor(Math.random()*(6-1+1)+1);
+  var newRedDice = document.createElement("img");
+  newRedDice.setAttribute("style", "background-image: url(red"+reddienumber+".png);");
+  reddiceParent.appendChild(newRedDice);
+  return reddienumber;
+}
+//END DIE FUNCTION
 
 
 //BEGIN PLAYER CLICK FUNCTION
