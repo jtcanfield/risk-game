@@ -45,24 +45,22 @@ map area:hover{
 }
 #die_holder{
   display: inline-block;
-  width: 30%;
+  width: 20%;
 }
 #red_dice_holder{
-  float: right;
-  width: 50%;
+  float: left;
+  width: 10%;
 }
 #red_dice_holder img{
-  float: right;
   height: 50px;
   width: 50px;
   background-size: contain;
 }
 #white_dice_holder{
-  float: left;
-  width: 50%;
+  float: right;
+  width: 10%;
 }
 #white_dice_holder img{
-  float: left;
   height: 50px;
   width: 50px;
   background-size: contain;
