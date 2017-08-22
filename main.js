@@ -1207,16 +1207,16 @@ function playerbattleFunction(){
         defnbr = 1;
         break;
       case enemynumoftroops === 0://Attacker Won
-        var dieholderThing = document.getElementById("die_holder");
         var troopsnumberinput = document.getElementById("numberOfTroopsToMove");
+        var inputholder = document.getElementById("inputholder");
         if (troopsnumberinput === null){
           var holder = `<input type="number" id="numberOfTroopsToMove" value="0">`;
-          dieholderThing.appendChild = holder;
+          inputholder.innerHTML = holder;
         }
-        var numtroops = Number(document.getElementById("numberOfTroopsToMove").value);
-        console.log(numtroops);
         var attackButton = document.getElementById("attackButton");
         attackButton.innerHTML = "Move Troops";
+        var numtroops = Number(document.getElementById("numberOfTroopsToMove").value);
+        console.log(numtroops);
         if (numtroops > allynumoftroops || numtroops===undefined || numtroops===0){
           return
         } else {
@@ -1310,8 +1310,8 @@ function playerbattleFunction(){
     }
 }
 function cleanUpBattle(){
-  var inputtroops = document.getElementById("numberOfTroopsToMove");
-  inputtroops.parentElement.removeChild(inputtroops);
+  var inputholder = document.getElementById("inputholder");
+  inputholder.innerHTML = "";
   var dieholder = document.getElementById("die_holder");
   dieholder.style.display = "none";
   enemyProvince = "";
