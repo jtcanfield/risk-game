@@ -1156,12 +1156,12 @@ function battleFunction(atknbr, defnbr){
   }
   if (attackDieArray.length < defDieArray.length){
     for (var a = 0; a < attackDieArray.length; a++){
-      if (defDieArray[0] >= attackDieArray[0]){
+      if (defDieArray[a] >= attackDieArray[a]){
         var newarrow = document.createElement("img");
         newarrow.setAttribute("class", "whitearrow");
         arrowParent.appendChild(newarrow);
       }
-      if (defDieArray[0] < attackDieArray[0]){
+      if (defDieArray[a] < attackDieArray[a]){
         var newarrow = document.createElement("img");
         newarrow.setAttribute("class", "redarrow");
         arrowParent.appendChild(newarrow);
