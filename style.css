@@ -81,7 +81,6 @@ map area:hover{
   background-image: url("redarrow.png");
 }
 #numberouter{
-  width: 1px;
   margin: auto;
   overflow: visible;
 }
@@ -90,7 +89,7 @@ map area:hover{
   float: left;
   position: relative;
   left: 150px;
-  bottom: 30px;
+  top: 30px;
   font-size: 30px;
 }
 #attacker{
@@ -98,7 +97,7 @@ map area:hover{
   float: right;
   position: relative;
   right: 150px;
-  top: 50px;
+  top: 30px;
   font-size: 30px;
 }
 #NA1Counter {
