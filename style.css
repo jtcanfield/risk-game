@@ -49,7 +49,7 @@ map area:hover{
 }
 #red_dice_holder{
   float: left;
-  width: 10%;
+  width: 50px;
 }
 #red_dice_holder img{
   height: 50px;
@@ -58,7 +58,7 @@ map area:hover{
 }
 #white_dice_holder{
   float: right;
-  width: 10%;
+  width: 50px;
 }
 #white_dice_holder img{
   height: 50px;
