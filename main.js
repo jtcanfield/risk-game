@@ -1147,6 +1147,7 @@ function setPlayerBattle(enempv, allpv){
   attackButton.innerHTML = "Attack!";
   var dieholder = document.getElementById("die_holder");
   dieholder.style.display = "";
+  turnskipper.style.display = "none";
   enemyProvince = enempv;
   allyProvince = allpv;
   playerTurnBoolean = false;
@@ -1207,6 +1208,7 @@ function playerbattleFunction(){
         defnbr = 1;
         break;
       case enemynumoftroops === 0://Attacker Won
+        defcounter.classList.add("flashing")
         var troopsnumberinput = document.getElementById("numberOfTroopsToMove");
         var inputholder = document.getElementById("inputholder");
         if (troopsnumberinput === null){
@@ -1332,6 +1334,7 @@ function cleanUpBattle(){
   while (arrowParent.hasChildNodes()) {
     arrowParent.removeChild(arrowParent.lastChild);
   }
+  turnskipper.style.display = "";
   playerTurnBoolean = true;
 }
 //END AND DIE FUNCTION BATTLE FUNCTION
@@ -1365,6 +1368,7 @@ function attackerWon(mapareaobj, losingplayerobj, winningplayerobj, numboftroops
   winningplayerobj.provincesOwnedIndex.push(provindexchange);
   mapareaobj.numberOfTroops = numboftroopstomove;
   var counter = document.getElementById(mapareaobj.provincename+"Counter");
+  counter.classList.remove("flashing");
   counter.innerHTML = numboftroopstomove;
   console.log("AFTER:");
   console.log(mapareaobj);
@@ -1393,7 +1397,6 @@ function mapClick(province, index){
       if (playerrenif > 0){
         reinforceTurn(index, "0", idOfClicked, playerrenif);
       } else if (playerrenif === 0){
-        var turnskipper = document.getElementById("skipTurn");
         turnskipper.style.display = "";
         announcements.innerHTML = "Attack Time!";
         attackTurn(index, "0", idOfClicked, false, indexOfTurn);
@@ -1403,35 +1406,14 @@ function mapClick(province, index){
   }
 }
 function finishTurn(){
+  var counterflash = document.getElementById(playerselected+"Counter");
+  counterflash.classList.remove('flashing');
   var setHighlight = document.getElementById("player1span");
   playerTurnBoolean = false;
-  var turnskipper = document.getElementById("skipTurn");
   turnskipper.style.display = "none";
   setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt((turnArray.indexOf(1)) + 1);}, 100);
 }
 //END PLAYER CLICK FUNCTION
-
-
-//BEGIN CLICK AND DRAG FUNCTION
-function eleMouseDown (ele) {
-    document.addEventListener ("mousemove" , eleMouseMove , false);
-    function eleMouseMove (ev) {
-        var pX = ev.pageX;
-        var pY = ev.pageY;
-        ele.style.left = pX + "px";
-        ele.style.top = pY + "px";
-        document.addEventListener ("mouseup" , eleMouseUp , false);
-    }
-
-    function eleMouseUp () {
-        ele.style.top = ""
-    		ele.style.left = ""
-        document.removeEventListener ("mousemove" , eleMouseMove , false);
-        document.removeEventListener ("mouseup" , eleMouseUp , false);
-    }
-}
-//END CLICK AND DRAG FUNCTION
-
 
 
 
@@ -1477,12 +1459,22 @@ function placingTurn(index, playerindex, idOfClicked, indexOfTurn){
 }
 //END PLACING FUNCTION
 
+//BEGIN CLICK AND DRAG FUNCTION
+function eleMouseDown (ele) {
+    document.addEventListener ("mousemove" , eleMouseMove , false);
+    function eleMouseMove (ev) {
+        var pX = ev.pageX;
+        var pY = ev.pageY;
+        ele.style.left = pX + "px";
+        ele.style.top = pY + "px";
+        document.addEventListener ("mouseup" , eleMouseUp , false);
+    }
 
-
-/*TODO
-ATTACK FUNCTION MADE, NEED TO ADD MOVEMENT FUCNTION
-MAKE BATTLE FUNCTION (IF IT IS A TIE, THE DEFENDER WINS)
-MAKE A WIN/LOSS FUNCTION
-MAKE FREE MOVE FUNCTION
-MAKE FUNCTION FOR CARDS
-*/
+    function eleMouseUp () {
+        ele.style.top = ""
+    		ele.style.left = ""
+        document.removeEventListener ("mousemove" , eleMouseMove , false);
+        document.removeEventListener ("mouseup" , eleMouseUp , false);
+    }
+}
+//END CLICK AND DRAG FUNCTION
