@@ -1388,10 +1388,10 @@ function mapClick(province, index){
   }
   if (playerTurnBoolean === true){
     if (gameStage.stage === "placing"){
-      setTimeout(function() { placingTurn(index, "0", idOfClicked);}, 1);
+      placingTurn(index, "0", idOfClicked);
     }
     if (gameStage.stage === "reinforceStart"){
-      setTimeout(function() { reinforceTurn(index, "0", idOfClicked);}, 2);
+      reinforceTurn(index, "0", idOfClicked);
     }
     if (gameStage.stage === "maingameplay"){
       if (playerrenif > 0){
@@ -1411,7 +1411,8 @@ function finishTurn(){
   var setHighlight = document.getElementById("player1span");
   playerTurnBoolean = false;
   turnskipper.style.display = "none";
-  setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt((turnArray.indexOf(1)) + 1);}, 100);
+  setHighlight.setAttribute("class", "");
+  whosTurnIsIt((turnArray.indexOf(1)) + 1)
 }
 //END PLAYER CLICK FUNCTION
 
@@ -1454,7 +1455,8 @@ function placingTurn(index, playerindex, idOfClicked, indexOfTurn){
   } else if (playerindex !== "0"){
     gameStage.mapFilled -= 1; // brings one step closer to next section
     var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
-    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 100);
+    setHighlight.setAttribute("class", "");
+    whosTurnIsIt(indexOfTurn + 1);
   }
 }
 //END PLACING FUNCTION
