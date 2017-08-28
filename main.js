@@ -1103,7 +1103,16 @@ function computerAttackTurn(indexOfTurn){
     setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 10/*00*/);
     return
   }
-  setTimeout(function() { setComputerBattle(strangearrayofvaluesndfjgbdfskhdsh[0], allyprovince, indexOfTurn); }, 10/*00*/);
+  if (allyprovince.numberOfTroops === 1){
+    var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
+    console.log("player"+turnArray[indexOfTurn]+" HAS SELECTED A PROVINCE WITH ONE TROOP");
+    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 10/*00*/);
+    return
+  }
+  console.log("Computer Test Attack Begin");
+  console.log(gameBoardObject[strangearrayofvaluesndfjgbdfskhdsh[0]]);
+  console.log(allyprovince);
+  setTimeout(function() { setComputerBattle(gameBoardObject[strangearrayofvaluesndfjgbdfskhdsh[0]], allyprovince, indexOfTurn); }, 10/*00*/);
 }
 
 
@@ -1128,6 +1137,7 @@ function setComputerBattle(enemyProvince, allyProvince, indexOfTurn){
       atknbr = 1;
       break;
     case allynumoftroops === 0://Attacker Lost
+      console.log("ATTACKER HAS LOST, NO CHANGE HAS BEEN MADE");
       endBattle = true;
       break;
     default:
@@ -1153,6 +1163,7 @@ function setComputerBattle(enemyProvince, allyProvince, indexOfTurn){
             losinplayer = i;
           }
         }
+        console.log("ATTACKER WON THE BATTLE");
         attackerWon(enemyProvince, playerObjectArray[losinplayer], playerObjectArray[0], 1);
         endBattle = true;
       }
@@ -1206,6 +1217,7 @@ function setComputerBattle(enemyProvince, allyProvince, indexOfTurn){
       }
     }
   }
+  setComputerBattle(enemyProvince, allyProvince, indexOfTurn);
 }
 
 
