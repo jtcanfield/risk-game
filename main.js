@@ -933,6 +933,16 @@ function valueCalculationFunction(i){
 function whosTurnIsIt(indexOfTurn){
   var turns = document.getElementById("turns_lapsed");
   turns_lapsed.innerHTML = "Turn " + gameStage.turn;
+  playerObjectArray.map((x, index)=>{
+    var playername = index + 1;
+    if (x.numberOfProvincesOwned === 0){
+      var indextoeleminiate = turnArray.indexOf(playername);
+      turnArray.splice(playername);
+      whosTurnIsIt(indexOfTurn);
+      //TODO Check what happens when two players are eliminated on the same turn
+      return
+    }
+  });
   if (indexOfTurn >= turnArray.length){
     gameStage.turn += 1;
     setTimeout(function() { whosTurnIsIt(0); }, 10);
@@ -1067,7 +1077,7 @@ function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed, indexO
         index = 0;
         idOfClicked = 0;
         skip = false;
-        computerAttack(indexOfTurn);
+        computerAttackTurn(indexOfTurn);
         // attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn);
       }
     }
@@ -1076,120 +1086,124 @@ function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed, indexO
 //END REINFORCE FUNCTION
 
 
-function computerAttack(indexOfTurn){
+function computerAttackTurn(indexOfTurn){
   var playerindex = turnArray[indexOfTurn]-1;
   var allyprovince = valueCalculationFunction(playerindex);
   var strangearrayofvaluesndfjgbdfskhdsh = [];
-  console.log(allyprovince);
   allyprovince.adjacentProvinceIndex.map((x)=>{
     if (gameBoardObject[x].owner !== "player"+turnArray[indexOfTurn]){
       strangearrayofvaluesndfjgbdfskhdsh.push(x);
     }
   });
-  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
-  console.log("player"+turnArray[indexOfTurn]+" is now attacking");
-  setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 10/*00*/);
-  // setTimeout(function() { setComputerBattle(gameBoardObject[index], allyprovince); }, 10/*00*/);
+  if (strangearrayofvaluesndfjgbdfskhdsh.length === 0){
+    var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
+    console.log("player"+turnArray[indexOfTurn]+" CANNOT ATTACK");
+    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 10/*00*/);
+    return
+  }
+  setTimeout(function() { setComputerBattle(strangearrayofvaluesndfjgbdfskhdsh[0], allyprovince, indexOfTurn); }, 10/*00*/);
 }
 
 
-function setComputerBattle(){
+function setComputerBattle(enemyProvince, allyProvince, indexOfTurn){
   var atknbr = 0;
   var defnbr = 0;
   var endBattle = false;
-    var atkcounter = document.getElementById(allyProvince.provincename+"Counter");
-    var allynumoftroops = allyProvince.numberOfTroops-1;
-    atkcounter.innerHTML = allynumoftroops+1;
-    var defcounter = document.getElementById(enemyProvince.provincename+"Counter");
-    var enemynumoftroops = enemyProvince.numberOfTroops;
-    defcounter.innerHTML = enemynumoftroops;
-    switch (true) {
-      case allynumoftroops >= 3:
-        atknbr = 3;
-        break;
-      case allynumoftroops === 2:
-        atknbr = 2;
-        break;
-      case allynumoftroops === 1:
-        atknbr = 1;
-        break;
-      case allynumoftroops === 0://Attacker Lost
-        endBattle = true;
-        break;
-      default:
-        break;
-    }
-    switch (true) {
-      case enemynumoftroops >= 2:
-        defnbr = 2;
-        break;
-      case enemynumoftroops === 1:
-        defnbr = 1;
-        break;
-      case enemynumoftroops === 0://Attacker Won
-        var numtroops = allynumoftroops-1;
-        if (numtroops > allynumoftroops || numtroops===undefined || numtroops===0){
-          return
-        } else {
-          allyProvince.numberOfTroops -= numtroops;
-          atkcounter.innerHTML = allyProvince.numberOfTroops;
-          var losinplayer = 0;
-          for (let i = 0; i < 6; i++){
-            if (enemyProvince.owner === playerObjectArray[i].playername){
-              losinplayer = i;
-            }
+  var atkcounter = document.getElementById(allyProvince.provincename+"Counter");
+  var allynumoftroops = allyProvince.numberOfTroops-1;
+  atkcounter.innerHTML = allynumoftroops+1;
+  var defcounter = document.getElementById(enemyProvince.provincename+"Counter");
+  var enemynumoftroops = enemyProvince.numberOfTroops;
+  defcounter.innerHTML = enemynumoftroops;
+  switch (true) {
+    case allynumoftroops >= 3:
+      atknbr = 3;
+      break;
+    case allynumoftroops === 2:
+      atknbr = 2;
+      break;
+    case allynumoftroops === 1:
+      atknbr = 1;
+      break;
+    case allynumoftroops === 0://Attacker Lost
+      endBattle = true;
+      break;
+    default:
+      break;
+  }
+  switch (true) {
+    case enemynumoftroops >= 2:
+      defnbr = 2;
+      break;
+    case enemynumoftroops === 1:
+      defnbr = 1;
+      break;
+    case enemynumoftroops === 0://Attacker Won
+      var numtroops = allynumoftroops-1;
+      if (numtroops > allynumoftroops || numtroops===undefined || numtroops===0){
+        return
+      } else {
+        allyProvince.numberOfTroops -= numtroops;
+        atkcounter.innerHTML = allyProvince.numberOfTroops;
+        var losinplayer = 0;
+        for (let i = 0; i < 6; i++){
+          if (enemyProvince.owner === playerObjectArray[i].playername){
+            losinplayer = i;
           }
-          attackerWon(enemyProvince, playerObjectArray[losinplayer], playerObjectArray[0], numtroops);
-          endBattle = true;
         }
-        break;
-      default:
-        break;
-    }
-    if (endBattle === true){
-      return
-    }
-    //Step two: Roll and sort Atk Die
-    attackDieArray = [];
-    var atkvar = 0;
-    while (atkvar < atknbr){
-      var reddienumber = Math.floor(Math.random()*(6-1+1)+1);
-      attackDieArray.push(reddienumber);
-      atkvar++
-    }
-    attackDieArray.sort((a, b) => (b - a));//sort attack die array from high to low
-    //Step three: Roll and sort Def Die
-    defDieArray = [];
-    var defvar = 0;
-    while (defvar < defnbr){
-      var whitedienumber = Math.floor(Math.random()*(6-1+1)+1);
-      defDieArray.push(whitedienumber);
-      defvar++
-    }
-    defDieArray.sort((a, b) => (b - a));//sort def die array from high to low
-    //Step four: compare atk and def die
-    //find which array is shorter
-    if (attackDieArray.length >= defDieArray.length){//if attacker has more than def
-      for (var a = 0; a < defDieArray.length; a++){
-        if (defDieArray[a] >= attackDieArray[a]){//Def Wins
-          allyProvince.numberOfTroops -= 1;
-        }
-        if (defDieArray[a] < attackDieArray[a]){//Def loses
-          enemyProvince.numberOfTroops -= 1;
-        }
+        attackerWon(enemyProvince, playerObjectArray[losinplayer], playerObjectArray[0], 1);
+        endBattle = true;
+      }
+      break;
+    default:
+      break;
+  }
+  if (endBattle === true){
+    var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
+    console.log("player"+turnArray[indexOfTurn]+" HAS FINISHED ATTACKING");
+    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 10/*00*/);
+    return
+  }
+  //Step two: Roll and sort Atk Die
+  attackDieArray = [];
+  var atkvar = 0;
+  while (atkvar < atknbr){
+    var reddienumber = Math.floor(Math.random()*(6-1+1)+1);
+    attackDieArray.push(reddienumber);
+    atkvar++
+  }
+  attackDieArray.sort((a, b) => (b - a));//sort attack die array from high to low
+  //Step three: Roll and sort Def Die
+  defDieArray = [];
+  var defvar = 0;
+  while (defvar < defnbr){
+    var whitedienumber = Math.floor(Math.random()*(6-1+1)+1);
+    defDieArray.push(whitedienumber);
+    defvar++
+  }
+  defDieArray.sort((a, b) => (b - a));//sort def die array from high to low
+  //Step four: compare atk and def die
+  //find which array is shorter
+  if (attackDieArray.length >= defDieArray.length){//if attacker has more than def
+    for (var a = 0; a < defDieArray.length; a++){
+      if (defDieArray[a] >= attackDieArray[a]){//Def Wins
+        allyProvince.numberOfTroops -= 1;
+      }
+      if (defDieArray[a] < attackDieArray[a]){//Def loses
+        enemyProvince.numberOfTroops -= 1;
       }
     }
-    if (attackDieArray.length < defDieArray.length){//if attacker has less than def (why tho)
-      for (var a = 0; a < attackDieArray.length; a++){
-        if (defDieArray[a] >= attackDieArray[a]){//Def Wins
-          allyProvince.numberOfTroops -= 1;
-        }
-        if (defDieArray[a] < attackDieArray[a]){//Def loses
-          enemyProvince.numberOfTroops -= 1;
-        }
+  }
+  if (attackDieArray.length < defDieArray.length){//if attacker has less than def (why tho)
+    for (var a = 0; a < attackDieArray.length; a++){
+      if (defDieArray[a] >= attackDieArray[a]){//Def Wins
+        allyProvince.numberOfTroops -= 1;
+      }
+      if (defDieArray[a] < attackDieArray[a]){//Def loses
+        enemyProvince.numberOfTroops -= 1;
       }
     }
-
+  }
 }
 
 
@@ -1261,9 +1275,6 @@ function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
         }
       }
     }
-  } else if (playerindex !== "0"){
-    console.log("player"+turnArray[indexOfTurn]+" is now attacking");
-    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 10/*00*/);
   }
 }
 //END ATTACK TURN SELECTION FUNCTION
