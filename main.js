@@ -849,7 +849,6 @@ function valueCalculationFunction(i){
   });
   //2. CONTINENT DETECTION
   var naDetect = 0; var saDetect = 0; var euDetect = 0; var afDetect = 0; var ocDetect = 0; var asDetect = 0;
-  var contDetection = [];
   playerObjectArray[i].provincesOwnedIndex.map((a) =>{
     switch (gameBoardObject[a].continenton) {
       case "NA":
@@ -1011,12 +1010,41 @@ function calculateIndex(x){
 
 //BEGIN REINFORCE TROOP CALCULATIONS
 function calculateTroopPerTurn(x){
-  //ADD CONTINENT OWNERSHIP TO CALCULATIONS
+  var conttroops = 0;
+  var naDetect = 0; var saDetect = 0; var euDetect = 0; var afDetect = 0; var ocDetect = 0; var asDetect = 0;
+  playerObjectArray[i].provincesOwnedIndex.map((a) =>{
+    switch (gameBoardObject[a].continenton) {
+      case "NA":
+          naDetect += 1;
+          break;
+      case "SA":
+          saDetect += 1;
+          break;
+      case "EU":
+          euDetect += 1;
+          break;
+      case "AF":
+          afDetect += 1;
+          break;
+      case "OC":
+          ocDetect += 1;
+          break;
+      case "AS":
+          asDetect += 1;
+          break;
+    }
+  });
+  if (naDetect === 9){conttroops += 5}
+  if (saDetect === 4){conttroops += 2}
+  if (euDetect === 7){conttroops += 5}
+  if (afDetect === 6){conttroops += 3}
+  if (ocDetect === 4){conttroops += 2}
+  if (asDetect === 12){conttroops += 7}
   if (x <= 9){
-    return 3
+    return 3 + conttroops;
   }
   if (x > 9)
-  return Math.floor(x/3);
+  return (Math.floor(x/3)) + conttroops;
 }
 //END REINFORCE TROOP CALCULATIONS
 
@@ -1037,12 +1065,12 @@ function computerReinforce(reinforceAllowed){
 
 //BEGIN REINFORCE FUNCTION
 function reinforceTurn(index, idOfClicked, reinforceAllowed){
-  if (gameBoardObject[index].owner !== "player1" && playerindex === "0"){
+  if (gameBoardObject[index].owner !== "player1" && playerindex === 0){
     announcements.innerHTML = "You Can Only Reinforce Your Own Provinces!"
     return
   }
   // console.log(playerObjectArray[playerindex].playername + " Is Now Reinforcing. They are adding a unit to " + idOfClicked);
-  if (playerindex === "0"){
+  if (playerindex === 0){
     var counterDiv = document.getElementById(idOfClicked+"Counter");
     gameBoardObject[index].numberOfTroops += 1;
     counterDiv.innerHTML = gameBoardObject[index].numberOfTroops;
@@ -1059,7 +1087,7 @@ function reinforceTurn(index, idOfClicked, reinforceAllowed){
         turnskipper.style.display = "";
       }
     }
-  } else if (playerindex !== "0"){
+  } else if (playerindex !== 0){
     var counterDiv = document.getElementById(idOfClicked+"Counter");
     gameBoardObject[index].numberOfTroops += 1;
     counterDiv.innerHTML = gameBoardObject[index].numberOfTroops;
@@ -1564,7 +1592,7 @@ function computerSelecting(){
 
 //BEGIN PLACING FUNCTION
 function placingTurn(index, idOfClicked){
-  if (gameBoardObject[index].owner !== "" && playerindex === "0"){
+  if (gameBoardObject[index].owner !== "" && playerindex === 0){
     return // Makes sure player does not click an already filled spot
   } else if (gameBoardObject[index].owner !== ""){
     computerSelecting();
@@ -1580,12 +1608,12 @@ function placingTurn(index, idOfClicked){
     (playerObjectArray[playerindex].provincesOwned).push(idOfClicked); // adds the province id to player object
     (playerObjectArray[playerindex].provincesOwnedIndex).push(index); // adds the province index to player object
   }
-  if (playerindex === "0"){
+  if (playerindex === 0){
     gameStage.mapFilled -= 1; // brings one step closer to next section
     setHighlight.setAttribute("class", "");
     indexOfTurn += 1;
     whosTurnIsIt();
-  } else if (playerindex !== "0"){
+  } else if (playerindex !== 0){
     gameStage.mapFilled -= 1; // brings one step closer to next section
     setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 100);
   }
