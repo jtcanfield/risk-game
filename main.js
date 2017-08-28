@@ -1058,12 +1058,8 @@ function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed, indexO
       playerrenif -= 1;
       if (playerrenif === 0){
         announcements.innerHTML = "Attack Time!";
-        console.log("Click again to attack");
-        // attackTurn((turnArray.indexOf(1)), playerindex);
+        turnskipper.style.display = "";
       }
-      // else if (reinforceAllowed === 0){
-      //   attackTurn((turnArray.indexOf(1)), playerindex);
-      // }
     }
   } else if (playerindex !== "0"){
     var counterDiv = document.getElementById(idOfClicked+"Counter");
@@ -1563,7 +1559,6 @@ function mapClick(province, index){
       if (playerrenif > 0){
         reinforceTurn(index, "0", idOfClicked, playerrenif);
       } else if (playerrenif === 0){
-        turnskipper.style.display = "";
         announcements.innerHTML = "Attack Time!";
         attackTurn(index, "0", idOfClicked, false, indexOfTurn);
       }
