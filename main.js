@@ -933,16 +933,18 @@ function valueCalculationFunction(i){
 function whosTurnIsIt(indexOfTurn){
   var turns = document.getElementById("turns_lapsed");
   turns_lapsed.innerHTML = "Turn " + gameStage.turn;
-  playerObjectArray.map((x, index)=>{
-    var playername = index + 1;
-    if (x.numberOfProvincesOwned === 0){
-      var indextoeleminiate = turnArray.indexOf(playername);
-      turnArray.splice(playername);
-      whosTurnIsIt(indexOfTurn);
-      //TODO Check what happens when two players are eliminated on the same turn
-      return
-    }
-  });
+  if (gameStage.stage === "maingameplay"){
+    playerObjectArray.map((x, index)=>{
+      var playername = index + 1;
+      if (x.numberOfProvincesOwned === 0){
+        var indextoeleminiate = turnArray.indexOf(playername);
+        turnArray.splice(playername);
+        whosTurnIsIt(indexOfTurn);
+        //TODO Check what happens when two players are eliminated on the same turn
+        return
+      }
+    });
+  }
   if (indexOfTurn >= turnArray.length){
     gameStage.turn += 1;
     setTimeout(function() { whosTurnIsIt(0); }, 10);
