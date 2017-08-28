@@ -14,7 +14,6 @@ $('#imgmap').mapster({
     }
 });
 //okay now dont do anymore jquery
-var playerrenif = 0;
 var turnArray = [];
 //BEGIN GAMEBOARDOBJECT HOLDER
 var gameBoardObject = [
@@ -930,6 +929,7 @@ function valueCalculationFunction(i){
 
 
 //BEGIN BEGINNING TURN TRACKER
+var playerrenif = 0;
 function whosTurnIsIt(indexOfTurn){
   var turns = document.getElementById("turns_lapsed");
   turns_lapsed.innerHTML = "Turn " + gameStage.turn;
@@ -980,7 +980,7 @@ function whosTurnIsIt(indexOfTurn){
       computerReinforce(indexOfTurn);
     } else {
       playerTurnBoolean = true;
-      announcements.innerHTML = "Your Turn!";
+      announcements.innerHTML = "Place Your Reinforcements!";
     }
   }
   if (gameStage.stage === "maingameplay"){
@@ -990,7 +990,7 @@ function whosTurnIsIt(indexOfTurn){
     } else {
       playerTurnBoolean = true;
       playerrenif = calculateTroopPerTurn(playerObjectArray[0].numberOfProvincesOwned);
-      announcements.innerHTML = "Your Turn!";
+      announcements.innerHTML = "Place Your Reinforcements!";
     }
   }
 }
@@ -1056,7 +1056,8 @@ function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed, indexO
     if (gameStage.stage === "maingameplay"){
       console.log(reinforceAllowed);
       playerrenif -= 1;
-      if (reinforceAllowed === 0){
+      if (playerrenif === 0){
+        announcements.innerHTML = "Attack Time!";
         console.log("Click again to attack");
         // attackTurn((turnArray.indexOf(1)), playerindex);
       }
@@ -1087,7 +1088,7 @@ function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed, indexO
 }
 //END REINFORCE FUNCTION
 
-
+//BEGIN COMPUTER BATTLE FINDER
 function computerAttackTurn(indexOfTurn){
   var playerindex = turnArray[indexOfTurn]-1;
   var allyprovince = valueCalculationFunction(playerindex);
@@ -1131,8 +1132,9 @@ function computerAttackTurn(indexOfTurn){
   }
   setTimeout(function() { setComputerBattle(enemyProvince, allyprovince, defendingplayerindex, attackingplayerindex, indexOfTurn); }, 10/*00*/);
 }
+//END COMPUTER BATTLE FINDER
 
-
+//BEGIN COMPUTER BATTLE
 function setComputerBattle(enemyProvince, allyProvince, defendingplayerindex, attackingplayerindex, indexOfTurn){
   var atknbr = 0;
   var defnbr = 0;
@@ -1175,7 +1177,7 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindex, at
         allyProvince.numberOfTroops -= numtroops;
         atkcounter.innerHTML = allyProvince.numberOfTroops;
         console.log("ATTACKER WON THE BATTLE");
-        attackerWon(enemyProvince, playerObjectArray[defendingplayerindex], playerObjectArray[attackingplayerindex], 1);
+        attackerWon(enemyProvince, playerObjectArray[defendingplayerindex], playerObjectArray[attackingplayerindex], allynumoftroops);
         endBattle = true;
       }
       break;
@@ -1230,7 +1232,7 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindex, at
   }
   setComputerBattle(enemyProvince, allyProvince, defendingplayerindex, attackingplayerindex, indexOfTurn);
 }
-
+//END BATTLE
 
 
 
@@ -1571,9 +1573,8 @@ function mapClick(province, index){
 }
 function finishTurn(){
   var counterflash = document.getElementById(playerselected+"Counter");
-  //TODO ADD A CHECK HERE TO SEE IF COUNTERFLASH HAS THE CLASS FLASHING
   if (counterflash !== null && counterflash !== undefined){
-    counterflash.classList.remove('flashing');//TODO MAKESURE THIS WORKS
+    counterflash.classList.remove('flashing');
   }
   var setHighlight = document.getElementById("player1span");
   playerTurnBoolean = false;
