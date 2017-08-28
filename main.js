@@ -742,8 +742,9 @@ var playerObjectArray = [
 //END PLAYER OBJECT ARRAY
 
 var turnArray = [];
-// var indexOfTurn = 0;
+var indexOfTurn = 0;
 var setHighlight = "";
+var playerTurnBoolean = false;
 var turnskipper = document.getElementById("skipTurn");
 turnskipper.style.display = "none";
 var dieholder = document.getElementById("die_holder");
@@ -777,10 +778,6 @@ function startGame(){
 }
 //END GAME START
 
-
-
-var playerTurnBoolean = false;
-var indexOfTurn = 0;
 
 
 //BEGIN AI LOGIC AND VALUE CALCULATIONS
