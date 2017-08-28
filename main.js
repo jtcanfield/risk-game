@@ -741,17 +741,20 @@ var playerObjectArray = [
 ];
 //END PLAYER OBJECT ARRAY
 
-var turnArray = [];
-var indexOfTurn = 0;
-var playerindex = 0;
-var setHighlight = "";
-var playerTurnBoolean = false;
 var turnskipper = document.getElementById("skipTurn");
 turnskipper.style.display = "none";
 var dieholder = document.getElementById("die_holder");
 dieholder.style.display = "none";
+var turnArray = []; //TODO TURN THIS INTO A SAVEABLE OBJECT
+var indexOfTurn = 0;
+var playerindex = 0;
+var setHighlight = "";
+var playerTurnBoolean = false;
 var announcements = document.getElementById("announcements");
-
+//Below are battle objects
+var playerselected = "";
+var enemyProvince = "";
+var allyProvince = "";
 //STAGING OBJECT HERE
 var gameStage = {stage:"placing", substage:"NA", turn:-20, mapFilled:42};
 //Stages: placing, beginning reinforcement, maingameplay(activates substages)
@@ -993,7 +996,6 @@ function whosTurnIsIt(){
 //END BEGINNING TURN TRACKER
 
 
-
 //BEGIN INDEX CALCULATIONS
 function calculateIndex(x){
   for (let i = 0; i < 43; i++){
@@ -1073,6 +1075,7 @@ function reinforceTurn(index, idOfClicked, reinforceAllowed){
 }
 //END REINFORCE FUNCTION
 
+
 //BEGIN COMPUTER BATTLE FINDER
 function computerAttackTurn(){
   announcements.innerHTML = playerObjectArray[playerindex].playername + " is Attacking"
@@ -1126,6 +1129,7 @@ function computerAttackTurn(){
   }
 }
 //END COMPUTER BATTLE FINDER
+
 
 //BEGIN COMPUTER BATTLE
 function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, attackingplayerindx){
@@ -1222,7 +1226,6 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, att
 //END BATTLE
 
 
-var playerselected = "";
 //BEGIN ATTACK TURN SELECTION FUNCTION
 function playerAttackTurn(index, idOfClicked, skip){
   if (skip === true){
@@ -1279,9 +1282,8 @@ function playerAttackTurn(index, idOfClicked, skip){
 }
 //END ATTACK TURN SELECTION FUNCTION
 
-//BEGIN BATTLE SETUP
-var enemyProvince = "";
-var allyProvince = "";
+
+//BEGIN PLAYER BATTLE SETUP
 function setPlayerBattle(enempv, allpv){
   var attackButton = document.getElementById("attackButton");
   attackButton.innerHTML = "Attack!";
@@ -1292,10 +1294,10 @@ function setPlayerBattle(enempv, allpv){
   allyProvince = allpv;
   playerTurnBoolean = false;
 }
-//END BATTLE SETUP
+//END PLAYER BATTLE SETUP
 
 
-//BEGIN AND DIE FUNCTION BATTLE FUNCTION
+//BEGIN PLAYER BATTLE AND DIE FUNCTION
 function playerbattleFunction(){
   var atknbr = 0;
   var defnbr = 0;
@@ -1450,6 +1452,10 @@ function playerbattleFunction(){
       }
     }
 }
+//END PLAYER BATTLE AND DIE FUNCTION
+
+
+//BEGIN PLAYER BATTLE GRAPHIC CLEANUP
 function cleanUpBattle(){
   announcements.innerHTML = "Select a province to attack with!";
   var inputholder = document.getElementById("inputholder");
@@ -1477,15 +1483,11 @@ function cleanUpBattle(){
   turnskipper.style.display = "";
   playerTurnBoolean = true;
 }
-//END AND DIE FUNCTION BATTLE FUNCTION
+//END PLAYER BATTLE GRAPHIC CLEANUP
 
 
 //BEGIN ATTACKER WON BATTLE FUNCTION
 function attackerWon(mapareaobj, losingplayerobj, winningplayerobj, numboftroopstomove){
-  // console.log("BEFORE:");
-  // console.log(mapareaobj);
-  // console.log(losingplayerobj);
-  // console.log(winningplayerobj);
   //Changes Province Owner
   mapareaobj.owner = winningplayerobj.playername;
   //Change Province Background Color
@@ -1508,7 +1510,6 @@ function attackerWon(mapareaobj, losingplayerobj, winningplayerobj, numboftroops
   var counter = document.getElementById(mapareaobj.provincename+"Counter");
   counter.classList.remove("flashing");
   counter.innerHTML = numboftroopstomove;
-  // console.log("AFTER:");
 }
 //END ATTACKER WON BATTLE FUNCTION
 
@@ -1548,8 +1549,6 @@ function finishTurn(){
   setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 100);
 }
 //END PLAYER CLICK FUNCTION
-
-
 
 
 //BEGIN COMPUTER PLACING LOGIC
