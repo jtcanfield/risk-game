@@ -1057,7 +1057,7 @@ function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed, indexO
       playerrenif -= 1;
       announcements.innerHTML = "Place Your Reinforcements! " + playerrenif + " Troops left!";
       if (playerrenif === 0){
-        announcements.innerHTML = "Attack Time!";
+        announcements.innerHTML = "Select a province to attack with!";
         turnskipper.style.display = "";
       }
     }
@@ -1185,7 +1185,7 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindex, at
   if (endBattle === true){
     var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
     console.log("player"+turnArray[indexOfTurn]+" HAS FINISHED ATTACKING");
-    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 600/*0*/);
+    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 10/*00*/);
     return
   }
   //Step two: Roll and sort Atk Die
@@ -1476,6 +1476,7 @@ function playerbattleFunction(){
     }
 }
 function cleanUpBattle(){
+  announcements.innerHTML = "Select a province to attack with!";
   var inputholder = document.getElementById("inputholder");
   inputholder.innerHTML = "";
   var dieholder = document.getElementById("die_holder");
@@ -1506,14 +1507,10 @@ function cleanUpBattle(){
 
 //BEGIN ATTACKER WON BATTLE FUNCTION
 function attackerWon(mapareaobj, losingplayerobj, winningplayerobj, numboftroopstomove){
-  //MAPOBJECT: Need to change owner, Background Color, Number of Troops
-  //losingplayerobj: Subtract 1 from numberOfProvincesOwned, Take province from provincesOwned, take province from provincesOwnedIndex
-  //winningplayerobj: Add 1 to numberOfProvincesOwned, add province to provincesOwned, add province to provincesOwnedIndex
-  console.log("BEFORE:");
-  console.log(mapareaobj);
-  console.log(losingplayerobj);
-  console.log(winningplayerobj);
-  console.log("Winning Player: " + winningplayerobj.playername);
+  // console.log("BEFORE:");
+  // console.log(mapareaobj);
+  // console.log(losingplayerobj);
+  // console.log(winningplayerobj);
   //Changes Province Owner
   mapareaobj.owner = winningplayerobj.playername;
   //Change Province Background Color
@@ -1524,32 +1521,26 @@ function attackerWon(mapareaobj, losingplayerobj, winningplayerobj, numboftroops
   losingplayerobj.numberOfProvincesOwned -= 1;
   winningplayerobj.numberOfProvincesOwned += 1;
   //MOVES PROVINCE NAME FROM ONE PLAYER TO ANOTHER
-  console.log("##################################################################################################################################");
   var provchangenameindex = losingplayerobj.provincesOwned.indexOf(mapareaobj.provincename);
   var provnamechange = losingplayerobj.provincesOwned.splice(provchangenameindex, 1);
-  console.log(provnamechange);
   winningplayerobj.provincesOwned.push(provnamechange[0]);
   //MOVES PROVINCE INDEX FROM ONE PLAYER TO ANOTHER
   var provchangeindexindex = losingplayerobj.provincesOwnedIndex.indexOf(mapareaobj.provinceindexnumber);
   var provindexchange = losingplayerobj.provincesOwnedIndex.splice(provchangeindexindex, 1);
-  console.log(provindexchange);
   winningplayerobj.provincesOwnedIndex.push(provindexchange[0]);
   //MOVES TROOPS SELECTED
   mapareaobj.numberOfTroops = numboftroopstomove;
   var counter = document.getElementById(mapareaobj.provincename+"Counter");
   counter.classList.remove("flashing");
   counter.innerHTML = numboftroopstomove;
-  console.log("AFTER:");
-  console.log(mapareaobj);
-  console.log(losingplayerobj);
-  console.log(winningplayerobj);
+  // console.log("AFTER:");
 }
 //END ATTACKER WON BATTLE FUNCTION
 
 
 //BEGIN PLAYER CLICK FUNCTION
 function mapClick(province, index){
-  console.log(gameBoardObject[index]);
+  // console.log(gameBoardObject[index]);
   var idOfClicked = $(province).attr('id');
   if (playerTurnBoolean === false){
     // console.log("its not your turn yet");
@@ -1565,7 +1556,7 @@ function mapClick(province, index){
       if (playerrenif > 0){
         reinforceTurn(index, "0", idOfClicked, playerrenif);
       } else if (playerrenif === 0){
-        announcements.innerHTML = "Attack Time!";
+        announcements.innerHTML = "Select a province to attack with!";
         playerAttackTurn(index, "0", idOfClicked, false, indexOfTurn);
       }
       // playerTurnBoolean = false;
