@@ -1097,26 +1097,43 @@ function computerAttackTurn(indexOfTurn){
       strangearrayofvaluesndfjgbdfskhdsh.push(x);
     }
   });
+  var enemyProvince = gameBoardObject[strangearrayofvaluesndfjgbdfskhdsh[0]];
+  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   if (strangearrayofvaluesndfjgbdfskhdsh.length === 0){
-    var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
     console.log("player"+turnArray[indexOfTurn]+" CANNOT ATTACK");
     setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 10/*00*/);
     return
   }
   if (allyprovince.numberOfTroops === 1){
-    var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
     console.log("player"+turnArray[indexOfTurn]+" HAS SELECTED A PROVINCE WITH ONE TROOP");
     setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 10/*00*/);
     return
   }
-  console.log("Computer Test Attack Begin");
+  if (allyprovince.owner === enemyProvince.owner){
+    console.log("player"+turnArray[indexOfTurn]+" IS TRYING TO ATTACK ITSELF");
+    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 10/*00*/);
+    return
+  }
+  console.log("player"+turnArray[indexOfTurn]+"  Computer Test Attack Begin");
   console.log(gameBoardObject[strangearrayofvaluesndfjgbdfskhdsh[0]]);
   console.log(allyprovince);
-  setTimeout(function() { setComputerBattle(gameBoardObject[strangearrayofvaluesndfjgbdfskhdsh[0]], allyprovince, indexOfTurn); }, 10/*00*/);
+  var defendingplayerindex = 0;
+  for (let i = 0; i < 6; i++){
+    if (enemyProvince.owner === playerObjectArray[i].playername){
+      defendingplayerindex = i;
+    }
+  }
+  var attackingplayerindex = 0;
+  for (let i = 0; i < 6; i++){
+    if (allyprovince.owner === playerObjectArray[i].playername){
+      attackingplayerindex = i;
+    }
+  }
+  setTimeout(function() { setComputerBattle(enemyProvince, allyprovince, defendingplayerindex, attackingplayerindex, indexOfTurn); }, 10/*00*/);
 }
 
 
-function setComputerBattle(enemyProvince, allyProvince, indexOfTurn){
+function setComputerBattle(enemyProvince, allyProvince, defendingplayerindex, attackingplayerindex, indexOfTurn){
   var atknbr = 0;
   var defnbr = 0;
   var endBattle = false;
@@ -1157,14 +1174,8 @@ function setComputerBattle(enemyProvince, allyProvince, indexOfTurn){
       } else {
         allyProvince.numberOfTroops -= numtroops;
         atkcounter.innerHTML = allyProvince.numberOfTroops;
-        var losinplayer = 0;
-        for (let i = 0; i < 6; i++){
-          if (enemyProvince.owner === playerObjectArray[i].playername){
-            losinplayer = i;
-          }
-        }
         console.log("ATTACKER WON THE BATTLE");
-        attackerWon(enemyProvince, playerObjectArray[losinplayer], playerObjectArray[0], 1);
+        attackerWon(enemyProvince, playerObjectArray[defendingplayerindex], playerObjectArray[attackingplayerindex], 1);
         endBattle = true;
       }
       break;
@@ -1217,7 +1228,7 @@ function setComputerBattle(enemyProvince, allyProvince, indexOfTurn){
       }
     }
   }
-  setComputerBattle(enemyProvince, allyProvince, indexOfTurn);
+  setComputerBattle(enemyProvince, allyProvince, defendingplayerindex, attackingplayerindex, indexOfTurn);
 }
 
 
@@ -1533,8 +1544,8 @@ function attackerWon(mapareaobj, losingplayerobj, winningplayerobj, numboftroops
 
 //BEGIN PLAYER CLICK FUNCTION
 function mapClick(province, index){
-  // console.log(gameBoardObject[index]);
-  // console.log(gameBoardObject[index].owner);
+  console.log(gameBoardObject[index]);
+  console.log(gameBoardObject[index].owner);
   var idOfClicked = $(province).attr('id');
   if (playerTurnBoolean === false){
     // console.log("its not your turn yet");
