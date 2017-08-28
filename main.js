@@ -1228,57 +1228,55 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindex, at
 
 var playerselected = "";
 //BEGIN ATTACK TURN SELECTION FUNCTION
-function playerAttackTurn(index, playerindex, idOfClicked, skip){
-  if (playerindex === "0" ){
-    if (skip === true){
-      console.log("player"+turnArray[indexOfTurn]+" is skipping their turn");
-      setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 100);
+function playerAttackTurn(index, idOfClicked, skip){
+  if (skip === true){
+    console.log("player"+turnArray[indexOfTurn]+" is skipping their turn");
+    setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 100);
+  }
+  if (skip !== true){
+    if (playerselected === "" && gameBoardObject[index].owner !== "player1"){
+      return
     }
-    if (skip !== true){
-      if (playerselected === "" && gameBoardObject[index].owner !== "player1"){
+    if (gameBoardObject[index].owner === "player1" && gameBoardObject[index].numberOfTroops === 1){
+      announcements.innerHTML = "Your province must have more than 1 troop!";
+      return
+    }
+    if (playerselected === "" && gameBoardObject[index].owner === "player1"){
+      announcements.innerHTML = "Select an adjacent province to attack!";
+      playerselected = idOfClicked;
+      var counterflash = document.getElementById(playerselected+"Counter");
+      counterflash.classList.add('flashing');
+    }
+    if (playerselected !== "" && gameBoardObject[index].owner === "player1"){
+      var counterflash = document.getElementById(playerselected+"Counter");
+      counterflash.classList.remove('flashing');
+      playerselected = idOfClicked;
+      var counterflash = document.getElementById(playerselected+"Counter");
+      counterflash.classList.add('flashing');
+    }
+    if (playerselected !== "" && gameBoardObject[index].owner !== "player1"){
+      var counterflash = document.getElementById(playerselected+"Counter");
+      var isadjacenttrue = false;
+      gameBoardObject[index].adjacentProvinces.map((b) =>{//maps thru each adjacent province id
+        if (b === playerselected){
+          isadjacenttrue = true;
+        }
+      });
+      if (isadjacenttrue === false){
+        announcements.innerHTML = "Province must be adjacent!";
+        console.log("PLEASE SELECT ADJACENT, CLICK SHOULD STOP HERE");
         return
-      }
-      if (gameBoardObject[index].owner === "player1" && gameBoardObject[index].numberOfTroops === 1){
-        announcements.innerHTML = "Your province must have more than 1 troop!";
-        return
-      }
-      if (playerselected === "" && gameBoardObject[index].owner === "player1"){
-        announcements.innerHTML = "Select an adjacent province to attack!";
-        playerselected = idOfClicked;
-        var counterflash = document.getElementById(playerselected+"Counter");
-        counterflash.classList.add('flashing');
-      }
-      if (playerselected !== "" && gameBoardObject[index].owner === "player1"){
-        var counterflash = document.getElementById(playerselected+"Counter");
+      } else if (isadjacenttrue === true){
         counterflash.classList.remove('flashing');
-        playerselected = idOfClicked;
-        var counterflash = document.getElementById(playerselected+"Counter");
-        counterflash.classList.add('flashing');
-      }
-      if (playerselected !== "" && gameBoardObject[index].owner !== "player1"){
-        var counterflash = document.getElementById(playerselected+"Counter");
-        var isadjacenttrue = false;
-        gameBoardObject[index].adjacentProvinces.map((b) =>{//maps thru each adjacent province id
-          if (b === playerselected){
-            isadjacenttrue = true;
+        var allyprovince = "";
+        gameBoardObject.map((b) =>{
+          if (b.provincename === playerselected){
+            console.log("PROVINCE FOUND");
+            allyprovince = b;
           }
         });
-        if (isadjacenttrue === false){
-          announcements.innerHTML = "Province must be adjacent!";
-          console.log("PLEASE SELECT ADJACENT, CLICK SHOULD STOP HERE");
-          return
-        } else if (isadjacenttrue === true){
-          counterflash.classList.remove('flashing');
-          var allyprovince = "";
-          gameBoardObject.map((b) =>{
-            if (b.provincename === playerselected){
-              console.log("PROVINCE FOUND");
-              allyprovince = b;
-            }
-          });
-          setPlayerBattle(gameBoardObject[index], allyprovince);
-          playerselected = "";
-        }
+        setPlayerBattle(gameBoardObject[index], allyprovince);
+        playerselected = "";
       }
     }
   }
@@ -1538,7 +1536,7 @@ function mapClick(province, index){
         reinforceTurn(index, "0", idOfClicked, playerrenif);
       } else if (playerrenif === 0){
         announcements.innerHTML = "Select a province to attack with!";
-        playerAttackTurn(index, "0", idOfClicked, false);
+        playerAttackTurn(index, idOfClicked, false);
       }
       // playerTurnBoolean = false;
     }
