@@ -844,7 +844,7 @@ function valueCalculationFunction(i){
       }
       if (nextToAlly === gameBoardObject[o].adjacentProvinceIndex.length){
         //ADD AN IF STATEMENT FOR WEATHER OR NOT TO DEFEND CONT
-          gameBoardObject[o][ valueAdd ] -= 100;
+          gameBoardObject[o][ valueAdd ] -= 1000;
           console.log("surrounded by friendlies");
       }
     });
@@ -938,16 +938,18 @@ function whosTurnIsIt(){
   turns_lapsed.innerHTML = "Turn " + gameStage.turn;
   var isSomeoneDefeated = false;
   if (gameStage.stage === "maingameplay"){
-    playerObjectArray.map((x, index)=>{
-      var playernamenumber = index + 1;
-      if (x.numberOfProvincesOwned === 0){
-        var indextoeleminiate = turnArray.indexOf(playernamenumber);
-        turnArray.splice(playername, 1);
-        isSomeoneDefeated = true;
+    for (var i = 0; i < turnArray.length; i++){
+      var playerToCheck = turnArray[i];//gets the number of the player to check, ie player1
+      if (playerObjectArray[playerToCheck-1].numberOfProvincesOwned === 0){//turns playerToCheck into the playerObjectArray index and checks the size
+        var indextoeleminiate = turnArray.indexOf(playerToCheck);
+        console.log("PLAYER" + playerToCheck + " HAS BEEN ELIMINATED");
+        turnArray.splice(indextoeleminiate, 1);
+        console.log(turnArray);
         //TODO Check what happens when two players are eliminated on the same turn
+        isSomeoneDefeated = true;
         return
       }
-    });
+    }
   }
   if (isSomeoneDefeated === true){whosTurnIsIt();return};
   if (indexOfTurn >= turnArray.length){
@@ -1108,7 +1110,7 @@ function reinforceTurn(index, idOfClicked, reinforceAllowed){
 }
 //END REINFORCE FUNCTION
 
-
+var timesTried = 0;
 //BEGIN COMPUTER BATTLE FINDER
 function computerAttackTurn(){
   announcements.innerHTML = playerObjectArray[playerindex].playername + " is Attacking"
@@ -1120,32 +1122,51 @@ function computerAttackTurn(){
     }
   });
   var enemyProvince = gameBoardObject[strangearrayofvaluesndfjgbdfskhdsh[0]];
+  if (timesTried >= 300){
+    // console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    console.log("player"+turnArray[indexOfTurn]+" IS SKIPPING THEIR TURN");
+    timesTried = 0;
+    setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 10/*00*/);
+    return
+  }
+  //BEGIN DEBUG CHECKING
   if (allyprovince.owner !== playerObjectArray[playerindex].playername){
     console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
     console.log("player"+turnArray[indexOfTurn]+" HAS SELECTED A PROVINCE THAT IS NOT ITS OWN, PLEASE CHECK");
     console.log("Owner of Province Selected: " + allyprovince.owner);
     console.log(allyprovince);
-    setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 10/*00*/);
+    timesTried += 1;
+    computerAttackTurn();
+    // setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 10/*00*/);
     return
   }
   if (strangearrayofvaluesndfjgbdfskhdsh.length === 0){
-    console.log("player"+turnArray[indexOfTurn]+" CANNOT ATTACK");
-    setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 10/*00*/);
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    console.log("player"+turnArray[indexOfTurn]+" CANNOT ATTACK, IS SURROUNDED BY ENEMIES");
+    timesTried += 1;
+    computerAttackTurn();
+    // setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 10/*00*/);
+    return
+  }
+  if (allyprovince.owner === enemyProvince.owner){
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    console.log("player"+turnArray[indexOfTurn]+" IS TRYING TO ATTACK ITSELF");
+    timesTried += 1;
+    computerAttackTurn();
+    // setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 10/*00*/);
     return
   }
   if (allyprovince.numberOfTroops === 1){
     console.log("player"+turnArray[indexOfTurn]+" HAS SELECTED A PROVINCE WITH ONE TROOP");
-    setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 10/*00*/);
-    return
-  }
-  if (allyprovince.owner === enemyProvince.owner){
-    console.log("player"+turnArray[indexOfTurn]+" IS TRYING TO ATTACK ITSELF");
-    setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 10/*00*/);
+    timesTried += 1;
+    computerAttackTurn();
+    // setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 10/*00*/);
     return
   } else {
-    console.log("player"+turnArray[indexOfTurn]+"  Computer Test Attack Begin");
-    console.log(enemyProvince);
-    console.log(allyprovince);
+    timesTried = 0;
+    // console.log("player"+turnArray[indexOfTurn]+"  Computer Test Attack Begin");
+    // console.log(enemyProvince);
+    // console.log(allyprovince);
     var defendingplayerindx = 0;
     for (let i = 0; i < 6; i++){
       if (enemyProvince.owner === playerObjectArray[i].playername){
@@ -1186,7 +1207,7 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, att
       atknbr = 1;
       break;
     case allynumoftroops === 0://Attacker Lost
-      console.log("ATTACKER HAS LOST, NO CHANGE HAS BEEN MADE");
+      // console.log("ATTACKER HAS LOST, NO CHANGE HAS BEEN MADE");
       endBattle = true;
       break;
     default:
@@ -1202,7 +1223,7 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, att
     case enemynumoftroops === 0://Attacker Won
         allyProvince.numberOfTroops -= allynumoftroops;
         atkcounter.innerHTML = allyProvince.numberOfTroops;
-        console.log("ATTACKER WON THE BATTLE");
+        // console.log("ATTACKER WON THE BATTLE");
         attackerWon(enemyProvince, playerObjectArray[defendingplayerindx], playerObjectArray[attackingplayerindx], allynumoftroops);
         endBattle = true;
       break;
@@ -1210,7 +1231,7 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, att
       break;
   }
   if (endBattle === true){
-    console.log("player"+turnArray[indexOfTurn]+" HAS FINISHED ATTACKING");
+    // console.log("player"+turnArray[indexOfTurn]+" HAS FINISHED ATTACKING");
     setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 10/*00*/);
     return
   }
@@ -1303,7 +1324,6 @@ function playerAttackTurn(index, idOfClicked, skip){
         var allyprovince = "";
         gameBoardObject.map((b) =>{
           if (b.provincename === playerselected){
-            console.log("PROVINCE FOUND");
             allyprovince = b;
           }
         });
@@ -1586,7 +1606,6 @@ function moveTurn(index, idOfClicked, skip){
         var allyprovince = "";
         gameBoardObject.map((b) =>{
           if (b.provincename === playerselected){
-            console.log("PROVINCE FOUND");
             allyprovince = b;
           }
         });
