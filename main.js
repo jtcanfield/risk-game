@@ -743,6 +743,7 @@ var playerObjectArray = [
 
 var turnArray = [];
 var indexOfTurn = 0;
+var playerindex = 0;
 var setHighlight = "";
 var playerTurnBoolean = false;
 var turnskipper = document.getElementById("skipTurn");
@@ -774,7 +775,7 @@ function startGame(){
     i++
   }
   document.getElementById("startgamebutton").style.display = "none";
-  whosTurnIsIt(0);
+  whosTurnIsIt();
 }
 //END GAME START
 
@@ -949,6 +950,7 @@ function whosTurnIsIt(){
     return
   }
   setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
+  playerindex = turnArray[indexOfTurn]-1;
   if (gameStage.mapFilled === 0){
     gameStage.stage = "reinforceStart";
     gameStage.mapFilled -= 99;
@@ -962,8 +964,10 @@ function whosTurnIsIt(){
   }
   setHighlight.setAttribute("class", "highlight");
   if (gameStage.stage === "placing"){
-    announcements.innerHTML = playerObjectArray[turnArray[indexOfTurn]-1].playername + " is Placing";
-    if (playerObjectArray[turnArray[indexOfTurn]-1].playername !== "player1"){
+    console.log(playerindex);
+    console.log(turnArray[indexOfTurn]-1);
+    announcements.innerHTML = playerObjectArray[playerindex].playername + " is Placing";
+    if (playerObjectArray[playerindex].playername !== "player1"){
       playerTurnBoolean = false;
       computerSelecting();
     } else {
@@ -972,7 +976,7 @@ function whosTurnIsIt(){
     }
   }
   if (gameStage.stage === "reinforceStart"){
-    if (playerObjectArray[turnArray[indexOfTurn]-1].playername !== "player1"){
+    if (playerObjectArray[playerindex].playername !== "player1"){
       playerTurnBoolean = false;
       computerReinforce();
     } else {
@@ -981,7 +985,7 @@ function whosTurnIsIt(){
     }
   }
   if (gameStage.stage === "maingameplay"){
-    if (playerObjectArray[turnArray[indexOfTurn]-1].playername !== "player1"){
+    if (playerObjectArray[playerindex].playername !== "player1"){
       playerTurnBoolean = false;
       computerReinforce();
     } else {
@@ -1020,7 +1024,6 @@ function calculateTroopPerTurn(x){
 
 //BEGIN COMPUTER REINFORCING LOGIC
 function computerReinforce(reinforceAllowed){
-  var playerindex = turnArray[indexOfTurn]-1;
   if (reinforceAllowed === undefined){
     reinforceAllowed = calculateTroopPerTurn(playerObjectArray[playerindex].numberOfProvincesOwned);
   }
@@ -1028,13 +1031,13 @@ function computerReinforce(reinforceAllowed){
   var objectChosen = valueCalculationFunction(playerindex);
   var index = calculateIndex(objectChosen);
   var idOfClicked = objectChosen.provincename;
-  setTimeout(function() { reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed); }, 10/*00*/);
+  setTimeout(function() { reinforceTurn(index, idOfClicked, reinforceAllowed); }, 10/*00*/);
 }
 //END COMPUTER REINFORCING LOGIC
 
 
 //BEGIN REINFORCE FUNCTION
-function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed){
+function reinforceTurn(index, idOfClicked, reinforceAllowed){
   if (gameBoardObject[index].owner !== "player1" && playerindex === "0"){
     announcements.innerHTML = "You Can Only Reinforce Your Own Provinces!"
     return
@@ -1077,10 +1080,8 @@ function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed){
 
 //BEGIN COMPUTER BATTLE FINDER
 function computerAttackTurn(){
-  var playerindex = turnArray[indexOfTurn]-1;
   announcements.innerHTML = playerObjectArray[playerindex].playername + " is Attacking"
-  var allyprovince = "";
-  allyprovince = valueCalculationFunction(playerindex);
+  var allyprovince = valueCalculationFunction(playerindex);
   var strangearrayofvaluesndfjgbdfskhdsh = [];
   allyprovince.adjacentProvinceIndex.map((x)=>{
     if (gameBoardObject[x].owner !== "player"+turnArray[indexOfTurn]){
@@ -1114,25 +1115,25 @@ function computerAttackTurn(){
     console.log("player"+turnArray[indexOfTurn]+"  Computer Test Attack Begin");
     console.log(enemyProvince);
     console.log(allyprovince);
-    var defendingplayerindex = 0;
+    var defendingplayerindx = 0;
     for (let i = 0; i < 6; i++){
       if (enemyProvince.owner === playerObjectArray[i].playername){
-        defendingplayerindex = i;
+        defendingplayerindx = i;
       }
     }
-    var attackingplayerindex = 0;
+    var attackingplayerindx = 0;
     for (let i = 0; i < 6; i++){
       if (allyprovince.owner === playerObjectArray[i].playername){
-        attackingplayerindex = i;
+        attackingplayerindx = i;
       }
     }
-    setTimeout(function() { setComputerBattle(enemyProvince, allyprovince, defendingplayerindex, attackingplayerindex); }, 10/*00*/);
+    setTimeout(function() { setComputerBattle(enemyProvince, allyprovince, defendingplayerindx, attackingplayerindx); }, 10/*00*/);
   }
 }
 //END COMPUTER BATTLE FINDER
 
 //BEGIN COMPUTER BATTLE
-function setComputerBattle(enemyProvince, allyProvince, defendingplayerindex, attackingplayerindex){
+function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, attackingplayerindx){
   var atknbr = 0;
   var defnbr = 0;
   var endBattle = false;
@@ -1170,7 +1171,7 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindex, at
         allyProvince.numberOfTroops -= allynumoftroops;
         atkcounter.innerHTML = allyProvince.numberOfTroops;
         console.log("ATTACKER WON THE BATTLE");
-        attackerWon(enemyProvince, playerObjectArray[defendingplayerindex], playerObjectArray[attackingplayerindex], allynumoftroops);
+        attackerWon(enemyProvince, playerObjectArray[defendingplayerindx], playerObjectArray[attackingplayerindx], allynumoftroops);
         endBattle = true;
       break;
     default:
@@ -1221,7 +1222,7 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindex, at
       }
     }
   }
-  setComputerBattle(enemyProvince, allyProvince, defendingplayerindex, attackingplayerindex);
+  setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, attackingplayerindx);
 }
 //END BATTLE
 
@@ -1526,10 +1527,10 @@ function mapClick(province, index){
   }
   if (playerTurnBoolean === true){
     if (gameStage.stage === "placing"){
-      setTimeout(function() { placingTurn(index, "0", idOfClicked);}, 1);
+      setTimeout(function() { placingTurn(index, idOfClicked);}, 1);
     }
     if (gameStage.stage === "reinforceStart"){
-      setTimeout(function() { reinforceTurn(index, "0", idOfClicked);}, 2);
+      setTimeout(function() { reinforceTurn(index, idOfClicked);}, 2);
     }
     if (gameStage.stage === "maingameplay"){
       if (playerrenif > 0){
@@ -1560,13 +1561,13 @@ function finishTurn(){
 function computerSelecting(){
   var index = Math.floor(Math.random()*(42-0+0)+0);
   var idOfClicked = gameBoardObject[index].provincename;
-  placingTurn(index, (turnArray[indexOfTurn]-1), idOfClicked);
+  placingTurn(index, idOfClicked);
 }
 //END COMPUTER PLACING LOGIC
 
 
 //BEGIN PLACING FUNCTION
-function placingTurn(index, playerindex, idOfClicked){
+function placingTurn(index, idOfClicked){
   if (gameBoardObject[index].owner !== "" && playerindex === "0"){
     return // Makes sure player does not click an already filled spot
   } else if (gameBoardObject[index].owner !== ""){
