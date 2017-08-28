@@ -1524,15 +1524,16 @@ function attackerWon(mapareaobj, losingplayerobj, winningplayerobj, numboftroops
   losingplayerobj.numberOfProvincesOwned -= 1;
   winningplayerobj.numberOfProvincesOwned += 1;
   //MOVES PROVINCE NAME FROM ONE PLAYER TO ANOTHER
+  console.log("##################################################################################################################################");
   var provchangenameindex = losingplayerobj.provincesOwned.indexOf(mapareaobj.provincename);
-  var provnamechange = losingplayerobj.provincesOwned.splice(provchangenameindex);
+  var provnamechange = losingplayerobj.provincesOwned.splice(provchangenameindex, 1);
   console.log(provnamechange);
-  winningplayerobj.provincesOwned.push(provnamechange);
+  winningplayerobj.provincesOwned.push(provnamechange[0]);
   //MOVES PROVINCE INDEX FROM ONE PLAYER TO ANOTHER
   var provchangeindexindex = losingplayerobj.provincesOwnedIndex.indexOf(mapareaobj.provinceindexnumber);
-  var provindexchange = losingplayerobj.provincesOwnedIndex.splice(provchangeindexindex);
+  var provindexchange = losingplayerobj.provincesOwnedIndex.splice(provchangeindexindex, 1);
   console.log(provindexchange);
-  winningplayerobj.provincesOwnedIndex.push(provindexchange);
+  winningplayerobj.provincesOwnedIndex.push(provindexchange[0]);
   //MOVES TROOPS SELECTED
   mapareaobj.numberOfTroops = numboftroopstomove;
   var counter = document.getElementById(mapareaobj.provincename+"Counter");
@@ -1549,7 +1550,6 @@ function attackerWon(mapareaobj, losingplayerobj, winningplayerobj, numboftroops
 //BEGIN PLAYER CLICK FUNCTION
 function mapClick(province, index){
   console.log(gameBoardObject[index]);
-  console.log(gameBoardObject[index].owner);
   var idOfClicked = $(province).attr('id');
   if (playerTurnBoolean === false){
     // console.log("its not your turn yet");
