@@ -749,6 +749,7 @@ var turnArray = []; //TODO TURN THIS INTO A SAVEABLE OBJECT
 var indexOfTurn = 0;
 var playerindex = 0;
 var setHighlight = "";
+var playerrenif = 0;
 var playerTurnBoolean = false;
 var announcements = document.getElementById("announcements");
 //Below are battle objects
@@ -931,7 +932,6 @@ function valueCalculationFunction(i){
 
 
 //BEGIN BEGINNING TURN TRACKER
-var playerrenif = 0;
 function whosTurnIsIt(){
   var turns = document.getElementById("turns_lapsed");
   turns_lapsed.innerHTML = "Turn " + gameStage.turn;
@@ -1530,7 +1530,7 @@ function mapClick(province, index){
     }
     if (gameStage.stage === "maingameplay"){
       if (playerrenif > 0){
-        reinforceTurn(index, "0", idOfClicked, playerrenif);
+        reinforceTurn(index, idOfClicked, playerrenif);
       } else if (playerrenif === 0){
         announcements.innerHTML = "Select a province to attack with!";
         playerAttackTurn(index, idOfClicked, false);
