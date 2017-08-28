@@ -1668,6 +1668,7 @@ function finishAttackTurn(){
   attackturnskipper.style.display = "none";
   moveturnskipper.style.display = "";
   announcements.innerHTML = "Select Province To move troops from.";
+  return
 }
 function finishMoveTurn(){
   var counterflash = document.getElementById(playerselected+"Counter");
