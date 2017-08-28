@@ -1064,18 +1064,11 @@ function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed, indexO
       if (reinforceAllowed > 0){
         computerReinforce(indexOfTurn, reinforceAllowed-1);
       } else if (reinforceAllowed === 0){
-                          var strangearrayofvaluesndfjgbdfskhdsh = [];
-                          var allyprovince = valueCalculationFunction(playerindex);
-                          console.log(allyprovince);
-                          allyprovince.adjacentProvinceIndex.map((x)=>{
-                            if (gameBoardObject[x].owner !== "player"+turnArray[indexOfTurn]){
-                              strangearrayofvaluesndfjgbdfskhdsh.push(x);
-                            }
-                          });
         index = 0;
         idOfClicked = 0;
         skip = false;
-        attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn);
+        computerAttack();
+        // attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn);
       }
     }
   }
@@ -1086,85 +1079,28 @@ function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed, indexO
 function computerAttack(indexOfTurn, reinforceAllowed){
   var playerindex = turnArray[indexOfTurn]-1;
   var allyprovince = valueCalculationFunction(playerindex);
+  var strangearrayofvaluesndfjgbdfskhdsh = [];
+  var allyprovince = valueCalculationFunction(playerindex);
+  console.log(allyprovince);
+  allyprovince.adjacentProvinceIndex.map((x)=>{
+    if (gameBoardObject[x].owner !== "player"+turnArray[indexOfTurn]){
+      strangearrayofvaluesndfjgbdfskhdsh.push(x);
+    }
+  });
   setTimeout(function() { setComputerBattle(gameBoardObject[index], allyprovince); }, 10/*00*/);
 }
 
-var playerselected = "";
-//BEGIN ATTACK TURN SELECTION FUNCTION
-function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
-  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
-  if (playerindex === "0" ){
-    if (skip === true){
-      console.log("player"+turnArray[indexOfTurn]+" is skipping their turn");
-      setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt((turnArray.indexOf(1)) + 1);}, 100);
-    }
-    if (skip !== true){
-      if (playerselected === "" && gameBoardObject[index].owner !== "player1"){
-        return
-      }
-      if (gameBoardObject[index].owner === "player1" && gameBoardObject[index].numberOfTroops === 1){
-        announcements.innerHTML = "Your province must have more than 1 troop!";
-        return
-      }
-      if (playerselected === "" && gameBoardObject[index].owner === "player1"){
-        announcements.innerHTML = "Select an adjacent province to attack!";
-        playerselected = idOfClicked;
-        var counterflash = document.getElementById(playerselected+"Counter");
-        counterflash.classList.add('flashing');
-      }
-      if (playerselected !== "" && gameBoardObject[index].owner === "player1"){
-        var counterflash = document.getElementById(playerselected+"Counter");
-        counterflash.classList.remove('flashing');
-        playerselected = idOfClicked;
-        var counterflash = document.getElementById(playerselected+"Counter");
-        counterflash.classList.add('flashing');
-      }
-      if (playerselected !== "" && gameBoardObject[index].owner !== "player1"){
-        var counterflash = document.getElementById(playerselected+"Counter");
-        var isadjacenttrue = false;
-        gameBoardObject[index].adjacentProvinces.map((b) =>{//maps thru each adjacent province id
-          if (b === playerselected){
-            isadjacenttrue = true;
-          }
-        });
-        if (isadjacenttrue === false){
-          announcements.innerHTML = "Province must be adjacent!";
-          console.log("PLEASE SELECT ADJACENT, CLICK SHOULD STOP HERE");
-          return
-        } else if (isadjacenttrue === true){
-          counterflash.classList.remove('flashing');
-          var allyprovince = "";
-          gameBoardObject.map((b) =>{
-            if (b.provincename === playerselected){
-              console.log("PROVINCE FOUND");
-              allyprovince = b;
-            }
-          });
-          setPlayerBattle(gameBoardObject[index], allyprovince);
-          playerselected = "";
-        }
-      }
-    }
-  } else if (playerindex !== "0"){
-    console.log("player"+turnArray[indexOfTurn]+" is now attacking");
-    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 10/*00*/);
-  }
-}
-//END ATTACK TURN SELECTION FUNCTION
+
 function setComputerBattle(){
   var atknbr = 0;
   var defnbr = 0;
   var endBattle = false;
-    var atkcntr = document.getElementById("attacker");
     var atkcounter = document.getElementById(allyProvince.provincename+"Counter");
     var allynumoftroops = allyProvince.numberOfTroops-1;
     atkcounter.innerHTML = allynumoftroops+1;
-    atkcntr.innerHTML = allynumoftroops;
-    var defcntr = document.getElementById("defender");
     var defcounter = document.getElementById(enemyProvince.provincename+"Counter");
     var enemynumoftroops = enemyProvince.numberOfTroops;
     defcounter.innerHTML = enemynumoftroops;
-    defcntr.innerHTML = enemynumoftroops;
     switch (true) {
       case allynumoftroops >= 3:
         atknbr = 3;
@@ -1251,12 +1187,84 @@ function setComputerBattle(){
         }
       }
     }
+
 }
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+var playerselected = "";
+//BEGIN ATTACK TURN SELECTION FUNCTION
+function attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
+  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
+  if (playerindex === "0" ){
+    if (skip === true){
+      console.log("player"+turnArray[indexOfTurn]+" is skipping their turn");
+      setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt((turnArray.indexOf(1)) + 1);}, 100);
+    }
+    if (skip !== true){
+      if (playerselected === "" && gameBoardObject[index].owner !== "player1"){
+        return
+      }
+      if (gameBoardObject[index].owner === "player1" && gameBoardObject[index].numberOfTroops === 1){
+        announcements.innerHTML = "Your province must have more than 1 troop!";
+        return
+      }
+      if (playerselected === "" && gameBoardObject[index].owner === "player1"){
+        announcements.innerHTML = "Select an adjacent province to attack!";
+        playerselected = idOfClicked;
+        var counterflash = document.getElementById(playerselected+"Counter");
+        counterflash.classList.add('flashing');
+      }
+      if (playerselected !== "" && gameBoardObject[index].owner === "player1"){
+        var counterflash = document.getElementById(playerselected+"Counter");
+        counterflash.classList.remove('flashing');
+        playerselected = idOfClicked;
+        var counterflash = document.getElementById(playerselected+"Counter");
+        counterflash.classList.add('flashing');
+      }
+      if (playerselected !== "" && gameBoardObject[index].owner !== "player1"){
+        var counterflash = document.getElementById(playerselected+"Counter");
+        var isadjacenttrue = false;
+        gameBoardObject[index].adjacentProvinces.map((b) =>{//maps thru each adjacent province id
+          if (b === playerselected){
+            isadjacenttrue = true;
+          }
+        });
+        if (isadjacenttrue === false){
+          announcements.innerHTML = "Province must be adjacent!";
+          console.log("PLEASE SELECT ADJACENT, CLICK SHOULD STOP HERE");
+          return
+        } else if (isadjacenttrue === true){
+          counterflash.classList.remove('flashing');
+          var allyprovince = "";
+          gameBoardObject.map((b) =>{
+            if (b.provincename === playerselected){
+              console.log("PROVINCE FOUND");
+              allyprovince = b;
+            }
+          });
+          setPlayerBattle(gameBoardObject[index], allyprovince);
+          playerselected = "";
+        }
+      }
+    }
+  } else if (playerindex !== "0"){
+    console.log("player"+turnArray[indexOfTurn]+" is now attacking");
+    setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 10/*00*/);
+  }
+}
+//END ATTACK TURN SELECTION FUNCTION
 
 //BEGIN BATTLE SETUP
 var enemyProvince = "";
@@ -1525,7 +1533,10 @@ function mapClick(province, index){
 }
 function finishTurn(){
   var counterflash = document.getElementById(playerselected+"Counter");
-  counterflash.classList.remove('flashing');
+  //TODO ADD A CHECK HERE TO SEE IF COUNTERFLASH HAS THE CLASS FLASHING
+  if (counterflash !== null && counterflash !== undefined){
+    counterflash.classList.remove('flashing');//TODO MAKESURE THIS WORKS
+  }
   var setHighlight = document.getElementById("player1span");
   playerTurnBoolean = false;
   turnskipper.style.display = "none";
