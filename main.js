@@ -989,7 +989,7 @@ function whosTurnIsIt(){
       computerReinforce();
     } else {
       playerTurnBoolean = true;
-      playerrenif = calculateTroopPerTurn(playerObjectArray[0].numberOfProvincesOwned);
+      playerrenif = calculateTroopPerTurn(playerObjectArray[0]);
       announcements.innerHTML = "Place Your Reinforcements! " + playerrenif + " Troops left!";
     }
   }
@@ -1009,10 +1009,10 @@ function calculateIndex(x){
 
 
 //BEGIN REINFORCE TROOP CALCULATIONS
-function calculateTroopPerTurn(x){
+function calculateTroopPerTurn(player){
   var conttroops = 0;
   var naDetect = 0; var saDetect = 0; var euDetect = 0; var afDetect = 0; var ocDetect = 0; var asDetect = 0;
-  playerObjectArray[i].provincesOwnedIndex.map((a) =>{
+  player.provincesOwnedIndex.map((a) =>{
     switch (gameBoardObject[a].continenton) {
       case "NA":
           naDetect += 1;
@@ -1040,10 +1040,10 @@ function calculateTroopPerTurn(x){
   if (afDetect === 6){conttroops += 3}
   if (ocDetect === 4){conttroops += 2}
   if (asDetect === 12){conttroops += 7}
-  if (x <= 9){
+  if (player.numberOfProvincesOwned <= 9){
     return 3 + conttroops;
   }
-  if (x > 9)
+  if (player.numberOfProvincesOwned > 9)
   return (Math.floor(x/3)) + conttroops;
 }
 //END REINFORCE TROOP CALCULATIONS
@@ -1052,7 +1052,7 @@ function calculateTroopPerTurn(x){
 //BEGIN COMPUTER REINFORCING LOGIC
 function computerReinforce(reinforceAllowed){
   if (reinforceAllowed === undefined){
-    reinforceAllowed = calculateTroopPerTurn(playerObjectArray[playerindex].numberOfProvincesOwned);
+    reinforceAllowed = calculateTroopPerTurn(playerObjectArray[playerindex]);
   }
   announcements.innerHTML = playerObjectArray[playerindex].playername + " is Reinforcing"
   var objectChosen = valueCalculationFunction(playerindex);
