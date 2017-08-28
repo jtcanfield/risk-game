@@ -743,12 +743,12 @@ var playerObjectArray = [
 
 var turnArray = [];
 // var indexOfTurn = 0;
+var setHighlight = "";
 var turnskipper = document.getElementById("skipTurn");
 turnskipper.style.display = "none";
 var dieholder = document.getElementById("die_holder");
 dieholder.style.display = "none";
 var announcements = document.getElementById("announcements");
-var setHighlight = "";
 
 //STAGING OBJECT HERE
 var gameStage = {stage:"placing", substage:"NA", turn:-20, mapFilled:42};
