@@ -1067,7 +1067,7 @@ function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed, indexO
         index = 0;
         idOfClicked = 0;
         skip = false;
-        computerAttack();
+        computerAttack(indexOfTurn);
         // attackTurn(index, playerindex, idOfClicked, skip, indexOfTurn);
       }
     }
@@ -1076,18 +1076,20 @@ function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed, indexO
 //END REINFORCE FUNCTION
 
 
-function computerAttack(indexOfTurn, reinforceAllowed){
+function computerAttack(indexOfTurn){
   var playerindex = turnArray[indexOfTurn]-1;
   var allyprovince = valueCalculationFunction(playerindex);
   var strangearrayofvaluesndfjgbdfskhdsh = [];
-  var allyprovince = valueCalculationFunction(playerindex);
   console.log(allyprovince);
   allyprovince.adjacentProvinceIndex.map((x)=>{
     if (gameBoardObject[x].owner !== "player"+turnArray[indexOfTurn]){
       strangearrayofvaluesndfjgbdfskhdsh.push(x);
     }
   });
-  setTimeout(function() { setComputerBattle(gameBoardObject[index], allyprovince); }, 10/*00*/);
+  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
+  console.log("player"+turnArray[indexOfTurn]+" is now attacking");
+  setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 10/*00*/);
+  // setTimeout(function() { setComputerBattle(gameBoardObject[index], allyprovince); }, 10/*00*/);
 }
 
 
