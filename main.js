@@ -956,16 +956,11 @@ function whosTurnIsIt(){
     gameStage.mapFilled -= 99;
   }
   var changeAvail = document.getElementsByClassName('troop_count')[0];
-  // if (gameStage.stage !== "maingameplay"){
-  //   changeAvail.innerHTML  = 20-gameStage.turn;
-  // }
   if (gameStage.turn === 0){
     gameStage.stage = "maingameplay";
   }
   setHighlight.setAttribute("class", "highlight");
   if (gameStage.stage === "placing"){
-    console.log(playerindex);
-    console.log(turnArray[indexOfTurn]-1);
     announcements.innerHTML = playerObjectArray[playerindex].playername + " is Placing";
     if (playerObjectArray[playerindex].playername !== "player1"){
       playerTurnBoolean = false;
