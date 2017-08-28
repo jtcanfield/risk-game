@@ -741,9 +741,9 @@ var playerObjectArray = [
 ];
 //END PLAYER OBJECT ARRAY
 
-var attackturnskipper = document.getElementById("skipTurn");
+var attackturnskipper = document.getElementById("skipAttackTurn");
 attackturnskipper.style.display = "none";
-var moveturnskipper = document.getElementById("skipTurn");
+var moveturnskipper = document.getElementById("skipMoveTurn");
 moveturnskipper.style.display = "none";
 var dieholder = document.getElementById("die_holder");
 dieholder.style.display = "none";
@@ -1046,7 +1046,7 @@ function calculateTroopPerTurn(player){
     return 3 + conttroops;
   }
   if (player.numberOfProvincesOwned > 9)
-  return (Math.floor(x/3)) + conttroops;
+  return (Math.floor(player.numberOfProvincesOwned/3)) + conttroops;
 }
 //END REINFORCE TROOP CALCULATIONS
 
@@ -1590,7 +1590,7 @@ function moveTurn(index, idOfClicked, skip){
             allyprovince = b;
           }
         });
-        moveAction(gameBoardObject[index].provinceindexnumber, allyprovince.provinceindexnumber);
+        moveAction(allyprovince.provinceindexnumber, gameBoardObject[index].provinceindexnumber);
         playerselected = "";
       }
     }
@@ -1598,6 +1598,7 @@ function moveTurn(index, idOfClicked, skip){
 }
 //END MOVE TURN SELECTION FUCNTION
 function moveAction(fromind, toind){
+  moveturnskipper.style.display = "none";
   objfrom = gameBoardObject[fromind];
   objto = gameBoardObject[toind];
   var fromcounter = document.getElementById(objfrom.provincename+"Counter");
@@ -1606,13 +1607,12 @@ function moveAction(fromind, toind){
   tocounter.classList.add("flashing");
   var movableTroops = objfrom.numberOfTroops-1;
   var troopsnumberinput = document.getElementById("numberOfTroopsToMove");
-  var inputholder = document.getElementById("inputholder");
+  var moveinputholder = document.getElementById("moveinputholder");
   if (troopsnumberinput === null){
     var holder = `<input type="number" id="numberOfTroopsToMove" value="0">
     <button id="moveEm" onclick="moveAction(${fromind}, ${toind})">Move Troops!</button>`;
-    inputholder.innerHTML = holder;
+    moveinputholder.innerHTML = holder;
     announcements.innerHTML = "Move Troops!";
-    return
   }
   var numtroops = Number(document.getElementById("numberOfTroopsToMove").value);
   if (numtroops > movableTroops || numtroops===undefined || numtroops===0){
@@ -1621,11 +1621,11 @@ function moveAction(fromind, toind){
   } else {
     objfrom.numberOfTroops -= numtroops;
     objto.numberOfTroops += numtroops;
-    fromcounter.innerHTML -= numtroops;
-    tocounter.innerHTML += numtroops;
+    fromcounter.innerHTML = objfrom.numberOfTroops;
+    tocounter.innerHTML = objto.numberOfTroops;
     fromcounter.classList.remove("flashing");
     tocounter.classList.remove("flashing");
-    inputholder.innerHTML = "";
+    moveinputholder.innerHTML = "";
     finishMoveTurn();
   }
 }
@@ -1663,17 +1663,20 @@ function finishAttackTurn(){
   if (counterflash !== null && counterflash !== undefined){
     counterflash.classList.remove('flashing');
   }
+  playerselected = "";
   gameStage.substage = "playermove"
   attackturnskipper.style.display = "none";
   moveturnskipper.style.display = "";
+  announcements.innerHTML = "Select Province To move troops from.";
 }
 function finishMoveTurn(){
   var counterflash = document.getElementById(playerselected+"Counter");
   if (counterflash !== null && counterflash !== undefined){
     counterflash.classList.remove('flashing');
   }
-  gameStage.substage = ""
   moveturnskipper.style.display = "none";
+  playerselected = "";
+  gameStage.substage = "";
   playerTurnBoolean = false;
   setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 100);
 }
