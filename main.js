@@ -14,7 +14,6 @@ $('#imgmap').mapster({
     }
 });
 //okay now dont do anymore jquery
-var turnArray = [];
 //BEGIN GAMEBOARDOBJECT HOLDER
 var gameBoardObject = [
   //ORDER OF CONTINENTS: NA, SA, EU, AF, OC, AS
@@ -742,12 +741,14 @@ var playerObjectArray = [
 ];
 //END PLAYER OBJECT ARRAY
 
-
+var turnArray = [];
+// var indexOfTurn = 0;
 var turnskipper = document.getElementById("skipTurn");
 turnskipper.style.display = "none";
 var dieholder = document.getElementById("die_holder");
 dieholder.style.display = "none";
 var announcements = document.getElementById("announcements");
+var setHighlight = "";
 
 //STAGING OBJECT HERE
 var gameStage = {stage:"placing", substage:"NA", turn:-20, mapFilled:42};
@@ -950,6 +951,7 @@ function whosTurnIsIt(indexOfTurn){
     setTimeout(function() { whosTurnIsIt(0); }, 10);
     return
   }
+  setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   if (gameStage.mapFilled === 0){
     gameStage.stage = "reinforceStart";
     gameStage.mapFilled -= 99;
@@ -962,7 +964,6 @@ function whosTurnIsIt(indexOfTurn){
     gameStage.stage = "maingameplay";
   }
   var checkForPlayer1Index = turnArray[indexOfTurn];
-  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   setHighlight.setAttribute("class", "highlight");
   if (gameStage.stage === "placing"){
     announcements.innerHTML = playerObjectArray[turnArray[indexOfTurn]-1].playername + " is Placing"
@@ -1028,7 +1029,6 @@ function computerReinforce(indexOfTurn, reinforceAllowed){
     reinforceAllowed = calculateTroopPerTurn(playerObjectArray[playerindex].numberOfProvincesOwned);
   }
   announcements.innerHTML = playerObjectArray[playerindex].playername + " is Reinforcing"
-  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   var objectChosen = valueCalculationFunction(playerindex);
   var index = calculateIndex(objectChosen);
   var idOfClicked = objectChosen.provincename;
@@ -1049,7 +1049,6 @@ function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed, indexO
     gameBoardObject[index].numberOfTroops += 1;
     counterDiv.innerHTML = gameBoardObject[index].numberOfTroops;
     if (gameStage.stage === "reinforceStart"){
-      var setHighlight = document.getElementById("player1span");
       setHighlight.setAttribute("class", "");
       whosTurnIsIt((turnArray.indexOf(1)) + 1);
     }
@@ -1065,7 +1064,6 @@ function reinforceTurn(index, playerindex, idOfClicked, reinforceAllowed, indexO
     var counterDiv = document.getElementById(idOfClicked+"Counter");
     gameBoardObject[index].numberOfTroops += 1;
     counterDiv.innerHTML = gameBoardObject[index].numberOfTroops;
-    var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
     if (gameStage.stage === "reinforceStart"){
       setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 100);
     }
@@ -1093,7 +1091,6 @@ function computerAttackTurn(indexOfTurn){
     }
   });
   var enemyProvince = gameBoardObject[strangearrayofvaluesndfjgbdfskhdsh[0]];
-  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   if (allyprovince.owner !== playerObjectArray[playerindex].playername){
     console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
     console.log("player"+turnArray[indexOfTurn]+" HAS SELECTED A PROVINCE THAT IS NOT ITS OWN, PLEASE CHECK");
@@ -1183,7 +1180,6 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindex, at
       break;
   }
   if (endBattle === true){
-    var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
     console.log("player"+turnArray[indexOfTurn]+" HAS FINISHED ATTACKING");
     setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 10/*00*/);
     return
@@ -1247,7 +1243,6 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindex, at
 var playerselected = "";
 //BEGIN ATTACK TURN SELECTION FUNCTION
 function playerAttackTurn(index, playerindex, idOfClicked, skip, indexOfTurn){
-  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   if (playerindex === "0" ){
     if (skip === true){
       console.log("player"+turnArray[indexOfTurn]+" is skipping their turn");
@@ -1568,7 +1563,6 @@ function finishTurn(){
   if (counterflash !== null && counterflash !== undefined){
     counterflash.classList.remove('flashing');
   }
-  var setHighlight = document.getElementById("player1span");
   playerTurnBoolean = false;
   turnskipper.style.display = "none";
   setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt((turnArray.indexOf(1)) + 1);}, 100);
@@ -1580,7 +1574,6 @@ function finishTurn(){
 
 //BEGIN COMPUTER PLACING LOGIC
 function computerSelecting(indexOfTurn){
-  var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
   var index = Math.floor(Math.random()*(42-0+0)+0);
   var idOfClicked = gameBoardObject[index].provincename;
   placingTurn(index, (turnArray[indexOfTurn]-1), idOfClicked, indexOfTurn);
@@ -1608,12 +1601,10 @@ function placingTurn(index, playerindex, idOfClicked, indexOfTurn){
   }
   if (playerindex === "0"){
     gameStage.mapFilled -= 1; // brings one step closer to next section
-    var setHighlight = document.getElementById("player1span");
     setHighlight.setAttribute("class", "");
     whosTurnIsIt((turnArray.indexOf(1)) + 1);
   } else if (playerindex !== "0"){
     gameStage.mapFilled -= 1; // brings one step closer to next section
-    var setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
     setTimeout(function() { setHighlight.setAttribute("class", ""); whosTurnIsIt(indexOfTurn + 1);}, 100);
   }
 }
