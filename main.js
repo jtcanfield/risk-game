@@ -929,54 +929,56 @@ function attackValueCalculationFunction(i){
   playerObjectArray[i].provincesOwnedIndex.map((o) =>{
     // Map thru every object that is adjacent to the province Selected by the current player selected
     var nextToAlly = 0; //begin counter to see if surrounded by allies
-    gameBoardObject[o].adjacentProvinceIndex.map((e) =>{
-      //The Higher the Value for "o", the more likely it will choose this province to use to attack
-      //The Higher the value for "e", the more likely the computer should attack that province
-      if (playerObjectArray[i].playername !== gameBoardObject[e].owner){
-        //Switch for adjacency
-        switch (true) {
-          /*case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
-              //Selected has way more than adjacent, and sees no reason to reinforce
-
-              //MAKE THIS SO IF THERE IS A LARGE AMOUNT NEARBY IT DOESNT FIRE
-
-              gameBoardObject[o][ valueAdd ] -= 10;
-              gameBoardObject[e][ valueAdd ] += (Math.floor(gameBoardObject[o].numberOfTroops/gameBoardObject[e].numberOfTroops)*5);
-              break;*/
-          case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
-              //Selected has more than adjacent
-              gameBoardObject[o][ valueAdd ] += 5;
-              gameBoardObject[e][ valueAdd ] += (Math.floor(gameBoardObject[o].numberOfTroops/gameBoardObject[e].numberOfTroops)*5);
-              break;
-          case gameBoardObject[o].numberOfTroops === gameBoardObject[e].numberOfTroops:
-              //Selected is equal to adjacent
-              gameBoardObject[o][ valueAdd ] += Math.floor(Math.random() * (10 - 5)) + 5;//5;
-              gameBoardObject[e][ valueAdd ] += Math.floor(Math.random() * (10 - 5)) + 5;//5;
-              break;
-          case gameBoardObject[o].numberOfTroops < gameBoardObject[e].numberOfTroops && gameBoardObject[o].numberOfTroops > 20 && (Math.floor(gameBoardObject[e].numberOfTroops/gameBoardObject[o].numberOfTroops)) < 3:
-              //Selected has less than adjacent and figures its pointless
-              gameBoardObject[o][ valueAdd ] -= Math.floor(Math.random() * (25 - 20)) + 20;//20;
-              gameBoardObject[e][ valueAdd ] -= Math.floor(Math.random() * (35 - 25)) + 25;//30;
-              break;
-          case gameBoardObject[o].numberOfTroops < gameBoardObject[e].numberOfTroops:
-              //Selected has less than adjacent
-              gameBoardObject[o][ valueAdd ] += Math.floor(Math.random() * (25 - 15)) + 15;//20;
-              gameBoardObject[e][ valueAdd ] -= Math.floor(Math.random() * (15 - 5)) + 5;//10;
-              break;
-        }
-      }
-      //Check every adjacent province for ally or enemy
-      if (playerObjectArray[i].playername === gameBoardObject[e].owner){
-        nextToAlly += 1;
-      }
-      if (nextToAlly === gameBoardObject[o].adjacentProvinceIndex.length){
-          gameBoardObject[o][ valueAdd ] -= 2000;
-      }
-    });
-    //Force value to 0 if the troops equals 1;
+    //Force value to -2000 and stop code if the troops equals 1;
     if (gameBoardObject[o].numberOfTroops <= 1){
-      gameBoardObject[o][ valueAdd ] -= 1000;
-    }
+      gameBoardObject[o][ valueAdd ] -= 2000;
+      return
+    } else {
+      gameBoardObject[o].adjacentProvinceIndex.map((e) =>{
+        //The Higher the Value for "o", the more likely it will choose this province to use to attack
+        //The Higher the value for "e", the more likely the computer should attack that province
+        if (playerObjectArray[i].playername !== gameBoardObject[e].owner){
+          //Switch for adjacency
+          switch (true) {
+            /*case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
+                //Selected has way more than adjacent, and sees no reason to reinforce
+
+                //MAKE THIS SO IF THERE IS A LARGE AMOUNT NEARBY IT DOESNT FIRE
+
+                gameBoardObject[o][ valueAdd ] -= 10;
+                gameBoardObject[e][ valueAdd ] += (Math.floor(gameBoardObject[o].numberOfTroops/gameBoardObject[e].numberOfTroops)*5);
+                break;*/
+            case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
+                //Selected has more than adjacent
+                gameBoardObject[o][ valueAdd ] += 5;
+                gameBoardObject[e][ valueAdd ] += (Math.floor(gameBoardObject[o].numberOfTroops/gameBoardObject[e].numberOfTroops)*5);
+                break;
+            case gameBoardObject[o].numberOfTroops === gameBoardObject[e].numberOfTroops:
+                //Selected is equal to adjacent
+                gameBoardObject[o][ valueAdd ] += Math.floor(Math.random() * (10 - 5)) + 5;//5;
+                gameBoardObject[e][ valueAdd ] += Math.floor(Math.random() * (10 - 5)) + 5;//5;
+                break;
+            case gameBoardObject[o].numberOfTroops < gameBoardObject[e].numberOfTroops && gameBoardObject[o].numberOfTroops > 20 && (Math.floor(gameBoardObject[e].numberOfTroops/gameBoardObject[o].numberOfTroops)) < 3:
+                //Selected has less than adjacent and figures its pointless
+                gameBoardObject[o][ valueAdd ] -= Math.floor(Math.random() * (25 - 20)) + 20;//20;
+                gameBoardObject[e][ valueAdd ] -= Math.floor(Math.random() * (35 - 25)) + 25;//30;
+                break;
+            case gameBoardObject[o].numberOfTroops < gameBoardObject[e].numberOfTroops:
+                //Selected has less than adjacent
+                gameBoardObject[o][ valueAdd ] += Math.floor(Math.random() * (25 - 15)) + 15;//20;
+                gameBoardObject[e][ valueAdd ] -= Math.floor(Math.random() * (15 - 5)) + 5;//10;
+                break;
+          }
+        }
+        //Check every adjacent province for ally or enemy
+        if (playerObjectArray[i].playername === gameBoardObject[e].owner){
+          nextToAlly += 1;
+        }
+        if (nextToAlly === gameBoardObject[o].adjacentProvinceIndex.length){
+            gameBoardObject[o][ valueAdd ] -= 2000;
+        }
+      });
+    };
   });
   //2. CONTINENT DETECTION
   var naDetect = 0; var saDetect = 0; var euDetect = 0; var afDetect = 0; var ocDetect = 0; var asDetect = 0;
