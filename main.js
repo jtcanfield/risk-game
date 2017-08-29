@@ -1337,7 +1337,7 @@ function computerAttackTurn(){
   var allyprovince = provincesz.allyprov;
   var enemyProvince = provincesz.enemyprov;
   //BEGIN DEBUG CHECKING
-  if (timesTried >= 300){
+  if (timesTried >= 100){
     console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
     console.log("player"+turnArray[indexOfTurn]+" IS SKIPPING THEIR TURN");
     timesTried = 0;
