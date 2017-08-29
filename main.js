@@ -947,11 +947,12 @@ function whosTurnIsIt(){
         console.log(turnArray);
         //TODO Check what happens when two players are eliminated on the same turn
         isSomeoneDefeated = true;
+        whosTurnIsIt();
         return
       }
     }
   }
-  if (isSomeoneDefeated === true){whosTurnIsIt();return};
+  if (isSomeoneDefeated === true){return};
   if (indexOfTurn >= turnArray.length){
     gameStage.turn += 1;
     setTimeout(function() { indexOfTurn = 0; whosTurnIsIt();}, 10);
