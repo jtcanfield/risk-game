@@ -1055,6 +1055,7 @@ function attackValueCalculationFunction(i){
   });
   var maxFriendly = Math.max(...arrayofValuesFriendly);
   var indexmaxFriendly = arrayofValuesFriendly.indexOf(maxFriendly);
+  var ally = arrayToChooseFromFriendly[indexmaxFriendly];
   //4. SET ENEMY PROV SECTION
   var arrayToChooseFromEnemy = [];
   var arrayofValuesEnemy = [];
@@ -1066,6 +1067,7 @@ function attackValueCalculationFunction(i){
   });
   var maxEnemy = Math.max(...arrayofValuesEnemy);
   var indexmaxEnemy = arrayofValuesEnemy.indexOf(maxEnemy);
+  var enmy = arrayToChooseFromEnemy[indexmaxEnemy];
   // console.log("Array of Values");
   // console.log(arrayofValuesEnemy);
   // console.log("Array of objects");
@@ -1078,16 +1080,13 @@ function attackValueCalculationFunction(i){
   // console.log(arrayToChooseFromEnemy[indexmaxEnemy]);
   if (playerObjectArray[i].provincesOwnedIndex.length === singleTroopProvinces){
     console.log("All provinces are 1 Troop");
-    return {
-          allyprov: false,
-          enemyprov: false
-      };
-  } else {
-    return {
-          allyprov: arrayToChooseFromFriendly[indexmaxFriendly],
-          enemyprov: arrayToChooseFromEnemy[indexmaxEnemy]
-      };
+    ally = "1";
+    enmy = "1";
   }
+  return {
+        allyprov: ally,
+        enemyprov: enmy
+    };
 }
 //END AI ATTACK LOGIC AND VALUE CALCULATIONS
 
@@ -1331,6 +1330,10 @@ var timesTried = 0;
 function computerAttackTurn(){
   announcements.innerHTML = playerObjectArray[playerindex].playername + " is Attacking"
   var provincesz = attackValueCalculationFunction(playerindex);
+  if (provincesz === "1"){
+    console.log("player"+turnArray[indexOfTurn]+" is skipping their turn");
+    setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 10/*00*/);
+  }
   var allyprovince = provincesz.allyprov;
   var enemyProvince = provincesz.enemyprov;
   //BEGIN DEBUG CHECKING
@@ -1439,8 +1442,8 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, att
       break;
   }
   if (endBattle === true){
-    computerAttackTurn();
-    // computerMoveTurn();
+    // computerAttackTurn();
+    computerMoveTurn();
     return
   }
   //Step two: Roll and sort Atk Die
