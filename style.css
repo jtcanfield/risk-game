@@ -317,3 +317,7 @@ span {
 #player6span{
   background-color: orange;
 }
+.greyedout{
+  background-color: grey !important;
+  color: white !important;
+}

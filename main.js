@@ -1087,6 +1087,9 @@ function whosTurnIsIt(){
       if (playerObjectArray[playerToCheck-1].numberOfProvincesOwned === 0){//turns playerToCheck into the playerObjectArray index and checks the size
         var indextoeleminiate = turnArray.indexOf(playerToCheck);
         console.log("PLAYER" + playerToCheck + " HAS BEEN ELIMINATED");
+        var eliminated = document.getElementById("player"+playerToCheck+"span");
+        eliminated.innerHTML += "<br>(eliminated)"
+        eliminated.classList.add("greyedout");
         turnArray.splice(indextoeleminiate, 1);
         console.log(turnArray);
         //TODO Check what happens when two players are eliminated on the same turn
@@ -1302,6 +1305,7 @@ function computerAttackTurn(){
     return
   }
   if (allyprovince.numberOfTroops === 1){
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
     console.log("player"+turnArray[indexOfTurn]+" HAS SELECTED A PROVINCE WITH ONE TROOP");
     timesTried += 1;
     computerAttackTurn();
@@ -1462,7 +1466,6 @@ function playerAttackTurn(index, idOfClicked, skip){
       });
       if (isadjacenttrue === false){
         announcements.innerHTML = "Province must be adjacent!";
-        console.log("PLEASE SELECT ADJACENT, CLICK SHOULD STOP HERE");
         return
       } else if (isadjacenttrue === true){
         counterflash.classList.remove('flashing');
