@@ -803,46 +803,36 @@ function reinforceValueCalculationFunction(i){
       //Check every adjacent province for ally or enemy
       if (playerObjectArray[i].playername === gameBoardObject[e].owner){
         nextToAlly += 1;
-        gameBoardObject[o][ valueAdd ] += 5;//change value of current player owned
-        gameBoardObject[e][ valueAdd ] -= 1;//change value of adjacent
       }
       //The Higher the Value for "o", the more it needs reinforcements
       //The Higher the value for "e", the more likely the computer should attack
       if (playerObjectArray[i].playername !== gameBoardObject[e].owner){
-        var changevalue = 0;
         //Switch for adjacency
         switch (true) {
-          /*case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
-              //Selected has way more than adjacent, and sees no reason to reinforce
-
-              //MAKE THIS SO IF THERE IS A LARGE AMOUNT NEARBY IT DOESNT FIRE
-
-              gameBoardObject[o][ valueAdd ] -= 10;
-              gameBoardObject[e][ valueAdd ] += (Math.floor(gameBoardObject[o].numberOfTroops/gameBoardObject[e].numberOfTroops)*5);
-              break;*/
+          // case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
+          //     //Selected has way more than adjacent, and sees no reason to reinforce
+          //     //MAKE THIS SO IF THERE IS A LARGE AMOUNT NEARBY IT DOESNT FIRE
+          //     gameBoardObject[o][ valueAdd ] -= 10;
+          //     break;
           case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
               //Selected has more than adjacent
               gameBoardObject[o][ valueAdd ] += 5;
-              gameBoardObject[e][ valueAdd ] += (Math.floor(gameBoardObject[o].numberOfTroops/gameBoardObject[e].numberOfTroops)*5);
               break;
           case gameBoardObject[o].numberOfTroops === gameBoardObject[e].numberOfTroops:
               //Selected is equal to adjacent
               gameBoardObject[o][ valueAdd ] += Math.floor(Math.random() * (10 - 5)) + 5;//5;
-              gameBoardObject[e][ valueAdd ] += Math.floor(Math.random() * (10 - 5)) + 5;//5;
               break;
           case gameBoardObject[o].numberOfTroops < gameBoardObject[e].numberOfTroops && gameBoardObject[o].numberOfTroops > 20 && (Math.floor(gameBoardObject[e].numberOfTroops/gameBoardObject[o].numberOfTroops)) < 3:
               //Selected has less than adjacent and figures its pointless
               gameBoardObject[o][ valueAdd ] -= Math.floor(Math.random() * (25 - 20)) + 20;//20;
-              gameBoardObject[e][ valueAdd ] -= Math.floor(Math.random() * (35 - 25)) + 25;//30;
               break;
           case gameBoardObject[o].numberOfTroops < gameBoardObject[e].numberOfTroops:
               //Selected has less than adjacent
               gameBoardObject[o][ valueAdd ] += Math.floor(Math.random() * (25 - 15)) + 15;//20;
-              gameBoardObject[e][ valueAdd ] -= Math.floor(Math.random() * (15 - 5)) + 5;//10;
               break;
         }
       }
-      if (nextToAlly === gameBoardObject[o].adjacentProvinceIndex.length){
+      if (nextToAlly >= gameBoardObject[o].adjacentProvinceIndex.length){
         //ADD AN IF STATEMENT FOR WEATHER OR NOT TO DEFEND CONT
           gameBoardObject[o][ valueAdd ] -= 2000;
           console.log("surrounded by friendlies");
@@ -924,8 +914,6 @@ function reinforceValueCalculationFunction(i){
   });
   var max = Math.max(...arrayofValues);
   var indexmax = arrayofValues.indexOf(max);
-  // console.log(arrayToChooseFrom);
-  // console.log(arrayofValues);
   return arrayToChooseFrom[indexmax];
 }
 //END AI REINFORCE LOGIC AND VALUE CALCULATIONS
@@ -953,7 +941,6 @@ function attackValueCalculationFunction(i){
       //The Higher the Value for "o", the more likely it will choose this province to use to attack
       //The Higher the value for "e", the more likely the computer should attack that province
       if (playerObjectArray[i].playername !== gameBoardObject[e].owner){
-        var changevalue = 0;
         //Switch for adjacency
         switch (true) {
           /*case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
@@ -1083,22 +1070,75 @@ function attackValueCalculationFunction(i){
   });
   var maxEnemy = Math.max(...arrayofValuesEnemy);
   var indexmaxEnemy = arrayofValuesEnemy.indexOf(maxEnemy);
-  console.log("Array of Values");
-  console.log(arrayofValuesEnemy);
-  console.log("Array of objects");
-  console.log(arrayToChooseFromEnemy);
-  console.log("Highest Value");
-  console.log(maxEnemy);
-  console.log("Index of:");
-  console.log(arrayofValuesEnemy.indexOf(maxEnemy));
-  console.log(arrayToChooseFromFriendly[indexmaxFriendly]);
-  console.log(arrayToChooseFromEnemy[indexmaxEnemy]);
+  // console.log("Array of Values");
+  // console.log(arrayofValuesEnemy);
+  // console.log("Array of objects");
+  // console.log(arrayToChooseFromEnemy);
+  // console.log("Highest Value");
+  // console.log(maxEnemy);
+  // console.log("Index of:");
+  // console.log(arrayofValuesEnemy.indexOf(maxEnemy));
+  // console.log(arrayToChooseFromFriendly[indexmaxFriendly]);
+  // console.log(arrayToChooseFromEnemy[indexmaxEnemy]);
   return {
         allyprov: arrayToChooseFromFriendly[indexmaxFriendly],
         enemyprov: arrayToChooseFromEnemy[indexmaxEnemy]
     };
 }
 //END AI ATTACK LOGIC AND VALUE CALCULATIONS
+
+
+//BEGIN AI MOVE LOGIC AND VALUE CALCULATIONS
+var moveValueCalculationFunction = function (i, callback){
+  reinforceValueCalculationFunction(playerindex);
+  var valueAdd = "valueTo"+playerObjectArray[i].playername;
+  var surroundedByAllyarray = [];
+  var surroundedByAllyarrayValues = [];
+  //1. Surrounded DETECTION
+  //map thru every object owned by current player selected
+  playerObjectArray[i].provincesOwnedIndex.map((o) =>{
+    var nextToAlly = 0;
+    // Map thru every object that is adjacent to the province Selected by the current player selected
+    gameBoardObject[o].adjacentProvinceIndex.map((e) =>{
+      //Check every adjacent province for ally
+      if (playerObjectArray[i].playername === gameBoardObject[e].owner){
+        nextToAlly += 1;
+      }
+      console.log(nextToAlly);
+      //2. ADD ONES THAT ARE SURROUNDED AND HAVE MORE THAN ONE TROOP
+      if (nextToAlly === gameBoardObject[o].adjacentProvinceIndex.length){
+        if (gameBoardObject[o].numberOfTroops > 1){
+          console.log("MOVE FUNCTION FIRED, ADDED TO LIST");
+          surroundedByAllyarray.push(gameBoardObject[o]);
+          surroundedByAllyarrayValues.push(gameBoardObject[o].numberOfTroops);
+        }
+      }
+    });
+  });
+  if (surroundedByAllyarray.length === 0){console.log("Callback is about to be fired");callback();return};
+  console.log("MOVE IS CONTUINING");
+  //3. GET THE PROV THAT HAS THE MOST TROOPS AND DECLARE IT
+  var maxFROM = Math.max(...surroundedByAllyarrayValues);
+  var indexFROM = surroundedByAllyarrayValues.indexOf(maxFROM);
+  var objectFROM = surroundedByAllyarray[indexFROM];
+  console.log(objectFROM);
+  //4. GET PROVINCE TO MOVE TO BASED ON RENIF VALUES
+  var arrayToChooseAdjacent = [];
+  var arrayofValuesAdjacent = [];
+  objectFROM.adjacentProvinceIndex.map((z) =>{
+    arrayToChooseAdjacent.push(gameBoardObject[z]);
+    arrayofValuesAdjacent.push(gameBoardObject[z][ valueAdd ]);
+  });
+  var maxAdjacent = Math.max(...arrayofValuesAdjacent);
+  var indexmaxAdjacent = arrayofValuesAdjacent.indexOf(maxAdjacent);
+  console.log("Callback is about to be fired");
+  callback(objectFROM, arrayToChooseAdjacent[indexmaxAdjacent]);
+  return /*{
+        fromprov: objectFROM,
+        toprov: arrayToChooseAdjacent[indexmaxAdjacent]
+    };*/
+}
+//END AI MOVE LOGIC AND VALUE CALCULATIONS
 
 
 //BEGIN BEGINNING TURN TRACKER
@@ -1405,7 +1445,8 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, att
   }
   if (endBattle === true){
     // console.log("player"+turnArray[indexOfTurn]+" HAS FINISHED ATTACKING");
-    setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 10/*00*/);
+    computerMoveTurn();
+    // setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 10/*00*/);
     return
   }
   //Step two: Roll and sort Atk Die
@@ -1452,6 +1493,26 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, att
 }
 //END BATTLE
 
+//BEGIN COMPUTER MOVE TURN
+function computerMoveTurn(){
+  moveValueCalculationFunction(playerindex, function(fromOBJ, toOBJ){
+    console.log("Callback has been fired");
+    if (fromOBJ === undefined || toOBJ === undefined){
+      return
+    } else {
+      var numtroops = (fromOBJ.numberOfTroops)-1;
+      fromOBJ.numberOfTroops -= numtroops;
+      toOBJ.numberOfTroops += numtroops;
+      var fromCounter = document.getElementById(fromOBJ.provincename+"Counter");
+      var toCounter = document.getElementById(toOBJ.provincename+"Counter");
+      fromCounter.innerHTML = fromOBJ.numberOfTroops;
+      toCounter.innerHTML = toOBJ.numberOfTroops;
+    }
+  return
+  });
+  setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 10/*00*/);
+}
+//END COMPUTER MOVE TURN
 
 //BEGIN ATTACK TURN SELECTION FUNCTION
 function playerAttackTurn(index, idOfClicked, skip){
