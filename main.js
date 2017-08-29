@@ -798,12 +798,8 @@ function reinforceValueCalculationFunction(i){
   //map thru every object owned by current player selected
   playerObjectArray[i].provincesOwnedIndex.map((o) =>{
     // Map thru every object that is adjacent to the province Selected by the current player selected
+    var nextToAlly = 0; //begin counter to see if surrounded by allies
     gameBoardObject[o].adjacentProvinceIndex.map((e) =>{
-      var nextToAlly = 0; //begin counter to see if surrounded by allies
-      //Check every adjacent province for ally or enemy
-      if (playerObjectArray[i].playername === gameBoardObject[e].owner){
-        nextToAlly += 1;
-      }
       //The Higher the Value for "o", the more it needs reinforcements
       //The Higher the value for "e", the more likely the computer should attack
       if (playerObjectArray[i].playername !== gameBoardObject[e].owner){
@@ -832,10 +828,12 @@ function reinforceValueCalculationFunction(i){
               break;
         }
       }
+      //Check every adjacent province for ally or enemy
+      if (playerObjectArray[i].playername === gameBoardObject[e].owner){
+        nextToAlly += 1;
+      }
       if (nextToAlly >= gameBoardObject[o].adjacentProvinceIndex.length){
-        //ADD AN IF STATEMENT FOR WEATHER OR NOT TO DEFEND CONT
-          gameBoardObject[o][ valueAdd ] -= 2000;
-          console.log("surrounded by friendlies");
+        gameBoardObject[o][ valueAdd ] -= 2000;
       }
     });
   });
@@ -930,14 +928,8 @@ function attackValueCalculationFunction(i){
   //map thru every object owned by current player selected
   playerObjectArray[i].provincesOwnedIndex.map((o) =>{
     // Map thru every object that is adjacent to the province Selected by the current player selected
+    var nextToAlly = 0; //begin counter to see if surrounded by allies
     gameBoardObject[o].adjacentProvinceIndex.map((e) =>{
-      var nextToAlly = 0; //begin counter to see if surrounded by allies
-      //Check every adjacent province for ally or enemy
-      if (playerObjectArray[i].playername === gameBoardObject[e].owner){
-        nextToAlly += 1;
-        // gameBoardObject[o][ valueAdd ] -= 10;//change value of current player owned
-        // gameBoardObject[e][ valueAdd ] -= 0;//change value of adjacent
-      }
       //The Higher the Value for "o", the more likely it will choose this province to use to attack
       //The Higher the value for "e", the more likely the computer should attack that province
       if (playerObjectArray[i].playername !== gameBoardObject[e].owner){
@@ -973,10 +965,12 @@ function attackValueCalculationFunction(i){
               break;
         }
       }
+      //Check every adjacent province for ally or enemy
+      if (playerObjectArray[i].playername === gameBoardObject[e].owner){
+        nextToAlly += 1;
+      }
       if (nextToAlly === gameBoardObject[o].adjacentProvinceIndex.length){
-        //ADD AN IF STATEMENT FOR WEATHER OR NOT TO DEFEND CONT
           gameBoardObject[o][ valueAdd ] -= 2000;
-          console.log("surrounded by friendlies");
       }
     });
     //Force value to 0 if the troops equals 1;
@@ -1104,24 +1098,20 @@ var moveValueCalculationFunction = function (i, callback){
       if (playerObjectArray[i].playername === gameBoardObject[e].owner){
         nextToAlly += 1;
       }
-      console.log(nextToAlly);
       //2. ADD ONES THAT ARE SURROUNDED AND HAVE MORE THAN ONE TROOP
       if (nextToAlly === gameBoardObject[o].adjacentProvinceIndex.length){
         if (gameBoardObject[o].numberOfTroops > 1){
-          console.log("MOVE FUNCTION FIRED, ADDED TO LIST");
           surroundedByAllyarray.push(gameBoardObject[o]);
           surroundedByAllyarrayValues.push(gameBoardObject[o].numberOfTroops);
         }
       }
     });
   });
-  if (surroundedByAllyarray.length === 0){console.log("Callback is about to be fired");callback();return};
-  console.log("MOVE IS CONTUINING");
+  if (surroundedByAllyarray.length === 0){callback();return};
   //3. GET THE PROV THAT HAS THE MOST TROOPS AND DECLARE IT
   var maxFROM = Math.max(...surroundedByAllyarrayValues);
   var indexFROM = surroundedByAllyarrayValues.indexOf(maxFROM);
   var objectFROM = surroundedByAllyarray[indexFROM];
-  console.log(objectFROM);
   //4. GET PROVINCE TO MOVE TO BASED ON RENIF VALUES
   var arrayToChooseAdjacent = [];
   var arrayofValuesAdjacent = [];
@@ -1131,12 +1121,9 @@ var moveValueCalculationFunction = function (i, callback){
   });
   var maxAdjacent = Math.max(...arrayofValuesAdjacent);
   var indexmaxAdjacent = arrayofValuesAdjacent.indexOf(maxAdjacent);
-  console.log("Callback is about to be fired");
-  callback(objectFROM, arrayToChooseAdjacent[indexmaxAdjacent]);
-  return /*{
-        fromprov: objectFROM,
-        toprov: arrayToChooseAdjacent[indexmaxAdjacent]
-    };*/
+  var objectTO = arrayToChooseAdjacent[indexmaxAdjacent];
+  callback(objectFROM, objectTO);
+  return
 }
 //END AI MOVE LOGIC AND VALUE CALCULATIONS
 
@@ -1496,7 +1483,6 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, att
 //BEGIN COMPUTER MOVE TURN
 function computerMoveTurn(){
   moveValueCalculationFunction(playerindex, function(fromOBJ, toOBJ){
-    console.log("Callback has been fired");
     if (fromOBJ === undefined || toOBJ === undefined){
       return
     } else {
