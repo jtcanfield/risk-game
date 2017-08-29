@@ -787,8 +787,8 @@ function startGame(){
 
 
 
-//BEGIN AI LOGIC AND VALUE CALCULATIONS
-function valueCalculationFunction(i){
+//BEGIN AI REINFORCE LOGIC AND VALUE CALCULATIONS
+function reinforceValueCalculationFunction(i){
   var valueAdd = "valueTo"+playerObjectArray[i].playername;
   //clear current values
   for (let c = 0; c < 42; c++){
@@ -844,7 +844,7 @@ function valueCalculationFunction(i){
       }
       if (nextToAlly === gameBoardObject[o].adjacentProvinceIndex.length){
         //ADD AN IF STATEMENT FOR WEATHER OR NOT TO DEFEND CONT
-          gameBoardObject[o][ valueAdd ] -= 1000;
+          gameBoardObject[o][ valueAdd ] -= 2000;
           console.log("surrounded by friendlies");
       }
     });
@@ -928,8 +928,152 @@ function valueCalculationFunction(i){
   // console.log(arrayofValues);
   return arrayToChooseFrom[indexmax];
 }
-//END AI LOGIC AND VALUE CALCULATIONS
+//END AI REINFORCE LOGIC AND VALUE CALCULATIONS
 
+
+//BEGIN AI ATTACK LOGIC AND VALUE CALCULATIONS
+function attackValueCalculationFunction(i){
+  var valueAdd = "valueTo"+playerObjectArray[i].playername;
+  //clear current values
+  for (let c = 0; c < 42; c++){
+    gameBoardObject[c][ valueAdd ] = 0;
+  }
+  //1. ADJACENCY DETECTION
+  //map thru every object owned by current player selected
+  playerObjectArray[i].provincesOwnedIndex.map((o) =>{
+    if (gameBoardObject[o].numberOfTroops <= 1){
+      gameBoardObject[o][ valueAdd ] -= 500;
+    }
+    // Map thru every object that is adjacent to the province Selected by the current player selected
+    gameBoardObject[o].adjacentProvinceIndex.map((e) =>{
+      var nextToAlly = 0; //begin counter to see if surrounded by allies
+      //Check every adjacent province for ally or enemy
+      if (playerObjectArray[i].playername === gameBoardObject[e].owner){
+        nextToAlly += 1;
+        gameBoardObject[o][ valueAdd ] += 1;//change value of current player owned
+        gameBoardObject[e][ valueAdd ] -= 1;//change value of adjacent
+      }
+      //The Higher the Value for "o", the more likely it will choose this province to use to attack
+      //The Higher the value for "e", the more likely the computer should attack that province
+      if (playerObjectArray[i].playername !== gameBoardObject[e].owner){
+        var changevalue = 0;
+        //Switch for adjacency
+        switch (true) {
+          /*case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
+              //Selected has way more than adjacent, and sees no reason to reinforce
+
+              //MAKE THIS SO IF THERE IS A LARGE AMOUNT NEARBY IT DOESNT FIRE
+
+              gameBoardObject[o][ valueAdd ] -= 10;
+              gameBoardObject[e][ valueAdd ] += (Math.floor(gameBoardObject[o].numberOfTroops/gameBoardObject[e].numberOfTroops)*5);
+              break;*/
+          case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
+              //Selected has more than adjacent
+              gameBoardObject[o][ valueAdd ] += 5;
+              gameBoardObject[e][ valueAdd ] += (Math.floor(gameBoardObject[o].numberOfTroops/gameBoardObject[e].numberOfTroops)*5);
+              break;
+          case gameBoardObject[o].numberOfTroops === gameBoardObject[e].numberOfTroops:
+              //Selected is equal to adjacent
+              gameBoardObject[o][ valueAdd ] += Math.floor(Math.random() * (10 - 5)) + 5;//5;
+              gameBoardObject[e][ valueAdd ] += Math.floor(Math.random() * (10 - 5)) + 5;//5;
+              break;
+          case gameBoardObject[o].numberOfTroops < gameBoardObject[e].numberOfTroops && gameBoardObject[o].numberOfTroops > 20 && (Math.floor(gameBoardObject[e].numberOfTroops/gameBoardObject[o].numberOfTroops)) < 3:
+              //Selected has less than adjacent and figures its pointless
+              gameBoardObject[o][ valueAdd ] -= Math.floor(Math.random() * (25 - 20)) + 20;//20;
+              gameBoardObject[e][ valueAdd ] -= Math.floor(Math.random() * (35 - 25)) + 25;//30;
+              break;
+          case gameBoardObject[o].numberOfTroops < gameBoardObject[e].numberOfTroops:
+              //Selected has less than adjacent
+              gameBoardObject[o][ valueAdd ] += Math.floor(Math.random() * (25 - 15)) + 15;//20;
+              gameBoardObject[e][ valueAdd ] -= Math.floor(Math.random() * (15 - 5)) + 5;//10;
+              break;
+        }
+      }
+      if (nextToAlly === gameBoardObject[o].adjacentProvinceIndex.length){
+        //ADD AN IF STATEMENT FOR WEATHER OR NOT TO DEFEND CONT
+          gameBoardObject[o][ valueAdd ] -= 2000;
+          console.log("surrounded by friendlies");
+      }
+    });
+  });
+  //2. CONTINENT DETECTION
+  var naDetect = 0; var saDetect = 0; var euDetect = 0; var afDetect = 0; var ocDetect = 0; var asDetect = 0;
+  playerObjectArray[i].provincesOwnedIndex.map((a) =>{
+    switch (gameBoardObject[a].continenton) {
+      case "NA":
+          naDetect += 1;
+          break;
+      case "SA":
+          saDetect += 1;
+          break;
+      case "EU":
+          euDetect += 1;
+          break;
+      case "AF":
+          afDetect += 1;
+          break;
+      case "OC":
+          ocDetect += 1;
+          break;
+      case "AS":
+          asDetect += 1;
+          break;
+    }
+  });
+  if (naDetect === 9){/*ADD WHAT TO DO WHEN OWNED*/} else if (naDetect !== 9 && naDetect >= 5){
+    playerObjectArray[i].provincesOwnedIndex.map((b) =>{
+      if (gameBoardObject[b].continenton === "NA"){
+        gameBoardObject[b][ valueAdd ] += 25;
+      }
+    });
+  };
+  if (saDetect === 4){/*ADD WHAT TO DO WHEN OWNED*/} else if (saDetect !== 4 && saDetect >= 2){
+    playerObjectArray[i].provincesOwnedIndex.map((b) =>{
+      if (gameBoardObject[b].continenton === "SA"){
+        gameBoardObject[b][ valueAdd ] += 30;
+      }
+    });
+  };
+  if (euDetect === 7){/*ADD WHAT TO DO WHEN OWNED*/} else if (euDetect !== 7 && euDetect >= 4){
+    playerObjectArray[i].provincesOwnedIndex.map((b) =>{
+      if (gameBoardObject[b].continenton === "EU"){
+        gameBoardObject[b][ valueAdd ] += 15;
+      }
+    });
+  };
+  if (afDetect === 6){/*ADD WHAT TO DO WHEN OWNED*/} else if (afDetect !== 6 && afDetect >= 3){
+    playerObjectArray[i].provincesOwnedIndex.map((b) =>{
+      if (gameBoardObject[b].continenton === "AF"){
+        gameBoardObject[b][ valueAdd ] += 20;
+      }
+    });
+  };
+  if (ocDetect === 4){/*ADD WHAT TO DO WHEN OWNED*/} else if (ocDetect !== 4 && ocDetect >= 2){
+    playerObjectArray[i].provincesOwnedIndex.map((b) =>{
+      if (gameBoardObject[b].continenton === "OC"){
+        gameBoardObject[b][ valueAdd ] += 35;
+      }
+    });
+  };
+  if (asDetect === 12){/*ADD WHAT TO DO WHEN OWNED*/} else if (asDetect !== 12 && asDetect >= 7){
+    playerObjectArray[i].provincesOwnedIndex.map((b) =>{
+      if (gameBoardObject[b].continenton === "AS"){
+        gameBoardObject[b][ valueAdd ] += 10;
+      }
+    });
+  };
+  //3. RETURN SECTION
+  var arrayToChooseFrom = [];
+  var arrayofValues = [];
+  playerObjectArray[i].provincesOwnedIndex.map((z) =>{
+      arrayToChooseFrom.push(gameBoardObject[z]);
+      arrayofValues.push(gameBoardObject[z][ valueAdd ]);
+  });
+  var max = Math.max(...arrayofValues);
+  var indexmax = arrayofValues.indexOf(max);
+  return arrayToChooseFrom[indexmax];
+}
+//END AI ATTACK LOGIC AND VALUE CALCULATIONS
 
 
 //BEGIN BEGINNING TURN TRACKER
@@ -1060,7 +1204,7 @@ function computerReinforce(reinforceAllowed){
     reinforceAllowed = calculateTroopPerTurn(playerObjectArray[playerindex]);
   }
   announcements.innerHTML = playerObjectArray[playerindex].playername + " is Reinforcing"
-  var objectChosen = valueCalculationFunction(playerindex);
+  var objectChosen = reinforceValueCalculationFunction(playerindex);
   var index = calculateIndex(objectChosen);
   var idOfClicked = objectChosen.provincename;
   setTimeout(function() { reinforceTurn(index, idOfClicked, reinforceAllowed); }, 10/*00*/);
@@ -1115,7 +1259,7 @@ var timesTried = 0;
 //BEGIN COMPUTER BATTLE FINDER
 function computerAttackTurn(){
   announcements.innerHTML = playerObjectArray[playerindex].playername + " is Attacking"
-  var allyprovince = valueCalculationFunction(playerindex);
+  var allyprovince = attackValueCalculationFunction(playerindex);
   var strangearrayofvaluesndfjgbdfskhdsh = [];
   allyprovince.adjacentProvinceIndex.map((x)=>{
     if (gameBoardObject[x].owner !== "player"+turnArray[indexOfTurn]){
