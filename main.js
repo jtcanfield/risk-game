@@ -942,9 +942,7 @@ function attackValueCalculationFunction(i){
           switch (true) {
             /*case gameBoardObject[o].numberOfTroops > gameBoardObject[e].numberOfTroops:
                 //Selected has way more than adjacent, and sees no reason to reinforce
-
                 //MAKE THIS SO IF THERE IS A LARGE AMOUNT NEARBY IT DOESNT FIRE
-
                 gameBoardObject[o][ valueAdd ] -= 10;
                 gameBoardObject[e][ valueAdd ] += (Math.floor(gameBoardObject[o].numberOfTroops/gameBoardObject[e].numberOfTroops)*5);
                 break;*/
@@ -1132,9 +1130,15 @@ var moveValueCalculationFunction = function (i, callback){
 
 //BEGIN BEGINNING TURN TRACKER
 function whosTurnIsIt(){
+  var restartTurnChecker = false;
+  if (turnArray.length === 1){
+    announcements.innerHTML = "PLAYER"+turnArray[0]+" HAS WON THE GAME!";
+    restartTurnChecker = true;
+    return
+  }
+  if (restartTurnChecker === true){return};
   var turns = document.getElementById("turns_lapsed");
   turns_lapsed.innerHTML = "Turn " + gameStage.turn;
-  var isSomeoneDefeated = false;
   if (gameStage.stage === "maingameplay"){
     for (var i = 0; i < turnArray.length; i++){
       var playerToCheck = turnArray[i];//gets the number of the player to check, ie player1
@@ -1147,13 +1151,13 @@ function whosTurnIsIt(){
         eliminated.classList.add("greyedout");
         turnArray.splice(indextoeleminiate, 1);
         console.log(turnArray);
-        isSomeoneDefeated = true;
+        restartTurnChecker = true;
         whosTurnIsIt();
         return
       }
     }
   }
-  if (isSomeoneDefeated === true){return};
+  if (restartTurnChecker === true){return};
   if (indexOfTurn >= turnArray.length){
     gameStage.turn += 1;
     setTimeout(function() { indexOfTurn = 0; whosTurnIsIt();}, 10);
@@ -1319,14 +1323,6 @@ function computerAttackTurn(){
   var provincesz = attackValueCalculationFunction(playerindex);
   var allyprovince = provincesz.allyprov;
   var enemyProvince = provincesz.enemyprov;
-  // var allyprovince = attackValueCalculationFunction(playerindex);
-  // var strangearrayofvaluesndfjgbdfskhdsh = [];
-  // allyprovince.adjacentProvinceIndex.map((x)=>{
-  //   if (gameBoardObject[x].owner !== "player"+turnArray[indexOfTurn]){
-  //     strangearrayofvaluesndfjgbdfskhdsh.push(x);
-  //   }
-  // });
-  // var enemyProvince = gameBoardObject[strangearrayofvaluesndfjgbdfskhdsh[0]];
   if (timesTried >= 300){
     // console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
     console.log("player"+turnArray[indexOfTurn]+" IS SKIPPING THEIR TURN");
