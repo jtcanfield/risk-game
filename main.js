@@ -752,6 +752,7 @@ var indexOfTurn = 0;
 var playerindex = 0;
 var setHighlight = "";
 var playerrenif = 0;
+var globalTimeout = 1000;
 var playerTurnBoolean = false;
 var announcements = document.getElementById("announcements");
 //Below are battle objects
@@ -785,7 +786,16 @@ function startGame(){
 }
 //END GAME START
 
-
+//BEGIN DEBUG MODE TOGGLING
+function toggledebug() {
+    // var checked = document.getElementById("debugmode").checked;
+    if (document.getElementById("debugmode").checked){
+      globalTimeout = 10;
+    } else {
+      globalTimeout = 1000;
+    }
+}
+//END DEBUG MODE TOGGLING
 
 //BEGIN AI REINFORCE LOGIC AND VALUE CALCULATIONS
 function reinforceValueCalculationFunction(i){
