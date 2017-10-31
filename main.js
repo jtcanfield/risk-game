@@ -1152,6 +1152,8 @@ function whosTurnIsIt(){
   var restartTurnChecker = false;
   if (turnArray.length === 1){
     announcements.innerHTML = "PLAYER"+turnArray[0]+" HAS WON THE GAME!";
+    announcements.classList.remove('announcementspop');
+    setTimeout(function() { announcements.classList.add('announcementspop'); }, 20);
     restartTurnChecker = true;
     return
   }
@@ -1204,6 +1206,8 @@ function whosTurnIsIt(){
     } else {
       playerTurnBoolean = true;
       announcements.innerHTML = "Pick a Province!";
+      announcements.classList.remove('announcementspop');
+      setTimeout(function() { announcements.classList.add('announcementspop'); }, 20);
     }
   }
   if (gameStage.stage === "reinforceStart"){
@@ -1214,6 +1218,8 @@ function whosTurnIsIt(){
     } else {
       playerTurnBoolean = true;
       announcements.innerHTML = "Place Your Reinforcements!";
+      announcements.classList.remove('announcementspop');
+      setTimeout(function() { announcements.classList.add('announcementspop'); }, 20);
     }
   }
   if (gameStage.stage === "maingameplay"){
@@ -1225,6 +1231,8 @@ function whosTurnIsIt(){
       playerTurnBoolean = true;
       playerrenif = calculateTroopPerTurn(playerObjectArray[0]);
       announcements.innerHTML = "Place Your Reinforcements! " + playerrenif + " Troops left!";
+      announcements.classList.remove('announcementspop');
+      setTimeout(function() { announcements.classList.add('announcementspop'); }, 20);
     }
   }
 }
@@ -1288,7 +1296,7 @@ function computerReinforce(reinforceAllowed){
   if (reinforceAllowed === undefined){
     reinforceAllowed = calculateTroopPerTurn(playerObjectArray[playerindex]);
   }
-  announcements.innerHTML = playerObjectArray[playerindex].playername + " is Reinforcing"
+  announcements.innerHTML = playerObjectArray[playerindex].playername + " is Reinforcing";
   var objectChosen = reinforceValueCalculationFunction(playerindex);
   var index = calculateIndex(objectChosen);
   var idOfClicked = objectChosen.provincename;
@@ -1300,7 +1308,9 @@ function computerReinforce(reinforceAllowed){
 //BEGIN REINFORCE FUNCTION
 function reinforceTurn(index, idOfClicked, reinforceAllowed){
   if (gameBoardObject[index].owner !== "player1" && playerindex === 0){
-    announcements.innerHTML = "You Can Only Reinforce Your Own Provinces!"
+    announcements.innerHTML = "You Can Only Reinforce Your Own Provinces!";
+    announcements.classList.remove('announcementspop');
+    setTimeout(function() { announcements.classList.add('announcementspop'); }, 20);
     return
   }
   // console.log(playerObjectArray[playerindex].playername + " Is Now Reinforcing. They are adding a unit to " + idOfClicked);
@@ -1316,9 +1326,13 @@ function reinforceTurn(index, idOfClicked, reinforceAllowed){
     if (gameStage.stage === "maingameplay"){
       playerrenif -= 1;
       announcements.innerHTML = "Place Your Reinforcements! " + playerrenif + " Troops left!";
+      announcements.classList.remove('announcementspop');
+      setTimeout(function() { announcements.classList.add('announcementspop'); }, 20);
       if (playerrenif === 0){
         gameStage.substage = "playerattack";
         announcements.innerHTML = "Select a province to attack with!";
+        announcements.classList.remove('announcementspop');
+        setTimeout(function() { announcements.classList.add('announcementspop'); }, 20);
         attackturnskipper.style.display = "";
       }
     }
@@ -1539,10 +1553,14 @@ function playerAttackTurn(index, idOfClicked, skip){
     }
     if (gameBoardObject[index].owner === "player1" && gameBoardObject[index].numberOfTroops === 1){
       announcements.innerHTML = "Your province must have more than 1 troop!";
+      announcements.classList.remove('announcementspop');
+      setTimeout(function() { announcements.classList.add('announcementspop'); }, 20);
       return
     }
     if (playerselected === "" && gameBoardObject[index].owner === "player1"){
       announcements.innerHTML = "Select an adjacent province to attack!";
+      announcements.classList.remove('announcementspop');
+      setTimeout(function() { announcements.classList.add('announcementspop'); }, 20);
       playerselected = idOfClicked;
       var counterflash = document.getElementById(playerselected+"Counter");
       counterflash.classList.add('flashing');
@@ -1564,6 +1582,8 @@ function playerAttackTurn(index, idOfClicked, skip){
       });
       if (isadjacenttrue === false){
         announcements.innerHTML = "Province must be adjacent!";
+        announcements.classList.remove('announcementspop');
+        setTimeout(function() { announcements.classList.add('announcementspop'); }, 20);
         return
       } else if (isadjacenttrue === true){
         counterflash.classList.remove('flashing');
@@ -1661,6 +1681,8 @@ function playerbattleFunction(){
         var numtroops = Number(document.getElementById("numberOfTroopsToMove").value);
         if (numtroops > allynumoftroops || numtroops===undefined || numtroops===0){
           announcements.innerHTML = "You can only move up to " + allynumoftroops + " Troops!";
+          announcements.classList.remove('announcementspop');
+          setTimeout(function() { announcements.classList.add('announcementspop'); }, 20);
           return
         } else {
           allyProvince.numberOfTroops -= numtroops;
@@ -1757,6 +1779,8 @@ function playerbattleFunction(){
 //BEGIN PLAYER BATTLE GRAPHIC CLEANUP
 function cleanUpBattle(){
   announcements.innerHTML = "Select a province to attack with!";
+  announcements.classList.remove('announcementspop');
+  setTimeout(function() { announcements.classList.add('announcementspop'); }, 20);
   var inputholder = document.getElementById("inputholder");
   inputholder.innerHTML = "";
   var dieholder = document.getElementById("die_holder");
@@ -1825,16 +1849,22 @@ function moveTurn(index, idOfClicked, skip){
     }
     if (playerselected === "" && gameBoardObject[index].owner === "player1" && gameBoardObject[index].numberOfTroops === 1){
       announcements.innerHTML = "Your province must have more than 1 troop!";
+      announcements.classList.remove('announcementspop');
+      setTimeout(function() { announcements.classList.add('announcementspop'); }, 20);
       return
     }
     if (playerselected === "" && gameBoardObject[index].owner === "player1"){
       announcements.innerHTML = "Select an adjacent province to move troops to!";
+      announcements.classList.remove('announcementspop');
+      setTimeout(function() { announcements.classList.add('announcementspop'); }, 20);
       playerselected = idOfClicked;
       var counterflash = document.getElementById(playerselected+"Counter");
       counterflash.classList.add('flashing');
     }
     if (gameBoardObject[index].owner !== "player1"){
       announcements.innerHTML = "Cannot Move To Enemy!";
+      announcements.classList.remove('announcementspop');
+      setTimeout(function() { announcements.classList.add('announcementspop'); }, 20);
     }
     if (playerselected !== "" && gameBoardObject[index].owner === "player1"){
       var counterflash = document.getElementById(playerselected+"Counter");
@@ -1846,6 +1876,8 @@ function moveTurn(index, idOfClicked, skip){
       });
       if (isadjacenttrue === false){
         announcements.innerHTML = "Province must be adjacent!";
+        announcements.classList.remove('announcementspop');
+        setTimeout(function() { announcements.classList.add('announcementspop'); }, 20);
         return
       } else if (isadjacenttrue === true){
         counterflash.classList.remove('flashing');
@@ -1878,10 +1910,14 @@ function moveAction(fromind, toind){
     <button id="moveEm" onclick="moveAction(${fromind}, ${toind})">Move Troops!</button>`;
     moveinputholder.innerHTML = holder;
     announcements.innerHTML = "Move Troops!";
+    announcements.classList.remove('announcementspop');
+    setTimeout(function() { announcements.classList.add('announcementspop'); }, 20);
   }
   var numtroops = Number(document.getElementById("numberOfTroopsToMove").value);
   if (numtroops > movableTroops || numtroops===undefined || numtroops===0){
     announcements.innerHTML = "You can only move up to " + movableTroops + " Troops!";
+    announcements.classList.remove('announcementspop');
+    setTimeout(function() { announcements.classList.add('announcementspop'); }, 20);
     return
   } else {
     objfrom.numberOfTroops -= numtroops;
@@ -1914,9 +1950,13 @@ function mapClick(province, index){
         reinforceTurn(index, idOfClicked, playerrenif);
       } else if (gameStage.substage === "playerattack"){
         announcements.innerHTML = "Select a province to attack with!";
+        announcements.classList.remove('announcementspop');
+        setTimeout(function() { announcements.classList.add('announcementspop'); }, 20);
         playerAttackTurn(index, idOfClicked, false);
       } else if (gameStage.substage === "playermove"){
         announcements.innerHTML = "Select a province to move troops From!";
+        announcements.classList.remove('announcementspop');
+        setTimeout(function() { announcements.classList.add('announcementspop'); }, 20);
         moveTurn(index, idOfClicked, false);
       }
       // playerTurnBoolean = false;
@@ -1933,6 +1973,8 @@ function finishAttackTurn(){
   attackturnskipper.style.display = "none";
   moveturnskipper.style.display = "";
   announcements.innerHTML = "Select Province To move troops from.";
+  announcements.classList.remove('announcementspop');
+  setTimeout(function() { announcements.classList.add('announcementspop'); }, 20);
   return
 }
 function finishMoveTurn(){
