@@ -1149,7 +1149,6 @@ var moveValueCalculationFunction = function (i, callback){
 
 //BEGIN BEGINNING TURN TRACKER
 function whosTurnIsIt(){
-  // setTimeout(function() {  }, 1000);
   var restartTurnChecker = false;
   if (turnArray.length === 1){
     announcements.innerHTML = "PLAYER"+turnArray[0]+" HAS WON THE GAME!";
@@ -1172,7 +1171,7 @@ function whosTurnIsIt(){
         turnArray.splice(indextoeleminiate, 1);
         console.log(turnArray);
         restartTurnChecker = true;
-        setTimeout(function() { whosTurnIsIt(); }, 1000);
+        setTimeout(function() { whosTurnIsIt(); }, globalTimeout);
         // whosTurnIsIt();
         return
       }
@@ -1181,8 +1180,8 @@ function whosTurnIsIt(){
   if (restartTurnChecker === true){return};
   if (indexOfTurn >= turnArray.length){
     gameStage.turn += 1;
-    setTimeout(function() { indexOfTurn = 0; whosTurnIsIt();}, 1000);
-    // setTimeout(function() { indexOfTurn = 0; whosTurnIsIt();}, 10);
+    // setTimeout(function() { indexOfTurn = 0; whosTurnIsIt();}, globalTimeout);
+    setTimeout(function() { indexOfTurn = 0; whosTurnIsIt();}, 10);
     return
   }
   setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
@@ -1200,7 +1199,7 @@ function whosTurnIsIt(){
     announcements.innerHTML = playerObjectArray[playerindex].playername + " is Placing";
     if (playerObjectArray[playerindex].playername !== "player1"){
       playerTurnBoolean = false;
-      setTimeout(function() { computerSelecting(); }, 1000);
+      setTimeout(function() { computerSelecting(); }, globalTimeout);
       // computerSelecting();
     } else {
       playerTurnBoolean = true;
@@ -1210,7 +1209,7 @@ function whosTurnIsIt(){
   if (gameStage.stage === "reinforceStart"){
     if (playerObjectArray[playerindex].playername !== "player1"){
       playerTurnBoolean = false;
-      setTimeout(function() { computerReinforce(); }, 1000);
+      setTimeout(function() { computerReinforce(); }, globalTimeout);
       // computerReinforce();
     } else {
       playerTurnBoolean = true;
@@ -1220,7 +1219,7 @@ function whosTurnIsIt(){
   if (gameStage.stage === "maingameplay"){
     if (playerObjectArray[playerindex].playername !== "player1"){
       playerTurnBoolean = false;
-      setTimeout(function() { computerReinforce(); }, 1000);
+      setTimeout(function() { computerReinforce(); }, globalTimeout);
       // computerReinforce();
     } else {
       playerTurnBoolean = true;
@@ -1325,12 +1324,10 @@ function reinforceTurn(index, idOfClicked, reinforceAllowed){
     }
   } else if (playerindex !== 0){
     var counterDiv = document.getElementById(idOfClicked+"Counter");
+    counterDiv.classList.remove('scalepop');
     gameBoardObject[index].numberOfTroops += 1;
     counterDiv.innerHTML = gameBoardObject[index].numberOfTroops;
-    console.log(counterDiv);
-    // counterDiv.setAttribute("class", "scalepop");
-    counterDiv.classList.add('scalepop');
-    console.log(counterDiv);
+    setTimeout(function() { counterDiv.classList.add('scalepop'); }, 10);
     if (gameStage.stage === "reinforceStart"){
       setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 100);
     }
@@ -1972,9 +1969,10 @@ function placingTurn(index, idOfClicked){
     var playernamePlacing = playerObjectArray[playerindex].playername //gets playername
     gameBoardObject[index].owner = playernamePlacing ; //makes playername owner of province
     var counterDiv = document.getElementById(idOfClicked+"Counter"); //selects div counter
+    counterDiv.classList.remove('scalepop');
     counterDiv.setAttribute("style", "background-color: "+playerObjectArray[playerindex].color+";");//adds styling to div counter
     gameBoardObject[index].numberOfTroops += 1; //adds troops to province
-    counterDiv.classList.add('scalepop'); //Makes icon pop for user to see
+    setTimeout(function() { counterDiv.classList.add('scalepop'); }, 10); //Makes icon pop for user to see
     counterDiv.innerHTML = gameBoardObject[index].numberOfTroops; //appends troop amount to div counter
     playerObjectArray[playerindex].numberOfProvincesOwned += 1; // adds players owned
     (playerObjectArray[playerindex].provincesOwned).push(idOfClicked); // adds the province id to player object
