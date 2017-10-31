@@ -1317,6 +1317,10 @@ function reinforceTurn(index, idOfClicked, reinforceAllowed){
     var counterDiv = document.getElementById(idOfClicked+"Counter");
     gameBoardObject[index].numberOfTroops += 1;
     counterDiv.innerHTML = gameBoardObject[index].numberOfTroops;
+    console.log(counterDiv);
+    // counterDiv.setAttribute("class", "scalepop");
+    counterDiv.classList.add('scalepop');
+    console.log(counterDiv);
     if (gameStage.stage === "reinforceStart"){
       setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 100);
     }
@@ -1960,6 +1964,7 @@ function placingTurn(index, idOfClicked){
     var counterDiv = document.getElementById(idOfClicked+"Counter"); //selects div counter
     counterDiv.setAttribute("style", "background-color: "+playerObjectArray[playerindex].color+";");//adds styling to div counter
     gameBoardObject[index].numberOfTroops += 1; //adds troops to province
+    counterDiv.classList.add('scalepop'); //Makes icon pop for user to see
     counterDiv.innerHTML = gameBoardObject[index].numberOfTroops; //appends troop amount to div counter
     playerObjectArray[playerindex].numberOfProvincesOwned += 1; // adds players owned
     (playerObjectArray[playerindex].provincesOwned).push(idOfClicked); // adds the province id to player object
