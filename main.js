@@ -1139,6 +1139,7 @@ var moveValueCalculationFunction = function (i, callback){
 
 //BEGIN BEGINNING TURN TRACKER
 function whosTurnIsIt(){
+  // setTimeout(function() {  }, 1000);
   var restartTurnChecker = false;
   if (turnArray.length === 1){
     announcements.innerHTML = "PLAYER"+turnArray[0]+" HAS WON THE GAME!";
@@ -1153,15 +1154,16 @@ function whosTurnIsIt(){
       var playerToCheck = turnArray[i];//gets the number of the player to check, ie player1
       if (playerObjectArray[playerToCheck-1].numberOfProvincesOwned === 0){//turns playerToCheck into the playerObjectArray index and checks the size
         var indextoeleminiate = turnArray.indexOf(playerToCheck);
-        announcements.innerHTML += "Player" + playerToCheck + " Has been eliminated!"
+        announcements.innerHTML += "Player" + playerToCheck + " Has been eliminated!";
         console.log("PLAYER" + playerToCheck + " HAS BEEN ELIMINATED");
         var eliminated = document.getElementById("player"+playerToCheck+"span");
-        eliminated.innerHTML += "(eliminated)"
+        eliminated.innerHTML += "(eliminated)";
         eliminated.classList.add("greyedout");
         turnArray.splice(indextoeleminiate, 1);
         console.log(turnArray);
         restartTurnChecker = true;
-        whosTurnIsIt();
+        setTimeout(function() { whosTurnIsIt(); }, 1000);
+        // whosTurnIsIt();
         return
       }
     }
@@ -1169,7 +1171,8 @@ function whosTurnIsIt(){
   if (restartTurnChecker === true){return};
   if (indexOfTurn >= turnArray.length){
     gameStage.turn += 1;
-    setTimeout(function() { indexOfTurn = 0; whosTurnIsIt();}, 10);
+    setTimeout(function() { indexOfTurn = 0; whosTurnIsIt();}, 1000);
+    // setTimeout(function() { indexOfTurn = 0; whosTurnIsIt();}, 10);
     return
   }
   setHighlight = document.getElementById("player"+turnArray[indexOfTurn]+"span");
@@ -1187,7 +1190,8 @@ function whosTurnIsIt(){
     announcements.innerHTML = playerObjectArray[playerindex].playername + " is Placing";
     if (playerObjectArray[playerindex].playername !== "player1"){
       playerTurnBoolean = false;
-      computerSelecting();
+      setTimeout(function() { computerSelecting(); }, 1000);
+      // computerSelecting();
     } else {
       playerTurnBoolean = true;
       announcements.innerHTML = "Pick a Province!";
@@ -1196,7 +1200,8 @@ function whosTurnIsIt(){
   if (gameStage.stage === "reinforceStart"){
     if (playerObjectArray[playerindex].playername !== "player1"){
       playerTurnBoolean = false;
-      computerReinforce();
+      setTimeout(function() { computerReinforce(); }, 1000);
+      // computerReinforce();
     } else {
       playerTurnBoolean = true;
       announcements.innerHTML = "Place Your Reinforcements!";
@@ -1205,7 +1210,8 @@ function whosTurnIsIt(){
   if (gameStage.stage === "maingameplay"){
     if (playerObjectArray[playerindex].playername !== "player1"){
       playerTurnBoolean = false;
-      computerReinforce();
+      setTimeout(function() { computerReinforce(); }, 1000);
+      // computerReinforce();
     } else {
       playerTurnBoolean = true;
       playerrenif = calculateTroopPerTurn(playerObjectArray[0]);
