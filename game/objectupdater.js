@@ -15,6 +15,8 @@ var updateObjects = function(type, fromProvince, toProvince, fromPlayer, toPlaye
     fromProvince.numberOfTroops += 1;
   } else if (type === "moving"){
     //Move phase of turn, player owns both provinces (from and to provinces)
+    fromProvince.numberOfTroops -= data;
+    toProvince.numberOfTroops += data;
     //Needs: 2 Board Objects
   } else if (type === "attacking"){
     //Battle, Changes numbers
