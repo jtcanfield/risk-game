@@ -495,6 +495,7 @@ function whosTurnIsIt(){
   if (gameStage.stage === "reinforceStart"){
     if (playerObjectArray[playerindex].playername !== "player1"){
       playerTurnBoolean = false;
+      announcements.innerHTML = playerObjectArray[playerindex].playername + " is Reinforcing";
       setTimeout(function() { computerReinforce(); }, globalTimeout);
       // computerReinforce();
     } else {
@@ -576,7 +577,6 @@ function computerReinforce(reinforceAllowed){
   if (reinforceAllowed === undefined){
     reinforceAllowed = calculateTroopPerTurn(playerObjectArray[playerindex]);
   }
-  announcements.innerHTML = playerObjectArray[playerindex].playername + " is Reinforcing";
   var objectChosen = reinforceValueCalculationFunction(playerindex);
   var index = calculateIndex(objectChosen);
   var idOfClicked = objectChosen.provincename;
@@ -640,7 +640,7 @@ function computerAttackTurn(){
   var provincesz = attackValueCalculationFunction(playerindex);
   if (provincesz === "1"){
     console.log("player"+turnArray[indexOfTurn]+" is skipping their turn");
-    setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 10/*00*/);
+    setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, globalTimeout);
   }
   var allyprovince = provincesz.allyprov;
   var enemyProvince = provincesz.enemyprov;
@@ -740,10 +740,13 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, att
       defnbr = 1;
       break;
     case enemynumoftroops === 0://Attacker Won
-        allyProvince.numberOfTroops -= allynumoftroops;
-        atkcounter.innerHTML = allyProvince.numberOfTroops;
         // console.log("ATTACKER WON THE BATTLE");
-        attackerWon(enemyProvince, playerObjectArray[defendingplayerindx], playerObjectArray[attackingplayerindx], allynumoftroops);
+        updateObjects("attackvictory", allyProvince, enemyProvince, playerObjectArray[attackingplayerindx], playerObjectArray[defendingplayerindx], allynumoftroops, function(){
+          console.log("5. update finished");
+          var counterDiv = document.getElementById(enemyProvince.provincename+"Counter"); //selects div counter
+          counterDiv.classList.add('scalepop');
+          setTimeout(function() { counterDiv.classList.remove('scalepop'); }, 500); //Makes icon pop for user to see
+        });
         endBattle = true;
       break;
     default:
@@ -794,7 +797,7 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, att
       }
     }
   }
-  setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, attackingplayerindx);
+  setTimeout(function() { setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, attackingplayerindx); }, globalTimeout/10);
 }
 //END BATTLE
 
@@ -956,16 +959,16 @@ function playerbattleFunction(){
           announcements.innerHTML = "You can only move up to " + allynumoftroops + " Troops!";
           return
         } else {
-          allyProvince.numberOfTroops -= numtroops;
-          atkcounter.innerHTML = allyProvince.numberOfTroops;
           var losinplayer = 0;
           for (let i = 0; i < 6; i++){
             if (enemyProvince.owner === playerObjectArray[i].playername){
               losinplayer = i;
             }
           }
-          attackerWon(enemyProvince, playerObjectArray[losinplayer], playerObjectArray[0], numtroops);
-          cleanUpBattle();
+          updateObjects("attackvictory", allyProvince, enemyProvince, playerObjectArray[0], playerObjectArray[losinplayer], numtroops, function(){
+            console.log("5. update finished");
+            cleanUpBattle();
+          });
           endBattle = true;
         }
         break;
@@ -1077,34 +1080,6 @@ function cleanUpBattle(){
   playerTurnBoolean = true;
 }
 //END PLAYER BATTLE GRAPHIC CLEANUP
-
-
-//BEGIN ATTACKER WON BATTLE FUNCTION
-function attackerWon(mapareaobj, losingplayerobj, winningplayerobj, numboftroopstomove){
-  //Changes Province Owner
-  mapareaobj.owner = winningplayerobj.playername;
-  //Change Province Background Color
-  var changing = mapareaobj.provincename;
-  var counterDiv = document.getElementById(changing+"Counter");
-  counterDiv.setAttribute("style", "background-color: "+winningplayerobj.color+";");
-  //changes number of provinces owned
-  losingplayerobj.numberOfProvincesOwned -= 1;
-  winningplayerobj.numberOfProvincesOwned += 1;
-  //MOVES PROVINCE NAME FROM ONE PLAYER TO ANOTHER
-  var provchangenameindex = losingplayerobj.provincesOwned.indexOf(mapareaobj.provincename);
-  var provnamechange = losingplayerobj.provincesOwned.splice(provchangenameindex, 1);
-  winningplayerobj.provincesOwned.push(provnamechange[0]);
-  //MOVES PROVINCE INDEX FROM ONE PLAYER TO ANOTHER
-  var provchangeindexindex = losingplayerobj.provincesOwnedIndex.indexOf(mapareaobj.provinceindexnumber);
-  var provindexchange = losingplayerobj.provincesOwnedIndex.splice(provchangeindexindex, 1);
-  winningplayerobj.provincesOwnedIndex.push(provindexchange[0]);
-  //MOVES TROOPS SELECTED
-  mapareaobj.numberOfTroops = numboftroopstomove;
-  var counter = document.getElementById(mapareaobj.provincename+"Counter");
-  counter.classList.remove("flashing");
-  counter.innerHTML = numboftroopstomove;
-}
-//END ATTACKER WON BATTLE FUNCTION
 
 
 //BEGIN MOVE TURN SELECTION FUCNTION
