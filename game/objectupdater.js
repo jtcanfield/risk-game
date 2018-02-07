@@ -1,5 +1,5 @@
 // FUNCT TO UPDATE PLAYEROBJECT, MAPOBJECT, AND CONTINENTOBJECT
-var updateObjects = function(type, fromProvince, toProvince, fromPlayer, toPlayer, callback){
+var updateObjects = function(type, fromProvince, toProvince, fromPlayer, toPlayer, data, callback){
   console.log("1. updating Objects");
   if (type === "placing"){
     fromProvince.owner = fromPlayer.playername ; //makes playername owner of province

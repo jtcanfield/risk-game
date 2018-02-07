@@ -594,7 +594,7 @@ function reinforceTurn(index, idOfClicked, reinforceAllowed){
     animateannouncementspop();
     return
   } else {
-    updateObjects("reinforcing", gameBoardObject[index], null, null, null, function(){
+    updateObjects("reinforcing", gameBoardObject[index], null, null, null, null, function(){
       var counterDiv = document.getElementById(idOfClicked+"Counter");
       counterDiv.classList.add('scalepop');
       setTimeout(function() { counterDiv.classList.remove('scalepop'); }, 500);
@@ -1266,7 +1266,7 @@ function placingTurn(index, idOfClicked){
     computerSelecting();
     return // Makes sure computer does not click an already filled spot
   } else {
-    updateObjects("placing", gameBoardObject[index], null, playerObjectArray[playerindex], null, function(){
+    updateObjects("placing", gameBoardObject[index], null, playerObjectArray[playerindex], null, null, function(){
       console.log("5. update finished")
     });
     var counterDiv = document.getElementById(idOfClicked+"Counter"); //selects div counter
