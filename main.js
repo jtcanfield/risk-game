@@ -47,8 +47,6 @@ var gameStage = {stage:"placing", substage:"NA", turn:-20, mapFilled:42};
 //   console.log("4. funct finished. async test successful");
 // }
 // dotest();
-// updatetemplate
-// updateObjects(type, fromObject, toObject, fromPlayer, toPlayer, function(x){console.log("5. update finished")});
 //END TESTING OBJECTS
 
 //BEGIN GAME START
@@ -1268,19 +1266,18 @@ function placingTurn(index, idOfClicked){
   } else {
     updateObjects("placing", gameBoardObject[index], null, playerObjectArray[playerindex], null, null, function(){
       console.log("5. update finished")
+      var counterDiv = document.getElementById(idOfClicked+"Counter"); //selects div counter
+      counterDiv.classList.add('scalepop');
+      setTimeout(function() { counterDiv.classList.remove('scalepop'); }, 500); //Makes icon pop for user to see
+      gameStage.mapFilled -= 1; // brings one step closer to next section
+      if (playerindex === 0){
+        setHighlight.setAttribute("class", "");
+        indexOfTurn += 1;
+        whosTurnIsIt();
+      } else if (playerindex !== 0){
+        setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 100);
+      }
     });
-    var counterDiv = document.getElementById(idOfClicked+"Counter"); //selects div counter
-    counterDiv.classList.add('scalepop');
-    setTimeout(function() { counterDiv.classList.remove('scalepop'); }, 500); //Makes icon pop for user to see
-  }
-  if (playerindex === 0){
-    gameStage.mapFilled -= 1; // brings one step closer to next section
-    setHighlight.setAttribute("class", "");
-    indexOfTurn += 1;
-    whosTurnIsIt();
-  } else if (playerindex !== 0){
-    gameStage.mapFilled -= 1; // brings one step closer to next section
-    setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 100);
   }
 }
 //END PLACING FUNCTION
