@@ -797,7 +797,7 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, att
       }
     }
   }
-  setTimeout(function() { setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, attackingplayerindx); }, globalTimeout/10);
+  setTimeout(function() { setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, attackingplayerindx); }, globalTimeout);
 }
 //END BATTLE
 
