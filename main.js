@@ -40,12 +40,11 @@ var gameStage = {stage:"placing", substage:"NA", turn:-20, mapFilled:42};
 
 //BEGIN TESTING OBJECT
 function dotest(){
-  console.log("1. first funct fired")
-  // console.log(testobject[0]);
+  console.log("1. first funct fired");
   testobject[0].getValues(3, function(x){
     console.log(`3. callback funct fired ${x}`);
   })
-  console.log("4. funct finished. async test successful")
+  console.log("4. funct finished. async test successful");
 }
 dotest();
 //END TESTING OBJECT

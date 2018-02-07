@@ -18,19 +18,4 @@ var testobject = [
     },
 
   },
-  { "provincename": "AS12",
-    "provinceindexnumber": 41,
-    "owner":"",
-    "numberOfTroops":0,
-    "valueToplayer2":0,
-    "valueToplayer3":0,
-    "valueToplayer4":0,
-    "valueToplayer5":0,
-    "valueToplayer6":0,
-    "adjacentProvinces":["AS3", "AS10", "AS11", "EU6"],
-    "adjacentProvinceIndex":["32", "39", "40", "18"],
-    "continenton":"AS",
-    getValues : function(){},
-
-  },
 ];
