@@ -2,7 +2,6 @@
 var updateObjects = function(type, fromProvince, toProvince, fromPlayer, toPlayer, callback){
   console.log("1. updating Objects");
   if (type === "placing"){
-    // var playernamePlacing = fromPlayer.playername //gets playername
     fromProvince.owner = fromPlayer.playername ; //makes playername owner of province
     fromProvince.color = fromPlayer.color ; //changes color of province
     fromProvince.numberOfTroops += 1; //adds troops to province
@@ -13,7 +12,8 @@ var updateObjects = function(type, fromProvince, toProvince, fromPlayer, toPlaye
     //Needs: 1 Board Object, 1 Player Object
   } else if (type === "reinforcing"){
     //Reinforce phase of turn
-    //Needs: 1 Board Object, 1 Player Object
+    fromProvince.numberOfTroops += 1;
+    //Needs: 1 Board Object
   } else if (type === "moving"){
     //Move phase of turn, player owns both provinces (from and to provinces)
     //Needs: 2 Board Objects

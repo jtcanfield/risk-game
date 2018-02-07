@@ -593,45 +593,45 @@ function reinforceTurn(index, idOfClicked, reinforceAllowed){
     announcements.innerHTML = "You Can Only Reinforce Your Own Provinces!";
     animateannouncementspop();
     return
+  } else {
+    updateObjects("reinforcing", gameBoardObject[index], null, null, null, function(){
+      var counterDiv = document.getElementById(idOfClicked+"Counter");
+      counterDiv.classList.add('scalepop');
+      setTimeout(function() { counterDiv.classList.remove('scalepop'); }, 500);
+      if (playerindex === 0){
+        if (gameStage.stage === "reinforceStart"){
+          setHighlight.setAttribute("class", "");
+          indexOfTurn += 1;
+          whosTurnIsIt();
+        }
+        if (gameStage.stage === "maingameplay"){
+          playerrenif -= 1;
+          announcements.innerHTML = "Place Your Reinforcements! " + playerrenif + " Troops left!";
+          animateannouncementspop();
+          if (playerrenif === 0){
+            gameStage.substage = "playerattack";
+            announcements.innerHTML = "Select a province to attack with!";
+            animateannouncementspop();
+            attackturnskipper.style.display = "";
+            return
+          }
+        }
+      } else if (playerindex !== 0){
+        if (gameStage.stage === "reinforceStart"){
+          setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, globalTimeout);
+        }
+        if (gameStage.stage === "maingameplay"){
+          if (reinforceAllowed > 0){
+            computerReinforce(reinforceAllowed-1);
+          } else if (reinforceAllowed === 0){
+            computerAttackTurn();
+          }
+          return
+        }
+      }
+    });
   }
   // console.log(playerObjectArray[playerindex].playername + " Is Now Reinforcing. They are adding a unit to " + idOfClicked);
-  if (playerindex === 0){
-    var counterDiv = document.getElementById(idOfClicked+"Counter");
-    gameBoardObject[index].numberOfTroops += 1;
-    counterDiv.innerHTML = gameBoardObject[index].numberOfTroops;
-    if (gameStage.stage === "reinforceStart"){
-      setHighlight.setAttribute("class", "");
-      indexOfTurn += 1;
-      whosTurnIsIt();
-    }
-    if (gameStage.stage === "maingameplay"){
-      playerrenif -= 1;
-      announcements.innerHTML = "Place Your Reinforcements! " + playerrenif + " Troops left!";
-      animateannouncementspop();
-      if (playerrenif === 0){
-        gameStage.substage = "playerattack";
-        announcements.innerHTML = "Select a province to attack with!";
-        animateannouncementspop();
-        attackturnskipper.style.display = "";
-      }
-    }
-  } else if (playerindex !== 0){
-    var counterDiv = document.getElementById(idOfClicked+"Counter");
-    counterDiv.classList.add('scalepop');
-    gameBoardObject[index].numberOfTroops += 1;
-    counterDiv.innerHTML = gameBoardObject[index].numberOfTroops;
-    setTimeout(function() { counterDiv.classList.remove('scalepop'); }, 500);
-    if (gameStage.stage === "reinforceStart"){
-      setTimeout(function() { setHighlight.setAttribute("class", ""); indexOfTurn += 1; whosTurnIsIt();}, 100);
-    }
-    if (gameStage.stage === "maingameplay"){
-      if (reinforceAllowed > 0){
-        computerReinforce(reinforceAllowed-1);
-      } else if (reinforceAllowed === 0){
-        computerAttackTurn();
-      }
-    }
-  }
 }
 //END REINFORCE FUNCTION
 
@@ -1271,7 +1271,6 @@ function placingTurn(index, idOfClicked){
     });
     var counterDiv = document.getElementById(idOfClicked+"Counter"); //selects div counter
     counterDiv.classList.add('scalepop');
-    counterDiv.setAttribute("style", "background-color: "+playerObjectArray[playerindex].color+";");//adds styling to div counter
     setTimeout(function() { counterDiv.classList.remove('scalepop'); }, 500); //Makes icon pop for user to see
   }
   if (playerindex === 0){
