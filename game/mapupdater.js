@@ -2,7 +2,7 @@
 
 // UPDATES COLORS AND COUNTERS
 var updateMap = function(callback){
-  console.log("1. update started")
+  console.log("2. beginning map update")
   var countersDiv = document.getElementById("countersDiv");
   var divs = `
     <div class="counter" id="NA1Counter" style="background-color: ${gameBoardObject[0].color};" onmousedown="eleMouseDown(this)">${gameBoardObject[0].numberOfTroops}</div>
@@ -54,6 +54,6 @@ var updateMap = function(callback){
     <div class="counter" id="AS12Counter" style="background-color: ${gameBoardObject[41].color};" onmousedown="eleMouseDown(this)">${gameBoardObject[41].numberOfTroops}</div>
   `;
   countersDiv.innerHTML = divs;
-  console.log("2. update done");
+  console.log("3. finished map update");
   return (callback())
 }

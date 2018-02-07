@@ -47,13 +47,8 @@ var gameStage = {stage:"placing", substage:"NA", turn:-20, mapFilled:42};
 //   console.log("4. funct finished. async test successful");
 // }
 // dotest();
-console.log(this.gameBoardObject[26].numberOfTroops)
-updateMap(function(x){
-  console.log("3. update finished")
-});
-updateMap();
-console.log(this.gameBoardObject[26].numberOfTroops)
-console.log(gameBoardObject[26].numberOfTroops)
+// updatetemplate
+// updateObjects(type, fromObject, toObject, fromPlayer, toPlayer, function(x){console.log("5. update finished")});
 //END TESTING OBJECTS
 
 //BEGIN GAME START
@@ -1271,17 +1266,13 @@ function placingTurn(index, idOfClicked){
     computerSelecting();
     return // Makes sure computer does not click an already filled spot
   } else {
-    var playernamePlacing = playerObjectArray[playerindex].playername //gets playername
-    gameBoardObject[index].owner = playernamePlacing ; //makes playername owner of province
+    updateObjects("placing", gameBoardObject[index], null, playerObjectArray[playerindex], null, function(){
+      console.log("5. update finished")
+    });
     var counterDiv = document.getElementById(idOfClicked+"Counter"); //selects div counter
     counterDiv.classList.add('scalepop');
     counterDiv.setAttribute("style", "background-color: "+playerObjectArray[playerindex].color+";");//adds styling to div counter
-    gameBoardObject[index].numberOfTroops += 1; //adds troops to province
     setTimeout(function() { counterDiv.classList.remove('scalepop'); }, 500); //Makes icon pop for user to see
-    counterDiv.innerHTML = gameBoardObject[index].numberOfTroops; //appends troop amount to div counter
-    playerObjectArray[playerindex].numberOfProvincesOwned += 1; // adds players owned
-    (playerObjectArray[playerindex].provincesOwned).push(idOfClicked); // adds the province id to player object
-    (playerObjectArray[playerindex].provincesOwnedIndex).push(index); // adds the province index to player object
   }
   if (playerindex === 0){
     gameStage.mapFilled -= 1; // brings one step closer to next section
