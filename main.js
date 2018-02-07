@@ -38,16 +38,23 @@ var gameStage = {stage:"placing", substage:"NA", turn:-20, mapFilled:42};
 //Stages: placing, beginning reinforcement, maingameplay(activates substages)
 //SubStages: Reinforcement, Cards, Attack, FreeMove
 
-//BEGIN TESTING OBJECT
-function dotest(){
-  console.log("1. first funct fired");
-  testobject[0].getValues(3, function(x){
-    console.log(`3. callback funct fired ${x}`);
-  })
-  console.log("4. funct finished. async test successful");
-}
-dotest();
-//END TESTING OBJECT
+//BEGIN TESTING OBJECTS
+// function dotest(){
+//   console.log("1. first funct fired");
+//   testobject[0].getValues(3, function(x){
+//     console.log(`3. callback funct fired ${x}`);
+//   })
+//   console.log("4. funct finished. async test successful");
+// }
+// dotest();
+console.log(this.gameBoardObject[26].numberOfTroops)
+updateMap(function(x){
+  console.log("3. update finished")
+});
+updateMap();
+console.log(this.gameBoardObject[26].numberOfTroops)
+console.log(gameBoardObject[26].numberOfTroops)
+//END TESTING OBJECTS
 
 //BEGIN GAME START
 function startGame(){
