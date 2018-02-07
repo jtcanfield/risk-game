@@ -808,12 +808,9 @@ function computerMoveTurn(){
       return
     } else {
       var numtroops = (fromOBJ.numberOfTroops)-1;
-      fromOBJ.numberOfTroops -= numtroops;
-      toOBJ.numberOfTroops += numtroops;
-      var fromCounter = document.getElementById(fromOBJ.provincename+"Counter");
-      var toCounter = document.getElementById(toOBJ.provincename+"Counter");
-      fromCounter.innerHTML = fromOBJ.numberOfTroops;
-      toCounter.innerHTML = toOBJ.numberOfTroops;
+      updateObjects("moving", fromOBJ, toOBJ, null, null, numtroops, function(){
+        console.log("5. update finished");
+      });
     }
   return
   });
@@ -1157,12 +1154,9 @@ function moveAction(fromind, toind){
     announcements.innerHTML = "You can only move up to " + movableTroops + " Troops!";
     return
   } else {
-    objfrom.numberOfTroops -= numtroops;
-    objto.numberOfTroops += numtroops;
-    fromcounter.innerHTML = objfrom.numberOfTroops;
-    tocounter.innerHTML = objto.numberOfTroops;
-    fromcounter.classList.remove("flashing");
-    tocounter.classList.remove("flashing");
+    updateObjects("moving", objfrom, objto, null, null, numtroops, function(){
+      console.log("5. update finished");
+    });
     moveinputholder.innerHTML = "";
     finishMoveTurn();
   }
@@ -1209,10 +1203,6 @@ function finishAttackTurn(){
   return
 }
 function finishMoveTurn(){
-  var counterflash = document.getElementById(playerselected+"Counter");
-  if (counterflash !== null && counterflash !== undefined){
-    counterflash.classList.remove('flashing');
-  }
   moveturnskipper.style.display = "none";
   playerselected = "";
   gameStage.substage = "";
