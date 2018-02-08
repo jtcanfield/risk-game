@@ -708,15 +708,11 @@ function computerAttackTurn(){
 //BEGIN COMPUTER BATTLE
 function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, attackingplayerindx){
   var endBattle = false;
-  var atkcounter = document.getElementById(allyProvince.provincename+"Counter");
   var allynumoftroops = allyProvince.numberOfTroops-1;
-  atkcounter.innerHTML = allynumoftroops+1;
-  var defcounter = document.getElementById(enemyProvince.provincename+"Counter");
   var enemynumoftroops = enemyProvince.numberOfTroops;
-  defcounter.innerHTML = enemynumoftroops;
-  //Roll Dice
   var attackDieArray = [];
   var defDieArray = [];
+  //Roll Dice
   switch (true) {
     case allynumoftroops >= 3:
       attackDieArray = rollDice(3);
@@ -745,9 +741,9 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, att
         // console.log("ATTACKER WON THE BATTLE");
         updateObjects("attackvictory", allyProvince, enemyProvince, playerObjectArray[attackingplayerindx], playerObjectArray[defendingplayerindx], allynumoftroops, function(){
           console.log("5. update finished");
-          var counterDiv = document.getElementById(enemyProvince.provincename+"Counter"); //selects div counter
-          counterDiv.classList.add('scalepop');
-          setTimeout(function() { counterDiv.classList.remove('scalepop'); }, 500); //Makes icon pop for user to see
+          var defcounter = document.getElementById(enemyProvince.provincename+"Counter");
+          defcounter.classList.add('scalepop');
+          setTimeout(function() { defcounter.classList.remove('scalepop'); }, 500); //Makes icon pop for user to see
         });
         endBattle = true;
       break;
@@ -760,7 +756,6 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, att
     return
   }
   //Step four: compare atk and def die
-  //find which array is shorter
   attackDieArray.map((x, a)=>{
     if (defDieArray[a] !== undefined){
       if (defDieArray[a] >= attackDieArray[a]){//Def Wins
@@ -773,7 +768,15 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, att
       return
     }
   })
-  setTimeout(function() { setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, attackingplayerindx); }, globalTimeout);
+  updateMap(function(){
+    var atkcounter = document.getElementById(allyProvince.provincename+"Counter");
+    var defcounter = document.getElementById(enemyProvince.provincename+"Counter");
+    atkcounter.classList.add('scalepop');
+    defcounter.classList.add('scalepop');
+    setTimeout(function() { atkcounter.classList.remove('scalepop'); defcounter.classList.remove('scalepop');}, 500);
+    setTimeout(function() { setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, attackingplayerindx); }, globalTimeout);
+    return
+  });
 }
 //END BATTLE
 
