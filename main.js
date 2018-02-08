@@ -707,8 +707,6 @@ function computerAttackTurn(){
 
 //BEGIN COMPUTER BATTLE
 function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, attackingplayerindx){
-  var atknbr = 0;
-  var defnbr = 0;
   var endBattle = false;
   var atkcounter = document.getElementById(allyProvince.provincename+"Counter");
   var allynumoftroops = allyProvince.numberOfTroops-1;
@@ -716,15 +714,18 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, att
   var defcounter = document.getElementById(enemyProvince.provincename+"Counter");
   var enemynumoftroops = enemyProvince.numberOfTroops;
   defcounter.innerHTML = enemynumoftroops;
+  //Roll Dice
+  var attackDieArray = [];
+  var defDieArray = [];
   switch (true) {
     case allynumoftroops >= 3:
-      atknbr = 3;
+      attackDieArray = rollDice(3);
       break;
     case allynumoftroops === 2:
-      atknbr = 2;
+      attackDieArray = rollDice(2);
       break;
     case allynumoftroops === 1:
-      atknbr = 1;
+      attackDieArray = rollDice(1);
       break;
     case allynumoftroops === 0://Attacker Lost
       // console.log("ATTACKER HAS LOST, NO CHANGE HAS BEEN MADE");
@@ -735,10 +736,10 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, att
   }
   switch (true) {
     case enemynumoftroops >= 2:
-      defnbr = 2;
+      defDieArray = rollDice(2);
       break;
     case enemynumoftroops === 1:
-      defnbr = 1;
+      defDieArray = rollDice(1);
       break;
     case enemynumoftroops === 0://Attacker Won
         // console.log("ATTACKER WON THE BATTLE");
@@ -758,24 +759,6 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, att
     computerMoveTurn();
     return
   }
-  //Step two: Roll and sort Atk Die
-  attackDieArray = [];
-  var atkvar = 0;
-  while (atkvar < atknbr){
-    var reddienumber = Math.floor(Math.random()*(6-1+1)+1);
-    attackDieArray.push(reddienumber);
-    atkvar++
-  }
-  attackDieArray.sort((a, b) => (b - a));//sort attack die array from high to low
-  //Step three: Roll and sort Def Die
-  defDieArray = [];
-  var defvar = 0;
-  while (defvar < defnbr){
-    var whitedienumber = Math.floor(Math.random()*(6-1+1)+1);
-    defDieArray.push(whitedienumber);
-    defvar++
-  }
-  defDieArray.sort((a, b) => (b - a));//sort def die array from high to low
   //Step four: compare atk and def die
   //find which array is shorter
   if (attackDieArray.length >= defDieArray.length){//if attacker has more than def
@@ -892,8 +875,6 @@ function setPlayerBattle(enempv, allpv){
 
 //BEGIN PLAYER BATTLE AND DIE FUNCTION
 function playerbattleFunction(){
-  var atknbr = 0;
-  var defnbr = 0;
   var endBattle = false;
     //Step one: Clear and set die divs
     var reddiceParent = document.getElementById("red_dice_holder");
@@ -918,15 +899,17 @@ function playerbattleFunction(){
     var enemynumoftroops = enemyProvince.numberOfTroops;
     defcounter.innerHTML = enemynumoftroops;
     defcntr.innerHTML = enemynumoftroops;
+    var attackDieArray = [];
+    var defDieArray = [];
     switch (true) {
       case allynumoftroops >= 3:
-        atknbr = 3;
+        attackDieArray = rollDice(3);
         break;
       case allynumoftroops === 2:
-        atknbr = 2;
+        attackDieArray = rollDice(2);
         break;
       case allynumoftroops === 1:
-        atknbr = 1;
+        attackDieArray = rollDice(1);
         break;
       case allynumoftroops === 0://Attacker Lost
         cleanUpBattle();
@@ -937,10 +920,10 @@ function playerbattleFunction(){
     }
     switch (true) {
       case enemynumoftroops >= 2:
-        defnbr = 2;
+        defDieArray = rollDice(2);
         break;
       case enemynumoftroops === 1:
-        defnbr = 1;
+        defDieArray = rollDice(1);
         break;
       case enemynumoftroops === 0://Attacker Won
         defcounter.classList.add("flashing")
@@ -976,40 +959,17 @@ function playerbattleFunction(){
     if (endBattle === true){
       return
     }
-    //Step two: Roll and sort Atk Die
-    attackDieArray = [];
-    var atkvar = 0;
-    while (atkvar < atknbr){
-      var reddienumber = Math.floor(Math.random()*(6-1+1)+1);
-      attackDieArray.push(reddienumber);
-      atkvar++
-    }
-    attackDieArray.sort((a, b) => (b - a));//sort attack die array from high to low
-    atkvar = 0;
-    while (atkvar < attackDieArray.length){
+    //Step three: Display Die
+    attackDieArray.map((numbertoappend, i)=>{
       var newRedDice = document.createElement("img");
-      var numbertoappend = attackDieArray[atkvar];
       newRedDice.setAttribute("style", "background-image: url(red"+numbertoappend+".png);");
       reddiceParent.appendChild(newRedDice);
-      atkvar++
-    }
-    //Step three: Roll and sort Def Die
-    defDieArray = [];
-    var defvar = 0;
-    while (defvar < defnbr){
-      var whitedienumber = Math.floor(Math.random()*(6-1+1)+1);
-      defDieArray.push(whitedienumber);
-      defvar++
-    }
-    defDieArray.sort((a, b) => (b - a));//sort def die array from high to low
-    defvar = 0;
-    while (defvar < defDieArray.length){
+    })
+    defDieArray.map((numbertoappend, i)=>{
       var newWhiteDice = document.createElement("img");
-      var numbertoappend = defDieArray[defvar];
       newWhiteDice.setAttribute("style", "background-image: url(white"+numbertoappend+".png);");
       whitediceParent.appendChild(newWhiteDice);
-      defvar++
-    }
+    })
     //Step four: compare atk and def die
     //find which array is shorter
     if (attackDieArray.length >= defDieArray.length){//if attacker has more than def
@@ -1247,6 +1207,12 @@ function placingTurn(index, idOfClicked){
   }
 }
 //END PLACING FUNCTION
+
+//BEGIN DIE ROLL FUNCTION
+function rollDice (number) {
+  return Array.from({length: number}, () => Math.floor(Math.random() * (6-1+1)+1)).sort((a, b) => (b - a));
+}
+//END DIE ROLL FUNCTION
 
 //BEGIN CLICK AND DRAG FUNCTION
 function eleMouseDown (ele) {
