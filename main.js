@@ -761,26 +761,18 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, att
   }
   //Step four: compare atk and def die
   //find which array is shorter
-  if (attackDieArray.length >= defDieArray.length){//if attacker has more than def
-    defDieArray.map((x, a)=>{
+  attackDieArray.map((x, a)=>{
+    if (defDieArray[a] !== undefined){
       if (defDieArray[a] >= attackDieArray[a]){//Def Wins
         allyProvince.numberOfTroops -= 1;
       }
       if (defDieArray[a] < attackDieArray[a]){//Def loses
         enemyProvince.numberOfTroops -= 1;
       }
-    })
-  }
-  if (attackDieArray.length < defDieArray.length){//if attacker has less than def (why tho)
-    attackDieArray.map((x, a)=>{
-      if (defDieArray[a] >= attackDieArray[a]){//Def Wins
-        allyProvince.numberOfTroops -= 1;
-      }
-      if (defDieArray[a] < attackDieArray[a]){//Def loses
-        enemyProvince.numberOfTroops -= 1;
-      }
-    })
-  }
+    } else {
+      return
+    }
+  })
   setTimeout(function() { setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, attackingplayerindx); }, globalTimeout);
 }
 //END BATTLE
@@ -971,9 +963,8 @@ function playerbattleFunction(){
       whitediceParent.appendChild(newWhiteDice);
     })
     //Step four: compare atk and def die
-    //find which array is shorter
-    if (attackDieArray.length >= defDieArray.length){//if attacker has more than def
-      defDieArray.map((x, a)=>{
+    attackDieArray.map((x, a)=>{
+      if (defDieArray[a] !== undefined){
         if (defDieArray[a] >= attackDieArray[a]){//Def Wins
           allyProvince.numberOfTroops -= 1;
           var newarrow = document.createElement("img");
@@ -986,24 +977,10 @@ function playerbattleFunction(){
           newarrow.setAttribute("class", "redarrow");
           arrowParent.appendChild(newarrow);
         }
-      })
-    }
-    if (attackDieArray.length < defDieArray.length){//if attacker has less than def (why tho)
-      attackDieArray.map((x, a)=>{
-        if (defDieArray[a] >= attackDieArray[a]){//Def Wins
-          allyProvince.numberOfTroops -= 1;
-          var newarrow = document.createElement("img");
-          newarrow.setAttribute("class", "whitearrow");
-          arrowParent.appendChild(newarrow);
-        }
-        if (defDieArray[a] < attackDieArray[a]){//Def loses
-          enemyProvince.numberOfTroops -= 1;
-          var newarrow = document.createElement("img");
-          newarrow.setAttribute("class", "redarrow");
-          arrowParent.appendChild(newarrow);
-        }
-      })
-    }
+      } else {
+        return
+      }
+    })
 }
 //END PLAYER BATTLE AND DIE FUNCTION
 
