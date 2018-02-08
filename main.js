@@ -444,6 +444,7 @@ function whosTurnIsIt(){
   var turns = document.getElementById("turns_lapsed");
   turns_lapsed.innerHTML = "Turn " + gameStage.turn;
   if (gameStage.stage === "maingameplay"){
+    // TODO Turn For loop that works on turn array into a better more efficent map
     for (var i = 0; i < turnArray.length; i++){
       var playerToCheck = turnArray[i];//gets the number of the player to check, ie player1
       if (playerObjectArray[playerToCheck-1].numberOfProvincesOwned === 0){//turns playerToCheck into the playerObjectArray index and checks the size
@@ -778,24 +779,24 @@ function setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, att
   //Step four: compare atk and def die
   //find which array is shorter
   if (attackDieArray.length >= defDieArray.length){//if attacker has more than def
-    for (var a = 0; a < defDieArray.length; a++){
+    defDieArray.map((x, a)=>{
       if (defDieArray[a] >= attackDieArray[a]){//Def Wins
         allyProvince.numberOfTroops -= 1;
       }
       if (defDieArray[a] < attackDieArray[a]){//Def loses
         enemyProvince.numberOfTroops -= 1;
       }
-    }
+    })
   }
   if (attackDieArray.length < defDieArray.length){//if attacker has less than def (why tho)
-    for (var a = 0; a < attackDieArray.length; a++){
+    attackDieArray.map((x, a)=>{
       if (defDieArray[a] >= attackDieArray[a]){//Def Wins
         allyProvince.numberOfTroops -= 1;
       }
       if (defDieArray[a] < attackDieArray[a]){//Def loses
         enemyProvince.numberOfTroops -= 1;
       }
-    }
+    })
   }
   setTimeout(function() { setComputerBattle(enemyProvince, allyProvince, defendingplayerindx, attackingplayerindx); }, globalTimeout);
 }
@@ -1012,7 +1013,7 @@ function playerbattleFunction(){
     //Step four: compare atk and def die
     //find which array is shorter
     if (attackDieArray.length >= defDieArray.length){//if attacker has more than def
-      for (var a = 0; a < defDieArray.length; a++){
+      defDieArray.map((x, a)=>{
         if (defDieArray[a] >= attackDieArray[a]){//Def Wins
           allyProvince.numberOfTroops -= 1;
           var newarrow = document.createElement("img");
@@ -1025,10 +1026,10 @@ function playerbattleFunction(){
           newarrow.setAttribute("class", "redarrow");
           arrowParent.appendChild(newarrow);
         }
-      }
+      })
     }
     if (attackDieArray.length < defDieArray.length){//if attacker has less than def (why tho)
-      for (var a = 0; a < attackDieArray.length; a++){
+      attackDieArray.map((x, a)=>{
         if (defDieArray[a] >= attackDieArray[a]){//Def Wins
           allyProvince.numberOfTroops -= 1;
           var newarrow = document.createElement("img");
@@ -1041,7 +1042,7 @@ function playerbattleFunction(){
           newarrow.setAttribute("class", "redarrow");
           arrowParent.appendChild(newarrow);
         }
-      }
+      })
     }
 }
 //END PLAYER BATTLE AND DIE FUNCTION
