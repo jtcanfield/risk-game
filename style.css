@@ -335,3 +335,12 @@ span {
   background-color: grey !important;
   color: white !important;
 }
+#scroll_to_bottom{
+  width: 200px;
+  height: 200px;
+}
+
+#scroll_to_top{
+  width: 200px;
+  height: 1px;
+}
