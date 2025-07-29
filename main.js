@@ -864,6 +864,11 @@ function setPlayerBattle(enempv, allpv){
   enemyProvince = enempv;
   allyProvince = allpv;
   playerTurnBoolean = false;
+  window.scrollTo({
+  left: 0,
+  top: document.body.scrollHeight,
+  behavior: "smooth"
+});
 }
 //END PLAYER BATTLE SETUP
 
