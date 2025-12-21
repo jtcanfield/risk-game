@@ -10,3 +10,5 @@ https://trello.com/b/Tv9iZsCg/risk-game
 
 note: in the code, the players are objects in an array, and all game pieces are objects in an array.
 the ai works on "value" numbers to determine where to attack, reinforce, and how to act.
+
+checking for changes
